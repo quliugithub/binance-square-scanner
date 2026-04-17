@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 import argparse
 import json
+import math
 import sqlite3
 import sys
-from datetime import UTC, datetime
+from collections import defaultdict
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -92,6 +94,18 @@ def connect_db(path: Path = DB_PATH) -> sqlite3.Connection:
 
 def json_dumps(value: Any) -> str:
     return json.dumps(value, ensure_ascii=False)
+
+
+def load_json_field(value: Any) -> Any:
+    if value in (None, ''):
+        return []
+    return json.loads(value)
+
+
+def floor_time_to_bucket(dt: datetime, bucket_minutes: int) -> datetime:
+    dt = dt.astimezone(UTC)
+    floored_minute = (dt.minute // bucket_minutes) * bucket_minutes
+    return dt.replace(minute=floored_minute, second=0, microsecond=0)
 
 
 def upsert_post(conn: sqlite3.Connection, post: Dict[str, Any], seen_at: str) -> None:
@@ -223,11 +237,125 @@ def summarize_author_stats(conn: sqlite3.Connection, min_posts: int = 1) -> List
     return [dict(row) for row in rows]
 
 
+def summarize_author_edge(conn: sqlite3.Connection, min_posts: int = 2) -> List[Dict[str, Any]]:
+    rows = conn.execute(
+        '''
+        SELECT
+            COALESCE(p.username, p.author, 'unknown') AS author_key,
+            COUNT(DISTINCT b.content_id) AS backtested_posts,
+            AVG(b.forward_return_pct) AS avg_return_pct,
+            AVG(b.max_favorable_pct) AS avg_mfe_pct,
+            AVG(b.max_adverse_pct) AS avg_mae_pct,
+            AVG(CASE
+                WHEN p.tone = 'bullish' AND b.forward_return_pct > 0 THEN 1.0
+                WHEN p.tone = 'bearish' AND b.forward_return_pct < 0 THEN 1.0
+                ELSE 0.0
+            END) * 100 AS directional_win_rate_pct,
+            AVG(p.signal_score) AS avg_signal_score
+        FROM backtest_events b
+        JOIN posts p ON p.content_id = b.content_id
+        GROUP BY author_key
+        HAVING COUNT(DISTINCT b.content_id) >= ?
+        ORDER BY directional_win_rate_pct DESC, avg_return_pct DESC, backtested_posts DESC
+        ''',
+        (min_posts,),
+    ).fetchall()
+    return [
+        {
+            **dict(row),
+            'avg_return_pct': round(row['avg_return_pct'] or 0.0, 4),
+            'avg_mfe_pct': round(row['avg_mfe_pct'] or 0.0, 4),
+            'avg_mae_pct': round(row['avg_mae_pct'] or 0.0, 4),
+            'directional_win_rate_pct': round(row['directional_win_rate_pct'] or 0.0, 2),
+            'avg_signal_score': round(row['avg_signal_score'] or 0.0, 2),
+        }
+        for row in rows
+    ]
+
+
 def summarize_coin_history(conn: sqlite3.Connection, min_posts: int = 1) -> List[Dict[str, Any]]:
     rows = conn.execute('SELECT raw_post_json FROM posts ORDER BY last_seen_at DESC').fetchall()
     posts = [json.loads(row['raw_post_json']) for row in rows]
     coin_signals = aggregate_coin_signals(posts)
     return [row for row in coin_signals if row['post_count'] >= min_posts]
+
+
+def build_time_bucket_signals(
+    conn: sqlite3.Connection,
+    bucket_minutes: int = 5,
+    lookback_hours: int = 24,
+    min_posts: int = 2,
+) -> List[Dict[str, Any]]:
+    cutoff = datetime.now(UTC) - timedelta(hours=lookback_hours)
+    rows = conn.execute(
+        '''
+        SELECT publish_time_iso, last_seen_at, username, author, tone, signal_score,
+               engagement_total, symbol_candidates_json, content_id
+        FROM posts
+        ORDER BY COALESCE(publish_time_iso, last_seen_at) DESC
+        '''
+    ).fetchall()
+
+    buckets: Dict[tuple, List[Dict[str, Any]]] = defaultdict(list)
+    for row in rows:
+        time_text = row['publish_time_iso'] or row['last_seen_at']
+        if not time_text:
+            continue
+        dt = datetime.fromisoformat(str(time_text).replace('Z', '+00:00')).astimezone(UTC)
+        if dt < cutoff:
+            continue
+        bucket_time = floor_time_to_bucket(dt, bucket_minutes)
+        symbols = load_json_field(row['symbol_candidates_json'])
+        for symbol in symbols:
+            buckets[(bucket_time.isoformat().replace('+00:00', 'Z'), symbol)].append({
+                'author_key': row['username'] or row['author'] or 'unknown',
+                'tone': row['tone'],
+                'signal_score': row['signal_score'] or 0.0,
+                'engagement_total': row['engagement_total'] or 0,
+                'content_id': row['content_id'],
+            })
+
+    results: List[Dict[str, Any]] = []
+    for (bucket_time, symbol), items in buckets.items():
+        if len(items) < min_posts:
+            continue
+        bullish = sum(1 for item in items if item['tone'] == 'bullish')
+        bearish = sum(1 for item in items if item['tone'] == 'bearish')
+        unique_authors = len({item['author_key'] for item in items})
+        avg_signal_score = sum(float(item['signal_score']) for item in items) / len(items)
+        total_engagement = sum(int(item['engagement_total']) for item in items)
+        signal_velocity = len(items) / max(1, bucket_minutes)
+        conviction = min(
+            100.0,
+            avg_signal_score * 0.5
+            + unique_authors * 8
+            + math.log1p(total_engagement) * 7
+            + signal_velocity * 10,
+        )
+        if bullish > bearish:
+            bias = 'long_watch'
+        elif bearish > bullish:
+            bias = 'short_watch'
+        else:
+            bias = 'no_trade'
+        if conviction < 50:
+            bias = 'no_trade'
+        results.append({
+            'bucket_time': bucket_time,
+            'symbol': symbol,
+            'post_count': len(items),
+            'unique_authors': unique_authors,
+            'bullish_posts': bullish,
+            'bearish_posts': bearish,
+            'avg_signal_score': round(avg_signal_score, 2),
+            'total_engagement': total_engagement,
+            'signal_velocity': round(signal_velocity, 4),
+            'bucket_conviction': round(conviction, 2),
+            'bias': bias,
+            'content_ids': [item['content_id'] for item in items[:10]],
+        })
+    results.sort(key=lambda x: (x['bucket_conviction'], x['post_count'], x['unique_authors']), reverse=True)
+    return results
 
 
 def run_backtest_and_store(
@@ -337,6 +465,13 @@ def cmd_report(args: argparse.Namespace) -> None:
         'stored_post_count': len(posts),
         'coin_history': summarize_coin_history(conn, min_posts=args.min_posts)[:20],
         'author_history': summarize_author_stats(conn, min_posts=args.min_posts)[:20],
+        'author_edge': summarize_author_edge(conn, min_posts=args.min_posts)[:20],
+        'time_bucket_signals': build_time_bucket_signals(
+            conn,
+            bucket_minutes=args.bucket_minutes,
+            lookback_hours=args.lookback_hours,
+            min_posts=args.bucket_min_posts,
+        )[:20],
         'backtest_history': summarize_backtest_history(conn),
     }
     out = save_report(report, 'binance_square_research_report', args.output)
@@ -344,7 +479,8 @@ def cmd_report(args: argparse.Namespace) -> None:
     print(json.dumps({
         'stored_post_count': report['stored_post_count'],
         'top_coin_history': report['coin_history'][:5],
-        'top_author_history': report['author_history'][:5],
+        'top_author_edge': report['author_edge'][:5],
+        'top_time_bucket_signals': report['time_bucket_signals'][:5],
     }, ensure_ascii=False, indent=2))
 
 
@@ -379,6 +515,9 @@ def build_parser() -> argparse.ArgumentParser:
     p_report = sub.add_parser('report', help='输出累计样本研究报告')
     p_report.add_argument('--min-posts', type=int, default=1)
     p_report.add_argument('--min-signal-score', type=float, default=0.0)
+    p_report.add_argument('--bucket-minutes', type=int, default=5)
+    p_report.add_argument('--lookback-hours', type=int, default=24)
+    p_report.add_argument('--bucket-min-posts', type=int, default=2)
     p_report.add_argument('--output')
 
     p_backfill = sub.add_parser('backfill', help='对库中样本批量补回测，并保存历史统计')

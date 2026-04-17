@@ -1,0 +1,773 @@
+{
+  "generated_at": "2026-04-17T12:42:14.240175Z",
+  "db_path": "/root/.openclaw/workspace/results/binance_square_research.sqlite3",
+  "stored_post_count": 9,
+  "coin_history": [
+    {
+      "symbol": "SIRENUSDT",
+      "post_count": 3,
+      "unique_authors": 3,
+      "bullish_posts": 2,
+      "bearish_posts": 1,
+      "neutral_posts": 0,
+      "avg_signal_score": 86.0,
+      "total_engagement": 9106,
+      "conviction_score": 100,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313380193156273,
+        313380190545362,
+        313380114805873
+      ]
+    },
+    {
+      "symbol": "BANANAS31USDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 98.0,
+      "total_engagement": 844,
+      "conviction_score": 100,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313380039746625
+      ]
+    },
+    {
+      "symbol": "$BANANAS31 ",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 98.0,
+      "total_engagement": 844,
+      "conviction_score": 100,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313380039746625
+      ]
+    },
+    {
+      "symbol": "TSTUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 0,
+      "bearish_posts": 1,
+      "neutral_posts": 0,
+      "avg_signal_score": 94.73,
+      "total_engagement": 697,
+      "conviction_score": 97.39,
+      "bias": "short_watch",
+      "sample_post_ids": [
+        313379819184385
+      ]
+    },
+    {
+      "symbol": "$TST ",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 0,
+      "bearish_posts": 1,
+      "neutral_posts": 0,
+      "avg_signal_score": 94.73,
+      "total_engagement": 697,
+      "conviction_score": 97.39,
+      "bias": "short_watch",
+      "sample_post_ids": [
+        313379819184385
+      ]
+    },
+    {
+      "symbol": "PIXELUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 0,
+      "bearish_posts": 1,
+      "neutral_posts": 0,
+      "avg_signal_score": 86.68,
+      "total_engagement": 307,
+      "conviction_score": 88.05,
+      "bias": "short_watch",
+      "sample_post_ids": [
+        313379768183409
+      ]
+    },
+    {
+      "symbol": "$PIXEL ",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 0,
+      "bearish_posts": 1,
+      "neutral_posts": 0,
+      "avg_signal_score": 86.68,
+      "total_engagement": 307,
+      "conviction_score": 88.05,
+      "bias": "short_watch",
+      "sample_post_ids": [
+        313379768183409
+      ]
+    },
+    {
+      "symbol": "ORDIUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 96.74,
+      "total_engagement": 66,
+      "conviction_score": 84.44,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313379802889682
+      ]
+    },
+    {
+      "symbol": "$ORDI ",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 96.74,
+      "total_engagement": 66,
+      "conviction_score": 84.44,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313379802889682
+      ]
+    },
+    {
+      "symbol": "11USDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 96.74,
+      "total_engagement": 66,
+      "conviction_score": 84.44,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313379802889682
+      ]
+    },
+    {
+      "symbol": "TAKEUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 77.27,
+      "total_engagement": 293,
+      "conviction_score": 82.6,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313379925828433
+      ]
+    },
+    {
+      "symbol": "KATUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 83.33,
+      "total_engagement": 160,
+      "conviction_score": 82.32,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313379941003282
+      ]
+    },
+    {
+      "symbol": "$KAT ",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 83.33,
+      "total_engagement": 160,
+      "conviction_score": 82.32,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313379941003282
+      ]
+    },
+    {
+      "symbol": "1MBABYDOGEUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 54.59,
+      "total_engagement": 10,
+      "conviction_score": 50.41,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313379777512305
+      ]
+    },
+    {
+      "symbol": "$1MBABYDOGE ",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 54.59,
+      "total_engagement": 10,
+      "conviction_score": 50.41,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313379777512305
+      ]
+    },
+    {
+      "symbol": "59USDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 54.59,
+      "total_engagement": 10,
+      "conviction_score": 50.41,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313379777512305
+      ]
+    },
+    {
+      "symbol": "RAVEUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 0,
+      "bearish_posts": 0,
+      "neutral_posts": 1,
+      "avg_signal_score": 40.77,
+      "total_engagement": 1,
+      "conviction_score": 32.58,
+      "bias": "no_trade",
+      "sample_post_ids": [
+        313379806238817
+      ]
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 45.0,
+      "total_engagement": 0,
+      "conviction_score": 30.75,
+      "bias": "no_trade",
+      "sample_post_ids": [
+        313380013198785
+      ]
+    },
+    {
+      "symbol": "SHIBUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 45.0,
+      "total_engagement": 0,
+      "conviction_score": 30.75,
+      "bias": "no_trade",
+      "sample_post_ids": [
+        313380013198785
+      ]
+    },
+    {
+      "symbol": "PEPEUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 45.0,
+      "total_engagement": 0,
+      "conviction_score": 30.75,
+      "bias": "no_trade",
+      "sample_post_ids": [
+        313380013198785
+      ]
+    }
+  ],
+  "author_history": [
+    {
+      "author_key": "professor_jaxon",
+      "post_count": 2,
+      "avg_signal_score": 97.37,
+      "avg_engagement_total": 145.0,
+      "high_signal_posts": 2
+    },
+    {
+      "author_key": "Soban_Tariq",
+      "post_count": 2,
+      "avg_signal_score": 96.36500000000001,
+      "avg_engagement_total": 770.5,
+      "high_signal_posts": 2
+    },
+    {
+      "author_key": "amina_chattha",
+      "post_count": 1,
+      "avg_signal_score": 86.68,
+      "avg_engagement_total": 307.0,
+      "high_signal_posts": 1
+    },
+    {
+      "author_key": "Crypto0",
+      "post_count": 1,
+      "avg_signal_score": 83.33,
+      "avg_engagement_total": 160.0,
+      "high_signal_posts": 1
+    },
+    {
+      "author_key": "Raja_Boss_official",
+      "post_count": 1,
+      "avg_signal_score": 83.0,
+      "avg_engagement_total": 115.0,
+      "high_signal_posts": 1
+    },
+    {
+      "author_key": "ErinCrypto",
+      "post_count": 1,
+      "avg_signal_score": 77.27,
+      "avg_engagement_total": 293.0,
+      "high_signal_posts": 1
+    },
+    {
+      "author_key": "Oliviaroy",
+      "post_count": 1,
+      "avg_signal_score": 77.0,
+      "avg_engagement_total": 8767.0,
+      "high_signal_posts": 1
+    },
+    {
+      "author_key": "Square-Creator-e49d54810",
+      "post_count": 1,
+      "avg_signal_score": 54.59,
+      "avg_engagement_total": 10.0,
+      "high_signal_posts": 0
+    },
+    {
+      "author_key": "0xHoward_Peng",
+      "post_count": 1,
+      "avg_signal_score": 45.0,
+      "avg_engagement_total": 0.0,
+      "high_signal_posts": 0
+    },
+    {
+      "author_key": "0xRainandCoffee",
+      "post_count": 1,
+      "avg_signal_score": 40.77,
+      "avg_engagement_total": 1.0,
+      "high_signal_posts": 0
+    }
+  ],
+  "author_edge": [
+    {
+      "author_key": "professor_jaxon",
+      "backtested_posts": 1,
+      "avg_return_pct": 2.7073,
+      "avg_mfe_pct": 4.7619,
+      "avg_mae_pct": 0.0593,
+      "directional_win_rate_pct": 100.0,
+      "avg_signal_score": 96.74
+    },
+    {
+      "author_key": "Soban_Tariq",
+      "backtested_posts": 2,
+      "avg_return_pct": -1.1012,
+      "avg_mfe_pct": 1.8015,
+      "avg_mae_pct": -2.7528,
+      "directional_win_rate_pct": 100.0,
+      "avg_signal_score": 96.37
+    },
+    {
+      "author_key": "Crypto0",
+      "backtested_posts": 1,
+      "avg_return_pct": 0.8734,
+      "avg_mfe_pct": 2.6201,
+      "avg_mae_pct": 0.0,
+      "directional_win_rate_pct": 50.0,
+      "avg_signal_score": 83.33
+    },
+    {
+      "author_key": "amina_chattha",
+      "backtested_posts": 1,
+      "avg_return_pct": 0.6105,
+      "avg_mfe_pct": 0.8547,
+      "avg_mae_pct": -0.2442,
+      "directional_win_rate_pct": 0.0,
+      "avg_signal_score": 86.68
+    }
+  ],
+  "time_bucket_signals": [
+    {
+      "bucket_time": "2026-04-17T11:55:00Z",
+      "symbol": "SIRENUSDT",
+      "post_count": 3,
+      "unique_authors": 3,
+      "bullish_posts": 2,
+      "bearish_posts": 1,
+      "avg_signal_score": 86.0,
+      "total_engagement": 9106,
+      "signal_velocity": 0.6,
+      "bucket_conviction": 100.0,
+      "bias": "long_watch",
+      "content_ids": [
+        "313380193156273",
+        "313380190545362",
+        "313380114805873"
+      ]
+    },
+    {
+      "bucket_time": "2026-04-17T11:55:00Z",
+      "symbol": "BANANAS31USDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "avg_signal_score": 98.0,
+      "total_engagement": 844,
+      "signal_velocity": 0.2,
+      "bucket_conviction": 100.0,
+      "bias": "long_watch",
+      "content_ids": [
+        "313380039746625"
+      ]
+    },
+    {
+      "bucket_time": "2026-04-17T11:55:00Z",
+      "symbol": "$BANANAS31 ",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "avg_signal_score": 98.0,
+      "total_engagement": 844,
+      "signal_velocity": 0.2,
+      "bucket_conviction": 100.0,
+      "bias": "long_watch",
+      "content_ids": [
+        "313380039746625"
+      ]
+    },
+    {
+      "bucket_time": "2026-04-17T11:55:00Z",
+      "symbol": "TSTUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 0,
+      "bearish_posts": 1,
+      "avg_signal_score": 94.73,
+      "total_engagement": 697,
+      "signal_velocity": 0.2,
+      "bucket_conviction": 100.0,
+      "bias": "short_watch",
+      "content_ids": [
+        "313379819184385"
+      ]
+    },
+    {
+      "bucket_time": "2026-04-17T11:55:00Z",
+      "symbol": "$TST ",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 0,
+      "bearish_posts": 1,
+      "avg_signal_score": 94.73,
+      "total_engagement": 697,
+      "signal_velocity": 0.2,
+      "bucket_conviction": 100.0,
+      "bias": "short_watch",
+      "content_ids": [
+        "313379819184385"
+      ]
+    },
+    {
+      "bucket_time": "2026-04-17T11:55:00Z",
+      "symbol": "PIXELUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 0,
+      "bearish_posts": 1,
+      "avg_signal_score": 86.68,
+      "total_engagement": 307,
+      "signal_velocity": 0.2,
+      "bucket_conviction": 93.45,
+      "bias": "short_watch",
+      "content_ids": [
+        "313379768183409"
+      ]
+    },
+    {
+      "bucket_time": "2026-04-17T11:55:00Z",
+      "symbol": "$PIXEL ",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 0,
+      "bearish_posts": 1,
+      "avg_signal_score": 86.68,
+      "total_engagement": 307,
+      "signal_velocity": 0.2,
+      "bucket_conviction": 93.45,
+      "bias": "short_watch",
+      "content_ids": [
+        "313379768183409"
+      ]
+    },
+    {
+      "bucket_time": "2026-04-17T11:55:00Z",
+      "symbol": "TAKEUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "avg_signal_score": 77.27,
+      "total_engagement": 293,
+      "signal_velocity": 0.2,
+      "bucket_conviction": 88.42,
+      "bias": "long_watch",
+      "content_ids": [
+        "313379925828433"
+      ]
+    },
+    {
+      "bucket_time": "2026-04-17T11:55:00Z",
+      "symbol": "ORDIUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "avg_signal_score": 96.74,
+      "total_engagement": 66,
+      "signal_velocity": 0.2,
+      "bucket_conviction": 87.8,
+      "bias": "long_watch",
+      "content_ids": [
+        "313379802889682"
+      ]
+    },
+    {
+      "bucket_time": "2026-04-17T11:55:00Z",
+      "symbol": "$ORDI ",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "avg_signal_score": 96.74,
+      "total_engagement": 66,
+      "signal_velocity": 0.2,
+      "bucket_conviction": 87.8,
+      "bias": "long_watch",
+      "content_ids": [
+        "313379802889682"
+      ]
+    },
+    {
+      "bucket_time": "2026-04-17T11:55:00Z",
+      "symbol": "11USDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "avg_signal_score": 96.74,
+      "total_engagement": 66,
+      "signal_velocity": 0.2,
+      "bucket_conviction": 87.8,
+      "bias": "long_watch",
+      "content_ids": [
+        "313379802889682"
+      ]
+    },
+    {
+      "bucket_time": "2026-04-17T11:55:00Z",
+      "symbol": "KATUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "avg_signal_score": 83.33,
+      "total_engagement": 160,
+      "signal_velocity": 0.2,
+      "bucket_conviction": 87.23,
+      "bias": "long_watch",
+      "content_ids": [
+        "313379941003282"
+      ]
+    },
+    {
+      "bucket_time": "2026-04-17T11:55:00Z",
+      "symbol": "$KAT ",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "avg_signal_score": 83.33,
+      "total_engagement": 160,
+      "signal_velocity": 0.2,
+      "bucket_conviction": 87.23,
+      "bias": "long_watch",
+      "content_ids": [
+        "313379941003282"
+      ]
+    },
+    {
+      "bucket_time": "2026-04-17T11:55:00Z",
+      "symbol": "1MBABYDOGEUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "avg_signal_score": 54.59,
+      "total_engagement": 10,
+      "signal_velocity": 0.2,
+      "bucket_conviction": 54.08,
+      "bias": "long_watch",
+      "content_ids": [
+        "313379777512305"
+      ]
+    },
+    {
+      "bucket_time": "2026-04-17T11:55:00Z",
+      "symbol": "$1MBABYDOGE ",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "avg_signal_score": 54.59,
+      "total_engagement": 10,
+      "signal_velocity": 0.2,
+      "bucket_conviction": 54.08,
+      "bias": "long_watch",
+      "content_ids": [
+        "313379777512305"
+      ]
+    },
+    {
+      "bucket_time": "2026-04-17T11:55:00Z",
+      "symbol": "59USDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "avg_signal_score": 54.59,
+      "total_engagement": 10,
+      "signal_velocity": 0.2,
+      "bucket_conviction": 54.08,
+      "bias": "long_watch",
+      "content_ids": [
+        "313379777512305"
+      ]
+    },
+    {
+      "bucket_time": "2026-04-17T11:55:00Z",
+      "symbol": "RAVEUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 0,
+      "bearish_posts": 0,
+      "avg_signal_score": 40.77,
+      "total_engagement": 1,
+      "signal_velocity": 0.2,
+      "bucket_conviction": 35.24,
+      "bias": "no_trade",
+      "content_ids": [
+        "313379806238817"
+      ]
+    },
+    {
+      "bucket_time": "2026-04-17T11:55:00Z",
+      "symbol": "DOGEUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "avg_signal_score": 45.0,
+      "total_engagement": 0,
+      "signal_velocity": 0.2,
+      "bucket_conviction": 32.5,
+      "bias": "no_trade",
+      "content_ids": [
+        "313380013198785"
+      ]
+    },
+    {
+      "bucket_time": "2026-04-17T11:55:00Z",
+      "symbol": "SHIBUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "avg_signal_score": 45.0,
+      "total_engagement": 0,
+      "signal_velocity": 0.2,
+      "bucket_conviction": 32.5,
+      "bias": "no_trade",
+      "content_ids": [
+        "313380013198785"
+      ]
+    },
+    {
+      "bucket_time": "2026-04-17T11:55:00Z",
+      "symbol": "PEPEUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "avg_signal_score": 45.0,
+      "total_engagement": 0,
+      "signal_velocity": 0.2,
+      "bucket_conviction": 32.5,
+      "bias": "no_trade",
+      "content_ids": [
+        "313380013198785"
+      ]
+    }
+  ],
+  "backtest_history": {
+    "bearish::12_5m": {
+      "sample_count": 2,
+      "avg_return_pct": -1.3051,
+      "avg_mfe_pct": 1.4546,
+      "avg_mae_pct": -3.3689,
+      "win_rate_pct": 50.0
+    },
+    "bearish::3_5m": {
+      "sample_count": 2,
+      "avg_return_pct": -1.6234,
+      "avg_mfe_pct": 1.0883,
+      "avg_mae_pct": -2.3948,
+      "win_rate_pct": 0.0
+    },
+    "bullish::12_5m": {
+      "sample_count": 3,
+      "avg_return_pct": 1.8306,
+      "avg_mfe_pct": 3.8877,
+      "avg_mae_pct": -0.0592,
+      "win_rate_pct": 66.67
+    },
+    "bullish::3_5m": {
+      "sample_count": 3,
+      "avg_return_pct": 1.4477,
+      "avg_mfe_pct": 2.3102,
+      "avg_mae_pct": 0.1079,
+      "win_rate_pct": 100.0
+    }
+  }
+}

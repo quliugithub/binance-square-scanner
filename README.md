@@ -153,6 +153,7 @@ python3 binance_square_research.py backfill --interval 5m --windows 3,12,48
   - 发帖数量
   - 平均信号分
   - 高质量信号占比
+  - 历史方向胜率
 - 币种维度
   - 被提及频次
   - 多空倾向分布
@@ -162,6 +163,19 @@ python3 binance_square_research.py backfill --interval 5m --windows 3,12,48
   - 每次互动快照变化
 - 回测维度
   - 不同 tone、窗口下的平均收益、胜率、MFE、MAE
+- 时间桶维度
+  - 5 分钟桶内同币种提及爆发
+  - 作者去重数
+  - 聚合 conviction
+  - `long_watch / short_watch / no_trade`
+
+### 新增研究能力
+- `author_edge`
+  - 基于历史回测结果统计作者方向命中率
+  - 判断谁更像有效信号源，谁更像噪音源
+- `time_bucket_signals`
+  - 按 5 分钟桶聚合同币种帖子
+  - 适合发现“同一时间窗口情绪突然集中到一个币”这种机会
 
 ### 推荐工作流
 ```bash
@@ -173,6 +187,9 @@ python3 binance_square_research.py backfill --interval 5m --windows 3,12,48
 
 # 3. 输出研究报告
 python3 binance_square_research.py report --min-posts 3 --min-signal-score 55
+
+# 4. 看最近 24 小时 5 分钟聚合信号
+python3 binance_square_research.py report --bucket-minutes 5 --lookback-hours 24 --bucket-min-posts 2
 ```
 
 ## 扩展功能
