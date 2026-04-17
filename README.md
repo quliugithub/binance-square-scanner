@@ -79,6 +79,42 @@ python3 binance_square_tool.py scrape --limit 100 --keyword BTC --keyword ETH --
 - 这样比直接撞推荐流接口更稳定，因为 feed/recommend 接口常见 403 或空数据
 - 默认输出字段包括作者、正文、浏览/评论/点赞/分享、币对、标签、链接等
 
+## 币安广场策略评分与回测脚手架
+
+新增策略研究脚本：`binance_square_strategy.py`
+
+### 功能
+- 对广场帖子做信号评分
+- 聚合同币种帖子生成 `long_watch` / `short_watch` / `no_trade`
+- 对帖子做事件研究型回测
+- 输出每个事件在未来 15m / 1h / 4h 的收益、最大顺行、最大逆行
+
+### 用法
+```bash
+# 直接抓取并打分
+python3 binance_square_strategy.py score --limit 50
+
+# 对已抓到的帖子文件打分
+python3 binance_square_strategy.py score --input results/binance_square_posts_xxx.json
+
+# 对评分结果做回测
+python3 binance_square_strategy.py backtest --input results/binance_square_scored_xxx.json
+
+# 指定 5m K 线下的回测窗口，例如 3,12,48 根 K
+python3 binance_square_strategy.py backtest --input results/binance_square_scored_xxx.json --interval 5m --windows 3,12,48
+```
+
+### 当前评分框架
+- `engagement_score`：浏览、点赞、评论、分享、收藏的对数加权
+- `specificity_score`：是否明确币对、是否给出 entry/tp/sl、是否包含数值
+- `quality_score`：正文长度、标签、作者信息完整度
+- `confidence_score`：结合 tendency 和文本关键词推断多空倾向与置信度
+
+### 当前输出
+- 帖子级别：`signal_score`、`signal_label`、`tone`、`symbol_candidates`
+- 币种级别：`conviction_score`、`bias`、`post_count`、`unique_authors`
+- 回测级别：未来窗口收益、最大顺行 MFE、最大逆行 MAE、胜率与均值统计
+
 ## 扩展功能
 
 ### 通知渠道集成
