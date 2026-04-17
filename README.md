@@ -51,25 +51,33 @@ python giftcard_monitor.py
 
 ### 用法
 ```bash
-# 发现首页帖子 ID
+# 自动发现帖子 ID（基于 Binance Square sitemap，无需手工 seed）
 python3 binance_square_tool.py discover --limit 20
 
+# 从第 3 页开始，最多扫描 5 页
+python3 binance_square_tool.py discover --limit 50 --start-page 3 --max-pages 5
+
 # 抓取单条帖子详情
-python3 binance_square_tool.py detail 312683736169105
+python3 binance_square_tool.py detail 313380193156273
 
 # 批量抓取并输出到 results/
 python3 binance_square_tool.py scrape --limit 20
 
-# 输出 jsonl
+# 输出 jsonl / csv
 python3 binance_square_tool.py scrape --limit 50 --format jsonl
+python3 binance_square_tool.py scrape --limit 50 --format csv
+
+# 按关键词和互动阈值过滤
+python3 binance_square_tool.py scrape --limit 100 --keyword BTC --keyword ETH --min-likes 10 --min-comments 3
 ```
 
 ### 说明
 - 当前采用两段式抓取
-  - 先通过浏览器页面发现 `content_id`
+  - 先通过 `https://www.binance.com/en/square/sitemap/post/{page}` 自动发现 `content_id`
   - 再通过详情接口补全真实帖子数据
-- 这样比直接撞推荐流接口更稳定
-- 默认输出字段包括作者、正文、浏览/评论/点赞/分享、币对、链接等
+- 不再依赖手工 seed 或本地缓存文件
+- 这样比直接撞推荐流接口更稳定，因为 feed/recommend 接口常见 403 或空数据
+- 默认输出字段包括作者、正文、浏览/评论/点赞/分享、币对、标签、链接等
 
 ## 扩展功能
 
