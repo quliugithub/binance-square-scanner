@@ -1,0 +1,364 @@
+{
+  "generated_at": "2026-04-17T11:57:02.940225Z",
+  "db_path": "/root/.openclaw/workspace/results/binance_square_research.sqlite3",
+  "ingest": {
+    "snapshot_at": "2026-04-17T11:57:02.935633Z",
+    "post_count": 12,
+    "unique_content_ids": 12
+  },
+  "top_coin_signals": [
+    {
+      "symbol": "SIRENUSDT",
+      "post_count": 3,
+      "unique_authors": 3,
+      "bullish_posts": 2,
+      "bearish_posts": 1,
+      "neutral_posts": 0,
+      "avg_signal_score": 86.0,
+      "total_engagement": 9106,
+      "conviction_score": 100,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313380193156273,
+        313380190545362,
+        313380114805873
+      ]
+    },
+    {
+      "symbol": "BANANAS31USDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 98.0,
+      "total_engagement": 844,
+      "conviction_score": 100,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313380039746625
+      ]
+    },
+    {
+      "symbol": "$BANANAS31 ",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 98.0,
+      "total_engagement": 844,
+      "conviction_score": 100,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313380039746625
+      ]
+    },
+    {
+      "symbol": "TSTUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 0,
+      "bearish_posts": 1,
+      "neutral_posts": 0,
+      "avg_signal_score": 94.73,
+      "total_engagement": 697,
+      "conviction_score": 97.39,
+      "bias": "short_watch",
+      "sample_post_ids": [
+        313379819184385
+      ]
+    },
+    {
+      "symbol": "$TST ",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 0,
+      "bearish_posts": 1,
+      "neutral_posts": 0,
+      "avg_signal_score": 94.73,
+      "total_engagement": 697,
+      "conviction_score": 97.39,
+      "bias": "short_watch",
+      "sample_post_ids": [
+        313379819184385
+      ]
+    },
+    {
+      "symbol": "PIXELUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 0,
+      "bearish_posts": 1,
+      "neutral_posts": 0,
+      "avg_signal_score": 86.68,
+      "total_engagement": 307,
+      "conviction_score": 88.05,
+      "bias": "short_watch",
+      "sample_post_ids": [
+        313379768183409
+      ]
+    },
+    {
+      "symbol": "$PIXEL ",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 0,
+      "bearish_posts": 1,
+      "neutral_posts": 0,
+      "avg_signal_score": 86.68,
+      "total_engagement": 307,
+      "conviction_score": 88.05,
+      "bias": "short_watch",
+      "sample_post_ids": [
+        313379768183409
+      ]
+    },
+    {
+      "symbol": "ORDIUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 96.74,
+      "total_engagement": 66,
+      "conviction_score": 84.44,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313379802889682
+      ]
+    },
+    {
+      "symbol": "$ORDI ",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 96.74,
+      "total_engagement": 66,
+      "conviction_score": 84.44,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313379802889682
+      ]
+    },
+    {
+      "symbol": "11USDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 96.74,
+      "total_engagement": 66,
+      "conviction_score": 84.44,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313379802889682
+      ]
+    }
+  ],
+  "sample_posts": [
+    {
+      "content_id": 313380193156273,
+      "root_content_id": null,
+      "author": "Professor_JAXON",
+      "username": "professor_jaxon",
+      "author_avatar": "https://public.bnbstatic.com/image/pgc/202507/29fe9c8508f9967f719763972786d43a.png",
+      "publish_time": "7 hrs ago",
+      "body": "$SIREN USDT Pullback Holding Strong Above $2 — Next Leg Up Towards $2.30 Incoming 🚀\nTrade Setup: Long\nEntry zone: $1.90 – $2.05\nTp1: $2.20\nTp2: $2.36\nTp3: $2.60\nSL: $1.70\nAfter a massive impulsive rally, price is consolidating above the key psychological support at $2, showing strength and accumulation rather than rejection. As long as this zone holds, continuation towards higher resistance levels remains highly probable with buyers still in control.\nTrade Here On ",
+      "view_count": 221,
+      "comment_count": 0,
+      "like_count": 2,
+      "share_count": 1,
+      "bookmark_count": 0,
+      "quote_count": 0,
+      "tendency": 1,
+      "bullish_ratio": null,
+      "bearish_ratio": null,
+      "symbols": [],
+      "trading_pairs": [
+        "SIRENUSDT"
+      ],
+      "tags": [],
+      "content_type": 1,
+      "source_type": 0,
+      "web_link": "https://www.binance.com/en/square/post/313380193156273",
+      "share_link": "https://app.binance.com/uni-qr/cpos/313380193156273?r=UVHDLO1A&l=en",
+      "engagement_total": 224,
+      "symbol_candidates": [
+        "SIRENUSDT"
+      ],
+      "tone": "bullish",
+      "tone_confidence": 1.0,
+      "score_engagement": 35,
+      "score_specificity": 25,
+      "score_quality": 18.0,
+      "score_confidence": 20,
+      "signal_score": 98.0,
+      "signal_label": "high_signal"
+    },
+    {
+      "content_id": 313380190545362,
+      "root_content_id": null,
+      "author": "TRADE MASTER M",
+      "username": "Oliviaroy",
+      "author_avatar": "https://public.bnbstatic.com/image/pgc/202601/cc69a73ed1d691e26145934a86e0d776.png",
+      "publish_time": "7 hrs ago",
+      "body": "$SIREN Pump Again 😅😅😅 But don't give up 🤫 \n\nKeep Short $SIREN  \nCrash Coming Soooon 📉📉",
+      "view_count": 8731,
+      "comment_count": 11,
+      "like_count": 24,
+      "share_count": 0,
+      "bookmark_count": 0,
+      "quote_count": 1,
+      "tendency": 2,
+      "bullish_ratio": null,
+      "bearish_ratio": null,
+      "symbols": [],
+      "trading_pairs": [
+        "SIRENUSDT"
+      ],
+      "tags": [],
+      "content_type": 1,
+      "source_type": 0,
+      "web_link": "https://www.binance.com/en/square/post/313380190545362",
+      "share_link": "https://app.binance.com/uni-qr/cpos/313380190545362?r=WLR4OC6M&l=en",
+      "engagement_total": 8767,
+      "symbol_candidates": [
+        "SIRENUSDT"
+      ],
+      "tone": "bearish",
+      "tone_confidence": 1.0,
+      "score_engagement": 35,
+      "score_specificity": 10.0,
+      "score_quality": 12.0,
+      "score_confidence": 20,
+      "signal_score": 77.0,
+      "signal_label": "high_signal"
+    },
+    {
+      "content_id": 313380114805873,
+      "root_content_id": null,
+      "author": "Raja Boss official",
+      "username": "Raja_Boss_official",
+      "author_avatar": "https://public.bnbstatic.com/image/pgc/202604/fde65338acc024216687d3ccf8c16f71.jpg",
+      "publish_time": "7 hrs ago",
+      "body": "WTF is this 😱😭\n\n$SIREN just came back from the dead…\n\nLook at that move…\n\na massive pump in just 3 candles absolutely insane 💀\n\nAnd now I’m already seeing people jumping into shorts…\n\nthinking “it’s over, dump coming”\n\nBut honestly… this doesn’t look weak at all 👀\nthis looks like strength, real strength.\n\nThis is exactly how people get trapped \nthey short too early… and then get squeezed again.\n\nRight now, it’s not the smart move to short this.\n\nBe patient… wait for a small pullback and look for buys instead.\n\n{future}(SIRENUSDT)\n\nDon’t fight the trend… $SIREN \n\nbecause you already know what happens when you do 🤫",
+      "view_count": 112,
+      "comment_count": 0,
+      "like_count": 3,
+      "share_count": 0,
+      "bookmark_count": 0,
+      "quote_count": 0,
+      "tendency": 1,
+      "bullish_ratio": null,
+      "bearish_ratio": null,
+      "symbols": [],
+      "trading_pairs": [
+        "SIRENUSDT"
+      ],
+      "tags": [],
+      "content_type": 1,
+      "source_type": 0,
+      "web_link": "https://www.binance.com/en/square/post/313380114805873",
+      "share_link": "https://app.binance.com/uni-qr/cpos/313380114805873?r=PLBSRLDE&l=en",
+      "engagement_total": 115,
+      "symbol_candidates": [
+        "SIRENUSDT"
+      ],
+      "tone": "bullish",
+      "tone_confidence": 1.0,
+      "score_engagement": 30.0,
+      "score_specificity": 15.0,
+      "score_quality": 18.0,
+      "score_confidence": 20,
+      "signal_score": 83.0,
+      "signal_label": "high_signal"
+    },
+    {
+      "content_id": 313380013198785,
+      "root_content_id": null,
+      "author": "sophia.bull",
+      "username": "0xHoward_Peng",
+      "author_avatar": "https://public.bnbstatic.com/image/pgc/202504/785f9c9720473f4d8c01e7c061a33048.jpg",
+      "publish_time": "7 hrs ago",
+      "body": "Next wave hitting $DOGE $SHIB $PEPE?\n\nMeme season rotation looking overdue. BTC dominance cooling off, alts bleeding for weeks. Classic setup for degen capital to flow back into the OG meme plays.\n\nWatch for:\n- Volume spike on majors\n- Social sentiment shift\n- Whale wallet movements\n\nIf BTC holds current levels and ETH catches a bid, meme coins typically pump 2-3 days later. Risk/reward getting interesting here.",
+      "view_count": 0,
+      "comment_count": 0,
+      "like_count": 0,
+      "share_count": 0,
+      "bookmark_count": 0,
+      "quote_count": 0,
+      "tendency": 0,
+      "bullish_ratio": null,
+      "bearish_ratio": null,
+      "symbols": [],
+      "trading_pairs": [
+        "DOGEUSDT",
+        "SHIBUSDT",
+        "PEPEUSDT"
+      ],
+      "tags": [],
+      "content_type": 1,
+      "source_type": 0,
+      "web_link": "https://www.binance.com/en/square/post/313380013198785",
+      "share_link": "https://app.binance.com/uni-qr/cpos/313380013198785?r=0xHoward_Peng&l=en",
+      "engagement_total": 0,
+      "symbol_candidates": [
+        "DOGEUSDT",
+        "SHIBUSDT",
+        "PEPEUSDT"
+      ],
+      "tone": "bullish",
+      "tone_confidence": 0.6,
+      "score_engagement": 0,
+      "score_specificity": 15.0,
+      "score_quality": 18.0,
+      "score_confidence": 12.0,
+      "signal_score": 45.0,
+      "signal_label": "noise"
+    },
+    {
+      "content_id": 313379806238817,
+      "root_content_id": null,
+      "author": "Alpha Signal Feed",
+      "username": "0xRainandCoffee",
+      "author_avatar": "https://public.bnbstatic.com/image/pgc/202504/855e92e8aa42934f70e19bf4ff6d28ba.jpg",
+      "publish_time": "7 hrs ago",
+      "body": "$RAVE pumped 100x and degens were shorting it with borrowed money at insane funding rates.\n\nThis isn't trading. This is pure gambling — and they picked the worst game to play.\n\nEveryone knows this token is 99% controlled by insiders. Price moves when THEY want it to move. You're a retail trader with zero chips at the table. Why are you shorting?\n\nThe house is rigged. You know it's rigged. The dealer keeps hitting 21, and you keep betting against it — 20 hands in a row.\n\nYou don't fight centralized supply. You either ride the pump or stay out. Shorting controlled tokens is financial self-harm.",
+      "view_count": 1,
+      "comment_count": 0,
+      "like_count": 0,
+      "share_count": 0,
+      "bookmark_count": 0,
+      "quote_count": 0,
+      "tendency": 0,
+      "bullish_ratio": null,
+      "bearish_ratio": null,
+      "symbols": [],
+      "trading_pairs": [
+        "RAVEUSDT"
+      ],
+      "tags": [],
+      "content_type": 1,
+      "source_type": 0,
+      "web_link": "https://www.binance.com/en/square/post/313379806238817",
+      "share_link": "https://app.binance.com/uni-qr/cpos/313379806238817?r=0xRainandCoffee&l=en",
+      "engagement_total": 1,
+      "symbol_candidates": [
+        "RAVEUSDT"
+      ],
+      "tone": "neutral",
+      "tone_confidence": 0.25,
+      "score_engagement": 2.77,
+      "score_specificity": 15.0,
+      "score_quality": 18.0,
+      "score_confidence": 5.0,
+      "signal_score": 40.77,
+      "signal_label": "noise"
+    }
+  ]
+}

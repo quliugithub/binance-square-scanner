@@ -1,0 +1,198 @@
+{
+  "generated_at": "2026-04-17T11:57:14.498935Z",
+  "db_path": "/root/.openclaw/workspace/results/binance_square_research.sqlite3",
+  "input_post_count": 9,
+  "result": {
+    "interval": "5m",
+    "windows": [
+      3,
+      12
+    ],
+    "studied_posts": [
+      {
+        "content_id": 313380193156273,
+        "symbol": "SIRENUSDT",
+        "error": "400 Client Error: Bad Request for url: https://api.binance.com/api/v3/klines?symbol=SIRENUSDT&interval=5m&limit=500"
+      },
+      {
+        "content_id": 313380190545362,
+        "symbol": "SIRENUSDT",
+        "error": "400 Client Error: Bad Request for url: https://api.binance.com/api/v3/klines?symbol=SIRENUSDT&interval=5m&limit=500"
+      },
+      {
+        "content_id": 313380114805873,
+        "symbol": "SIRENUSDT",
+        "error": "400 Client Error: Bad Request for url: https://api.binance.com/api/v3/klines?symbol=SIRENUSDT&interval=5m&limit=500"
+      },
+      {
+        "content_id": 313380039746625,
+        "symbol": "BANANAS31USDT",
+        "tone": "bullish",
+        "signal_score": 98.0,
+        "signal_label": "high_signal",
+        "entry_price": 0.010811,
+        "forward_return_pct": {
+          "3_5m": 0.5087,
+          "12_5m": 2.1645
+        },
+        "max_favorable_pct": {
+          "3_5m": 1.1655,
+          "12_5m": 2.664
+        },
+        "max_adverse_pct": {
+          "3_5m": 0.0462,
+          "12_5m": -0.0185
+        }
+      },
+      {
+        "content_id": 313379941003282,
+        "symbol": "KATUSDT",
+        "tone": "bullish",
+        "signal_score": 83.33,
+        "signal_label": "high_signal",
+        "entry_price": 0.00916,
+        "forward_return_pct": {
+          "3_5m": 1.9651,
+          "12_5m": -0.2183
+        },
+        "max_favorable_pct": {
+          "3_5m": 2.6201,
+          "12_5m": 2.6201
+        },
+        "max_adverse_pct": {
+          "3_5m": 0.2183,
+          "12_5m": -0.2183
+        }
+      },
+      {
+        "content_id": 313379925828433,
+        "symbol": "TAKEUSDT",
+        "error": "400 Client Error: Bad Request for url: https://api.binance.com/api/v3/klines?symbol=TAKEUSDT&interval=5m&limit=500"
+      },
+      {
+        "content_id": 313379819184385,
+        "symbol": "TSTUSDT",
+        "tone": "bearish",
+        "signal_score": 94.73,
+        "signal_label": "high_signal",
+        "entry_price": 0.0154,
+        "forward_return_pct": {
+          "3_5m": -3.2468,
+          "12_5m": -3.8312
+        },
+        "max_favorable_pct": {
+          "3_5m": 1.6883,
+          "12_5m": 1.6883
+        },
+        "max_adverse_pct": {
+          "3_5m": -4.5455,
+          "12_5m": -6.4935
+        }
+      },
+      {
+        "content_id": 313379802889682,
+        "symbol": "ORDIUSDT",
+        "tone": "bullish",
+        "signal_score": 96.74,
+        "signal_label": "high_signal",
+        "entry_price": 6.741,
+        "forward_return_pct": {
+          "3_5m": 1.8692,
+          "12_5m": 3.5455
+        },
+        "max_favorable_pct": {
+          "3_5m": 3.1449,
+          "12_5m": 6.3789
+        },
+        "max_adverse_pct": {
+          "3_5m": 0.0593,
+          "12_5m": 0.0593
+        }
+      },
+      {
+        "content_id": 313379768183409,
+        "symbol": "PIXELUSDT",
+        "tone": "bearish",
+        "signal_score": 86.68,
+        "signal_label": "high_signal",
+        "entry_price": 0.00819,
+        "forward_return_pct": {
+          "3_5m": 0.0,
+          "12_5m": 1.221
+        },
+        "max_favorable_pct": {
+          "3_5m": 0.4884,
+          "12_5m": 1.221
+        },
+        "max_adverse_pct": {
+          "3_5m": -0.2442,
+          "12_5m": -0.2442
+        }
+      }
+    ],
+    "summary": {
+      "bullish::3_5m": {
+        "count": 3,
+        "avg_return_pct": 1.4477,
+        "median_return_pct": 1.8692,
+        "win_rate_pct": 100.0,
+        "avg_mfe_pct": 2.3102,
+        "avg_mae_pct": 0.1079
+      },
+      "bullish::12_5m": {
+        "count": 3,
+        "avg_return_pct": 1.8306,
+        "median_return_pct": 2.1645,
+        "win_rate_pct": 66.67,
+        "avg_mfe_pct": 3.8877,
+        "avg_mae_pct": -0.0592
+      },
+      "bearish::3_5m": {
+        "count": 2,
+        "avg_return_pct": -1.6234,
+        "median_return_pct": -1.6234,
+        "win_rate_pct": 0.0,
+        "avg_mfe_pct": 1.0883,
+        "avg_mae_pct": -2.3948
+      },
+      "bearish::12_5m": {
+        "count": 2,
+        "avg_return_pct": -1.3051,
+        "median_return_pct": -1.3051,
+        "win_rate_pct": 50.0,
+        "avg_mfe_pct": 1.4546,
+        "avg_mae_pct": -3.3689
+      }
+    }
+  },
+  "history_summary": {
+    "bearish::12_5m": {
+      "sample_count": 2,
+      "avg_return_pct": -1.3051,
+      "avg_mfe_pct": 1.4546,
+      "avg_mae_pct": -3.3689,
+      "win_rate_pct": 50.0
+    },
+    "bearish::3_5m": {
+      "sample_count": 2,
+      "avg_return_pct": -1.6234,
+      "avg_mfe_pct": 1.0883,
+      "avg_mae_pct": -2.3948,
+      "win_rate_pct": 0.0
+    },
+    "bullish::12_5m": {
+      "sample_count": 3,
+      "avg_return_pct": 1.8306,
+      "avg_mfe_pct": 3.8877,
+      "avg_mae_pct": -0.0592,
+      "win_rate_pct": 66.67
+    },
+    "bullish::3_5m": {
+      "sample_count": 3,
+      "avg_return_pct": 1.4477,
+      "avg_mfe_pct": 2.3102,
+      "avg_mae_pct": 0.1079,
+      "win_rate_pct": 100.0
+    }
+  }
+}

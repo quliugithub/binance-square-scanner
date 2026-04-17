@@ -115,6 +115,66 @@ python3 binance_square_strategy.py backtest --input results/binance_square_score
 - 币种级别：`conviction_score`、`bias`、`post_count`、`unique_authors`
 - 回测级别：未来窗口收益、最大顺行 MFE、最大逆行 MAE、胜率与均值统计
 
+## 币安广场可持续样本研究框架
+
+新增研究框架脚本：`binance_square_research.py`
+
+### 设计目标
+- 持续抓取并累计样本，而不是一次性分析
+- 为每条帖子保存首见时间、末次见时间、评分结果、文本和快照
+- 为每次采样保存互动快照，方便后续研究互动增速
+- 把回测事件写入 SQLite，逐渐形成作者、币种、文本风格的长期统计库
+
+### 数据存储
+默认数据库：
+```bash
+results/binance_square_research.sqlite3
+```
+
+包含三类核心表：
+- `posts`：帖子主档案
+- `snapshots`：每次采样快照
+- `backtest_events`：回测结果历史
+
+### 用法
+```bash
+# 抓取最新样本并写入研究库
+python3 binance_square_research.py ingest --limit 50
+
+# 查看累计研究报告
+python3 binance_square_research.py report --min-posts 2 --min-signal-score 55
+
+# 对库里信号样本批量补回测并保存历史统计
+python3 binance_square_research.py backfill --interval 5m --windows 3,12,48
+```
+
+### 这个框架能持续积累什么
+- 作者维度
+  - 发帖数量
+  - 平均信号分
+  - 高质量信号占比
+- 币种维度
+  - 被提及频次
+  - 多空倾向分布
+  - 历史 conviction
+- 帖子维度
+  - 首见时间 / 末次见时间
+  - 每次互动快照变化
+- 回测维度
+  - 不同 tone、窗口下的平均收益、胜率、MFE、MAE
+
+### 推荐工作流
+```bash
+# 1. 定时采样，持续入库
+python3 binance_square_research.py ingest --limit 50
+
+# 2. 定期补回测
+python3 binance_square_research.py backfill --interval 5m --windows 3,12,48
+
+# 3. 输出研究报告
+python3 binance_square_research.py report --min-posts 3 --min-signal-score 55
+```
+
 ## 扩展功能
 
 ### 通知渠道集成
