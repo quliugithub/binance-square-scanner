@@ -535,6 +535,60 @@ def run_replay(sample_path: str, min_conviction: float, min_posts: int, min_post
     )
 
 
+def render_watchlist_markdown(payload: Dict[str, Any]) -> str:
+    lines: List[str] = []
+    lines.append('# Binance Square Scanner Watchlist')
+    lines.append('')
+    summary = payload.get('summary') or {}
+    lines.append(f"- fetched_posts: {summary.get('fetched_posts', 0)}")
+    lines.append(f"- trade_candidates: {summary.get('trade_candidates', 0)}")
+    lines.append(f"- passed_price_filter: {summary.get('passed_price_filter', 0)}")
+    lines.append('')
+
+    watchlist = payload.get('passed_candidate_watchlist') or []
+    if not watchlist:
+        lines.append('## No passed candidates')
+        return '\n'.join(lines)
+
+    for idx, item in enumerate(watchlist, start=1):
+        market = item.get('market_snapshot') or {}
+        lines.append(f"## {idx}. {item.get('symbol')} ({item.get('bias')})")
+        lines.append(f"- conviction_score: {item.get('conviction_score')}")
+        lines.append(f"- confidence_band: {item.get('confidence_band')}")
+        lines.append(f"- market_type: {market.get('market_type')}")
+        if market.get('chain_id'):
+            lines.append(f"- chain: {market.get('chain_id')} / {market.get('dex_id')}")
+        lines.append(f"- last_price: {market.get('last_price')}")
+        lines.append(f"- 24h_change: {market.get('price_change_pct_24h')}")
+        lines.append(f"- 24h_volume: {market.get('quote_volume_24h')}")
+        if market.get('liquidity_usd') is not None:
+            lines.append(f"- liquidity_usd: {market.get('liquidity_usd')}")
+        lines.append(f"- note: {item.get('scanner_note')}")
+        lines.append(f"- filter: {'; '.join(item.get('price_filter_reasons') or [])}")
+        lines.append('')
+
+        for post_idx, post in enumerate(item.get('top_posts') or [], start=1):
+            plan = post.get('trade_plan') or {}
+            lines.append(f"### Post {post_idx}")
+            lines.append(f"- author: {post.get('author')} (@{post.get('username')})")
+            lines.append(f"- signal_score: {post.get('signal_score')}")
+            lines.append(f"- link: {post.get('web_link')}")
+            lines.append(f"- preview: {post.get('body_preview')}")
+            if plan.get('direction'):
+                lines.append(f"- direction: {plan.get('direction')}")
+            if plan.get('entry'):
+                lines.append(f"- entry: {plan.get('entry')}")
+            if plan.get('stop_loss'):
+                lines.append(f"- stop_loss: {plan.get('stop_loss')}")
+            if plan.get('take_profits'):
+                lines.append(f"- take_profits: {', '.join(plan.get('take_profits'))}")
+            if plan.get('leverage'):
+                lines.append(f"- leverage: {plan.get('leverage')}")
+            lines.append('')
+
+    return '\n'.join(lines).rstrip() + '\n'
+
+
 def save_payload(payload: Dict[str, Any], output: Optional[str]) -> str:
     if output:
         path = Path(output)
@@ -543,6 +597,8 @@ def save_payload(payload: Dict[str, Any], output: Optional[str]) -> str:
         path = RESULTS_DIR / f'binance_square_scanner_{ts}.json'
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding='utf-8')
+    md_path = path.with_suffix('.md')
+    md_path.write_text(render_watchlist_markdown(payload), encoding='utf-8')
     return str(path)
 
 
