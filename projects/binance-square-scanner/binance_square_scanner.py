@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 import json
+import re
 import sys
 from datetime import UTC, datetime
 from pathlib import Path
@@ -337,6 +338,47 @@ def scanner_note(row: Dict[str, Any]) -> str:
     return f'{symbol} 偏空，{posts} 条帖子，{authors} 位作者，情绪空头 {bears}:{bulls}'
 
 
+def extract_trade_plan(body: str) -> Dict[str, Any]:
+    text = (body or '').replace('\n', ' ')
+    compact = re.sub(r'\s+', ' ', text).strip()
+
+    def _clean(value: Optional[str]) -> Optional[str]:
+        if not value:
+            return None
+        value = re.sub(r'\s+', ' ', value).strip(' -:;,.')
+        return value or None
+
+    def _capture(pattern: str) -> Optional[str]:
+        m = re.search(pattern, compact, re.I)
+        return _clean(m.group(1)) if m else None
+
+    entry = _capture(r'entry(?:\s*zone)?\s*[:\-]?\s*(.+?)(?=\s(?:sl|stop loss|tp\d|take profit\d*|why this setup|market showing|$))')
+    stop_loss = _capture(r'(?:\bsl\b|stop loss)\s*[:\-]?\s*(.+?)(?=\s(?:tp\d|take profit\d*|why this setup|market showing|$))')
+
+    take_profits: List[str] = []
+    for match in re.finditer(r'(tp\d*|take profit\d*)\s*[:\-]?\s*(.+?)(?=\s(?:tp\d|take profit\d*|sl|stop loss|why this setup|market showing|$))', compact, re.I):
+        value = _clean(match.group(2))
+        if value:
+            take_profits.append(value)
+
+    direction = None
+    lower = compact.lower()
+    if 'trade setup: long' in lower or re.search(r'\blong\b', lower):
+        direction = 'long'
+    elif 'trade setup: short' in lower or re.search(r'\bshort\b', lower):
+        direction = 'short'
+
+    leverage = _capture(r'(\b\d{1,3}x\b)')
+
+    return {
+        'direction': direction,
+        'entry': entry,
+        'stop_loss': stop_loss,
+        'take_profits': take_profits,
+        'leverage': leverage,
+    }
+
+
 def build_post_watchlist(posts: List[Dict[str, Any]], min_post_score: float, limit: int) -> List[Dict[str, Any]]:
     rows: List[Dict[str, Any]] = []
     for post in posts:
@@ -360,6 +402,46 @@ def build_post_watchlist(posts: List[Dict[str, Any]], min_post_score: float, lim
     return rows[:limit]
 
 
+def build_passed_candidate_watchlist(passed_candidates: List[Dict[str, Any]], scored_posts: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    rows: List[Dict[str, Any]] = []
+    for candidate in passed_candidates:
+        symbol = candidate.get('symbol')
+        related_posts = []
+        for post in scored_posts:
+            symbols = post.get('symbol_candidates') or []
+            if symbol in symbols:
+                related_posts.append(post)
+
+        related_posts.sort(key=lambda p: (float(p.get('signal_score') or 0), int(p.get('engagement_total') or 0)), reverse=True)
+        top_posts = []
+        for post in related_posts[:3]:
+            plan = extract_trade_plan(post.get('body') or '')
+            top_posts.append({
+                'content_id': post.get('content_id'),
+                'author': post.get('author'),
+                'username': post.get('username'),
+                'publish_time': post.get('publish_time'),
+                'signal_score': post.get('signal_score'),
+                'tone': post.get('tone'),
+                'engagement_total': post.get('engagement_total'),
+                'web_link': post.get('web_link'),
+                'body_preview': (post.get('body') or '').replace('\n', ' ')[:220],
+                'trade_plan': plan,
+            })
+
+        rows.append({
+            'symbol': symbol,
+            'bias': candidate.get('bias'),
+            'confidence_band': candidate.get('confidence_band'),
+            'conviction_score': candidate.get('conviction_score'),
+            'market_snapshot': candidate.get('market_snapshot'),
+            'price_filter_reasons': candidate.get('price_filter_reasons'),
+            'scanner_note': candidate.get('scanner_note'),
+            'top_posts': top_posts,
+        })
+    return rows
+
+
 def build_scan_payload(raw_posts: List[Dict[str, Any]], min_conviction: float, min_posts: int, min_post_score: float, post_limit: int, cex_filter: Dict[str, float], dex_filter: Dict[str, float], scan_config: Dict[str, Any]) -> Dict[str, Any]:
     scored_posts = [score_post(post) for post in raw_posts if not post.get('error')]
     coin_signals = aggregate_coin_signals(scored_posts)
@@ -372,6 +454,7 @@ def build_scan_payload(raw_posts: List[Dict[str, Any]], min_conviction: float, m
     )
     post_watchlist = build_post_watchlist(scored_posts, min_post_score=min_post_score, limit=post_limit)
     passed_candidates = [row for row in trade_candidates if row.get('price_filter_passed')]
+    passed_candidate_watchlist = build_passed_candidate_watchlist(passed_candidates, scored_posts)
 
     return {
         'generated_at': utc_now_iso(),
@@ -386,6 +469,7 @@ def build_scan_payload(raw_posts: List[Dict[str, Any]], min_conviction: float, m
         },
         'trade_candidates': trade_candidates,
         'passed_trade_candidates': passed_candidates,
+        'passed_candidate_watchlist': passed_candidate_watchlist,
         'watch_posts': post_watchlist,
         'top_coin_signals': coin_signals[:10],
     }
@@ -526,6 +610,7 @@ def main() -> None:
     print(json.dumps({
         'summary': payload['summary'],
         'top_trade_candidates': payload['passed_trade_candidates'][:5],
+        'passed_candidate_watchlist': payload['passed_candidate_watchlist'][:3],
         'top_watch_posts': payload['watch_posts'][:3],
     }, ensure_ascii=False, indent=2))
 
