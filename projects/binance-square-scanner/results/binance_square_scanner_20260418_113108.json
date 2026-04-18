@@ -1,0 +1,958 @@
+{
+  "generated_at": "2026-04-18T03:31:08.284303Z",
+  "scan_config": {
+    "mode": "live",
+    "limit": 30,
+    "start_page": 1,
+    "max_pages": 2,
+    "min_conviction": 45.0,
+    "min_posts": 2,
+    "min_post_score": 60.0,
+    "post_limit": 20,
+    "cex_filter": {
+      "min_quote_volume_24h": 5000000,
+      "max_spread_pct": 0.35,
+      "long_min_change_24h_pct": -8.0,
+      "long_min_micro_trend_pct": -2.0,
+      "long_min_momentum_pct": -5.0,
+      "short_max_change_24h_pct": 12.0,
+      "short_max_micro_trend_pct": 2.0,
+      "short_max_momentum_pct": 5.0
+    },
+    "dex_filter": {
+      "min_quote_volume_24h": 1000000,
+      "min_liquidity_usd": 250000,
+      "min_txns_24h": 120,
+      "long_min_change_24h_pct": -20.0,
+      "long_min_micro_trend_pct": -3.0,
+      "long_min_momentum_pct": -8.0,
+      "short_max_change_24h_pct": 25.0,
+      "short_max_micro_trend_pct": 3.0,
+      "short_max_momentum_pct": 8.0
+    }
+  },
+  "summary": {
+    "fetched_posts": 30,
+    "scored_posts": 30,
+    "coin_signals": 49,
+    "trade_candidates": 6,
+    "passed_price_filter": 2,
+    "watch_posts": 20
+  },
+  "trade_candidates": [
+    {
+      "symbol": "TAKEUSDT",
+      "bias": "long_watch",
+      "confidence_band": "A",
+      "conviction_score": 100.0,
+      "avg_signal_score": 87.66,
+      "post_count": 2,
+      "unique_authors": 2,
+      "bullish_posts": 2,
+      "bearish_posts": 0,
+      "total_engagement": 944,
+      "sample_post_ids": [
+        313379925828433,
+        313379360458754
+      ],
+      "price_filter_passed": true,
+      "price_filter_reasons": [
+        "通过真实价格过滤 (dex)"
+      ],
+      "market_snapshot": {
+        "market_type": "dex",
+        "chain_id": "bsc",
+        "dex_id": "pancakeswap",
+        "pair_address": "0x46bB9a29bFa5397B30A96a316875496EC2556dd2",
+        "pair_url": "https://dexscreener.com/bsc/0x46bb9a29bfa5397b30a96a316875496ec2556dd2",
+        "base_symbol": "TAKE",
+        "quote_symbol": "WBNB",
+        "last_price": 0.04383,
+        "price_change_pct_24h": 17.34,
+        "micro_trend_pct_15m": 1.76,
+        "momentum_vs_vwap_pct": 3.05,
+        "quote_volume_24h": 4789694.93,
+        "liquidity_usd": 333890.78,
+        "txns_buys_24h": 27717,
+        "txns_sells_24h": 32185,
+        "spread_pct": 0.0,
+        "intraday_range_pct": 0.0
+      },
+      "scanner_note": "TAKEUSDT 偏多，2 条帖子，2 位作者，情绪多头 2:0"
+    },
+    {
+      "symbol": "BTCUSDT",
+      "bias": "long_watch",
+      "confidence_band": "C",
+      "conviction_score": 60.37,
+      "avg_signal_score": 47.42,
+      "post_count": 2,
+      "unique_authors": 2,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "total_engagement": 40,
+      "sample_post_ids": [
+        313379733677442,
+        313378863099649
+      ],
+      "price_filter_passed": true,
+      "price_filter_reasons": [
+        "通过真实价格过滤 (cex_spot)"
+      ],
+      "market_snapshot": {
+        "market_type": "cex_spot",
+        "last_price": 77194.39,
+        "price_change_pct_24h": 3.266,
+        "weighted_avg_price": 76777.33059943,
+        "quote_volume_24h": 1908833179.4244812,
+        "count_24h": 4916454,
+        "bid_price": 77199.99,
+        "ask_price": 77200.0,
+        "spread_pct": 0.0,
+        "intraday_range_pct": 5.0672,
+        "momentum_vs_vwap_pct": 0.5432,
+        "micro_trend_pct_15m": -0.1516
+      },
+      "scanner_note": "BTCUSDT 偏多，2 条帖子，2 位作者，情绪多头 1:0"
+    },
+    {
+      "symbol": "SIRENUSDT",
+      "bias": "long_watch",
+      "confidence_band": "A",
+      "conviction_score": 100.0,
+      "avg_signal_score": 86.76,
+      "post_count": 5,
+      "unique_authors": 5,
+      "bullish_posts": 4,
+      "bearish_posts": 1,
+      "total_engagement": 11233,
+      "sample_post_ids": [
+        313380193156273,
+        313380190545362,
+        313380114805873,
+        313379555331538,
+        313379542231121
+      ],
+      "price_filter_passed": false,
+      "price_filter_reasons": [
+        "24h涨跌幅偏弱 -62.41%"
+      ],
+      "market_snapshot": {
+        "market_type": "dex",
+        "chain_id": "bsc",
+        "dex_id": "pancakeswap",
+        "pair_address": "0xb2AF49dBF526054FAf19602860A5E298a79F3D05",
+        "pair_url": "https://dexscreener.com/bsc/0xb2af49dbf526054faf19602860a5e298a79f3d05",
+        "base_symbol": "SIREN",
+        "quote_symbol": "WBNB",
+        "last_price": 0.6789,
+        "price_change_pct_24h": -62.41,
+        "micro_trend_pct_15m": -0.92,
+        "momentum_vs_vwap_pct": -4.78,
+        "quote_volume_24h": 28578625.76,
+        "liquidity_usd": 8907738.02,
+        "txns_buys_24h": 28140,
+        "txns_sells_24h": 29740,
+        "spread_pct": 0.0,
+        "intraday_range_pct": 0.0
+      },
+      "scanner_note": "SIRENUSDT 偏多，5 条帖子，5 位作者，情绪多头 4:1"
+    },
+    {
+      "symbol": "POWERUSDT",
+      "bias": "long_watch",
+      "confidence_band": "A",
+      "conviction_score": 100.0,
+      "avg_signal_score": 92.82,
+      "post_count": 2,
+      "unique_authors": 2,
+      "bullish_posts": 2,
+      "bearish_posts": 0,
+      "total_engagement": 577,
+      "sample_post_ids": [
+        313379604018961,
+        313379116982865
+      ],
+      "price_filter_passed": false,
+      "price_filter_reasons": [
+        "24h成交额不足 1000000",
+        "DEX流动性不足 250000"
+      ],
+      "market_snapshot": {
+        "market_type": "dex",
+        "chain_id": "bsc",
+        "dex_id": "uniswap",
+        "pair_address": "0x73eA6cc8d4DCfaF52d309800F8428D57e6dc3a2b",
+        "pair_url": "https://dexscreener.com/bsc/0x73ea6cc8d4dcfaf52d309800f8428d57e6dc3a2b",
+        "base_symbol": "POWER",
+        "quote_symbol": "USDT",
+        "last_price": 0.1027,
+        "price_change_pct_24h": 4.43,
+        "micro_trend_pct_15m": -0.55,
+        "momentum_vs_vwap_pct": -1.32,
+        "quote_volume_24h": 779905.4,
+        "liquidity_usd": 54057.24,
+        "txns_buys_24h": 3929,
+        "txns_sells_24h": 3965,
+        "spread_pct": 0.0,
+        "intraday_range_pct": 0.0
+      },
+      "scanner_note": "POWERUSDT 偏多，2 条帖子，2 位作者，情绪多头 2:0"
+    },
+    {
+      "symbol": "ORDIUSDT",
+      "bias": "long_watch",
+      "confidence_band": "A",
+      "conviction_score": 95.0,
+      "avg_signal_score": 92.59,
+      "post_count": 2,
+      "unique_authors": 2,
+      "bullish_posts": 2,
+      "bearish_posts": 0,
+      "total_engagement": 209,
+      "sample_post_ids": [
+        313379802889682,
+        313379225979330
+      ],
+      "price_filter_passed": false,
+      "price_filter_reasons": [
+        "24h涨跌幅偏弱 -30.41%",
+        "1h动量偏弱 -11.92%"
+      ],
+      "market_snapshot": {
+        "market_type": "cex_spot",
+        "last_price": 6.116,
+        "price_change_pct_24h": -30.413,
+        "weighted_avg_price": 6.94336388,
+        "quote_volume_24h": 121307485.21812,
+        "count_24h": 1196500,
+        "bid_price": 6.115,
+        "ask_price": 6.118,
+        "spread_pct": 0.049,
+        "intraday_range_pct": 62.6469,
+        "momentum_vs_vwap_pct": -11.9159,
+        "micro_trend_pct_15m": -1.1643
+      },
+      "scanner_note": "ORDIUSDT 偏多，2 条帖子，2 位作者，情绪多头 2:0"
+    },
+    {
+      "symbol": "$ORDI ",
+      "bias": "long_watch",
+      "confidence_band": "A",
+      "conviction_score": 95.0,
+      "avg_signal_score": 92.59,
+      "post_count": 2,
+      "unique_authors": 2,
+      "bullish_posts": 2,
+      "bearish_posts": 0,
+      "total_engagement": 209,
+      "sample_post_ids": [
+        313379802889682,
+        313379225979330
+      ],
+      "price_filter_passed": false,
+      "price_filter_reasons": [
+        "价格过滤失败: $ORDI  在 CEX 和 DEX 都没找到有效市场"
+      ],
+      "market_snapshot": null,
+      "scanner_note": "$ORDI  偏多，2 条帖子，2 位作者，情绪多头 2:0"
+    }
+  ],
+  "passed_trade_candidates": [
+    {
+      "symbol": "TAKEUSDT",
+      "bias": "long_watch",
+      "confidence_band": "A",
+      "conviction_score": 100.0,
+      "avg_signal_score": 87.66,
+      "post_count": 2,
+      "unique_authors": 2,
+      "bullish_posts": 2,
+      "bearish_posts": 0,
+      "total_engagement": 944,
+      "sample_post_ids": [
+        313379925828433,
+        313379360458754
+      ],
+      "price_filter_passed": true,
+      "price_filter_reasons": [
+        "通过真实价格过滤 (dex)"
+      ],
+      "market_snapshot": {
+        "market_type": "dex",
+        "chain_id": "bsc",
+        "dex_id": "pancakeswap",
+        "pair_address": "0x46bB9a29bFa5397B30A96a316875496EC2556dd2",
+        "pair_url": "https://dexscreener.com/bsc/0x46bb9a29bfa5397b30a96a316875496ec2556dd2",
+        "base_symbol": "TAKE",
+        "quote_symbol": "WBNB",
+        "last_price": 0.04383,
+        "price_change_pct_24h": 17.34,
+        "micro_trend_pct_15m": 1.76,
+        "momentum_vs_vwap_pct": 3.05,
+        "quote_volume_24h": 4789694.93,
+        "liquidity_usd": 333890.78,
+        "txns_buys_24h": 27717,
+        "txns_sells_24h": 32185,
+        "spread_pct": 0.0,
+        "intraday_range_pct": 0.0
+      },
+      "scanner_note": "TAKEUSDT 偏多，2 条帖子，2 位作者，情绪多头 2:0"
+    },
+    {
+      "symbol": "BTCUSDT",
+      "bias": "long_watch",
+      "confidence_band": "C",
+      "conviction_score": 60.37,
+      "avg_signal_score": 47.42,
+      "post_count": 2,
+      "unique_authors": 2,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "total_engagement": 40,
+      "sample_post_ids": [
+        313379733677442,
+        313378863099649
+      ],
+      "price_filter_passed": true,
+      "price_filter_reasons": [
+        "通过真实价格过滤 (cex_spot)"
+      ],
+      "market_snapshot": {
+        "market_type": "cex_spot",
+        "last_price": 77194.39,
+        "price_change_pct_24h": 3.266,
+        "weighted_avg_price": 76777.33059943,
+        "quote_volume_24h": 1908833179.4244812,
+        "count_24h": 4916454,
+        "bid_price": 77199.99,
+        "ask_price": 77200.0,
+        "spread_pct": 0.0,
+        "intraday_range_pct": 5.0672,
+        "momentum_vs_vwap_pct": 0.5432,
+        "micro_trend_pct_15m": -0.1516
+      },
+      "scanner_note": "BTCUSDT 偏多，2 条帖子，2 位作者，情绪多头 1:0"
+    }
+  ],
+  "passed_candidate_watchlist": [
+    {
+      "symbol": "TAKEUSDT",
+      "bias": "long_watch",
+      "confidence_band": "A",
+      "conviction_score": 100.0,
+      "market_snapshot": {
+        "market_type": "dex",
+        "chain_id": "bsc",
+        "dex_id": "pancakeswap",
+        "pair_address": "0x46bB9a29bFa5397B30A96a316875496EC2556dd2",
+        "pair_url": "https://dexscreener.com/bsc/0x46bb9a29bfa5397b30a96a316875496ec2556dd2",
+        "base_symbol": "TAKE",
+        "quote_symbol": "WBNB",
+        "last_price": 0.04383,
+        "price_change_pct_24h": 17.34,
+        "micro_trend_pct_15m": 1.76,
+        "momentum_vs_vwap_pct": 3.05,
+        "quote_volume_24h": 4789694.93,
+        "liquidity_usd": 333890.78,
+        "txns_buys_24h": 27717,
+        "txns_sells_24h": 32185,
+        "spread_pct": 0.0,
+        "intraday_range_pct": 0.0
+      },
+      "price_filter_reasons": [
+        "通过真实价格过滤 (dex)"
+      ],
+      "scanner_note": "TAKEUSDT 偏多，2 条帖子，2 位作者，情绪多头 2:0",
+      "top_posts": [
+        {
+          "content_id": 313379360458754,
+          "author": "Berserker_09",
+          "username": "Soban_Tariq",
+          "publish_time": "1 d ago",
+          "signal_score": 98.0,
+          "tone": "bullish",
+          "engagement_total": 646,
+          "web_link": "https://www.binance.com/en/square/post/313379360458754",
+          "body_preview": "Market showing strong breakout with aggressive bullish momentum but already extended  Entry $0.0370 $0.0385 SL $0.0345 TP1 $0.0430 TP2 $0.0460 TP3 $0.0500  Why this setup Strong impulsive breakout with high volume Clear ",
+          "trade_plan": {
+            "direction": null,
+            "entry": "$0.0370 $0.0385",
+            "stop_loss": "$0.0345",
+            "take_profits": [
+              "$0.0430",
+              "$0.0460",
+              "$0.0500"
+            ],
+            "leverage": null
+          }
+        },
+        {
+          "content_id": 313379925828433,
+          "author": "NovaNews",
+          "username": "ErinCrypto",
+          "publish_time": "1 d ago",
+          "signal_score": 77.33,
+          "tone": "bullish",
+          "engagement_total": 298,
+          "web_link": "https://www.binance.com/en/square/post/313379925828433",
+          "body_preview": "$TAKE /USDT LONG  UPDATE 🚀  Last Price: $0.05029 📊 24H High: $0.05271 🔥 24H Low: $0.02651 📉 24H Volume: 421.54M TAKE 💰 24H Move: +80%+ ⚡  TAKE is showing strong momentum after a massive breakout from the lower range 📈 Vo",
+          "trade_plan": {
+            "direction": "long",
+            "entry": null,
+            "stop_loss": null,
+            "take_profits": [],
+            "leverage": null
+          }
+        }
+      ]
+    },
+    {
+      "symbol": "BTCUSDT",
+      "bias": "long_watch",
+      "confidence_band": "C",
+      "conviction_score": 60.37,
+      "market_snapshot": {
+        "market_type": "cex_spot",
+        "last_price": 77194.39,
+        "price_change_pct_24h": 3.266,
+        "weighted_avg_price": 76777.33059943,
+        "quote_volume_24h": 1908833179.4244812,
+        "count_24h": 4916454,
+        "bid_price": 77199.99,
+        "ask_price": 77200.0,
+        "spread_pct": 0.0,
+        "intraday_range_pct": 5.0672,
+        "momentum_vs_vwap_pct": 0.5432,
+        "micro_trend_pct_15m": -0.1516
+      },
+      "price_filter_reasons": [
+        "通过真实价格过滤 (cex_spot)"
+      ],
+      "scanner_note": "BTCUSDT 偏多，2 条帖子，2 位作者，情绪多头 1:0",
+      "top_posts": [
+        {
+          "content_id": 313379733677442,
+          "author": "NightHawkTraderPro",
+          "username": "NightHawkTrader",
+          "publish_time": "1 d ago",
+          "signal_score": 52.85,
+          "tone": "neutral",
+          "engagement_total": 40,
+          "web_link": "https://www.binance.com/en/square/post/313379733677442",
+          "body_preview": "France’s crypto kidnapping spike is a quiet warning for $ETH  and $BTC  🚨  France reporting more than 40 crypto kidnappings this year is a security shock that the market can’t ignore. For institutions, that usually trans",
+          "trade_plan": {
+            "direction": null,
+            "entry": null,
+            "stop_loss": null,
+            "take_profits": [],
+            "leverage": null
+          }
+        },
+        {
+          "content_id": 313378863099649,
+          "author": "sara.defi",
+          "username": "0xBigPineapple",
+          "publish_time": "1 d ago",
+          "signal_score": 42.0,
+          "tone": "bullish",
+          "engagement_total": 0,
+          "web_link": "https://www.binance.com/en/square/post/313378863099649",
+          "body_preview": "🚨 FLORIDA DROPS THE HAMMER  First U.S. state to propose eliminating capital gains tax on Bitcoin. Zero. Nada.  This isn't just bullish for price action — it's a structural shift. If this passes:  → Institutional capital ",
+          "trade_plan": {
+            "direction": null,
+            "entry": null,
+            "stop_loss": null,
+            "take_profits": [],
+            "leverage": null
+          }
+        }
+      ]
+    }
+  ],
+  "watch_posts": [
+    {
+      "content_id": 313380039746625,
+      "author": "Berserker_09",
+      "username": "Soban_Tariq",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 98.0,
+      "symbols": [
+        "BANANAS31USDT",
+        "$BANANAS31 "
+      ],
+      "engagement_total": 913,
+      "body_preview": "$BANANAS31 is quietly building momentum after a clean base formation.  Price swept liquidity from the lows and immediately reclaimed structure, now consolidating near local highs —",
+      "web_link": "https://www.binance.com/en/square/post/313380039746625"
+    },
+    {
+      "content_id": 313379819184385,
+      "author": "Berserker_09",
+      "username": "Soban_Tariq",
+      "publish_time": "1 d ago",
+      "tone": "bearish",
+      "signal_label": "high_signal",
+      "signal_score": 98.0,
+      "symbols": [
+        "TSTUSDT",
+        "$TST "
+      ],
+      "engagement_total": 711,
+      "body_preview": "$TST – Bounce into resistance, starting to stall out  Trading Plan Short $TST ( max 20x )  Entry: 0.0141 – 0.0151 SL: 0.0158 TP: 0.0132 TP: 0.0120 TP: 0.0110  Price pushed back up ",
+      "web_link": "https://www.binance.com/en/square/post/313379819184385"
+    },
+    {
+      "content_id": 313379360458754,
+      "author": "Berserker_09",
+      "username": "Soban_Tariq",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 98.0,
+      "symbols": [
+        "TAKEUSDT"
+      ],
+      "engagement_total": 646,
+      "body_preview": "Market showing strong breakout with aggressive bullish momentum but already extended  Entry $0.0370 $0.0385 SL $0.0345 TP1 $0.0430 TP2 $0.0460 TP3 $0.0500  Why this setup Strong im",
+      "web_link": "https://www.binance.com/en/square/post/313379360458754"
+    },
+    {
+      "content_id": 313380193156273,
+      "author": "Professor_JAXON",
+      "username": "professor_jaxon",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 98.0,
+      "symbols": [
+        "SIRENUSDT"
+      ],
+      "engagement_total": 226,
+      "body_preview": "$SIREN USDT Pullback Holding Strong Above $2 — Next Leg Up Towards $2.30 Incoming 🚀 Trade Setup: Long Entry zone: $1.90 – $2.05 Tp1: $2.20 Tp2: $2.36 Tp3: $2.60 SL: $1.70 After a m",
+      "web_link": "https://www.binance.com/en/square/post/313380193156273"
+    },
+    {
+      "content_id": 313379724741746,
+      "author": "CryptoGuru12",
+      "username": "cryptobysaqib",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 96.81,
+      "symbols": [
+        "RAVEUSDT",
+        "17USDT",
+        "18USDT",
+        "16USDT",
+        "19USDT",
+        "21USDT",
+        "23USDT"
+      ],
+      "engagement_total": 295,
+      "body_preview": "Market showing strong bullish continuation with breakout towards higher resistance  Entry $17.60 $18.00 SL $16.80  TP1 $19.50 TP2 $21.00 TP3 $23.00  Why this setup  Strong uptrend ",
+      "web_link": "https://www.binance.com/en/square/post/313379724741746"
+    },
+    {
+      "content_id": 313379802889682,
+      "author": "Professor_JAXON",
+      "username": "professor_jaxon",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 96.8,
+      "symbols": [
+        "ORDIUSDT",
+        "$ORDI ",
+        "11USDT"
+      ],
+      "engagement_total": 67,
+      "body_preview": "$ORDI USDT Bullish Pullback Before Explosive Continuation Toward $11+ Trade Setup: Long Entry zone: 8.20 - 8.60 Tp1: 9.50 Tp2: 10.30 Tp3: 11.00 SL: 7.60 Strong bullish momentum aft",
+      "web_link": "https://www.binance.com/en/square/post/313379802889682"
+    },
+    {
+      "content_id": 313379194875745,
+      "author": "Berserker_09",
+      "username": "Soban_Tariq",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 94.52,
+      "symbols": [
+        "BEATUSDT"
+      ],
+      "engagement_total": 661,
+      "body_preview": "$BEAT  is pushing into strength after a steady trend buildup.  Market structure shows a sequence of higher highs with controlled pullbacks, meaning buyers are absorbing supply and ",
+      "web_link": "https://www.binance.com/en/square/post/313379194875745"
+    },
+    {
+      "content_id": 313379116982865,
+      "author": "CryptoGuru12",
+      "username": "cryptobysaqib",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 94.48,
+      "symbols": [
+        "POWERUSDT"
+      ],
+      "engagement_total": 292,
+      "body_preview": "Market showing steady bullish continuation with higher highs forming  Entry $0.0990 $0.1005 SL $0.0960  TP1 $0.1040 TP2 $0.1080 TP3 $0.1120  Why this setup  Clear higher highs and ",
+      "web_link": "https://www.binance.com/en/square/post/313379116982865"
+    },
+    {
+      "content_id": 313379555331538,
+      "author": "MissBlockChain_01",
+      "username": "zoe_cryptoanalyst",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 93.61,
+      "symbols": [
+        "SIRENUSDT"
+      ],
+      "engagement_total": 526,
+      "body_preview": "$SIREN   Parabolic Move, High Volatility Continuation Setup 📈⚠️ Trade Setup: Long Entry Zone: $1.85 – $1.95 TP1: $2.20 TP2: $2.45 TP3: $2.70 SL: $1.60 SIREN has already printed a m",
+      "web_link": "https://www.binance.com/en/square/post/313379555331538"
+    },
+    {
+      "content_id": 313379604018961,
+      "author": "Crypto Alpha",
+      "username": "CryptoExpertOne",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 91.16,
+      "symbols": [
+        "POWERUSDT"
+      ],
+      "engagement_total": 285,
+      "body_preview": "Strong bullish structure with higher highs and continuation momentum building  Price has shown a clean trend reversal from the lows and is now forming higher highs and higher lows.",
+      "web_link": "https://www.binance.com/en/square/post/313379604018961"
+    },
+    {
+      "content_id": 313379126527889,
+      "author": "Signalx Killer",
+      "username": "MarketInsights",
+      "publish_time": "1 d ago",
+      "tone": "bearish",
+      "signal_label": "high_signal",
+      "signal_score": 90.0,
+      "symbols": [
+        "SOLUSDT"
+      ],
+      "engagement_total": 1734,
+      "body_preview": "Setup short $SOL  entry : 89-93  sl : 95.2  TP 1 : 87.6  TP 2 : 84.3  TP3 : 79.7  Regulatory Uncertainty: The CLARITY Act's potential non-passage poses a significant regulatory ris",
+      "web_link": "https://www.binance.com/en/square/post/313379126527889"
+    },
+    {
+      "content_id": 313379225979330,
+      "author": "NovaNews",
+      "username": "ErinCrypto",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 88.37,
+      "symbols": [
+        "ORDIUSDT",
+        "$ORDI ",
+        "14USDT"
+      ],
+      "engagement_total": 142,
+      "body_preview": "$ORDI /USDT LONG UPDATE 🚀  Entry: $2.99 Current Price: $6.90 📈 Unrealized P&L: +$14,462 USDT 💰 ROE: +2,617% 🔥 Leverage: 20X Cross ⚡  From $2.99 to $6.90 — this move is already runn",
+      "web_link": "https://www.binance.com/en/square/post/313379225979330"
+    },
+    {
+      "content_id": 313379615703633,
+      "author": "Berserker_09",
+      "username": "Soban_Tariq",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 88.0,
+      "symbols": [
+        "INJUSDT",
+        "FETUSDT",
+        "TAOUSDT",
+        "$TAO ",
+        "$FET ",
+        "$INJ ",
+        "110USDT",
+        "RENDERUSDT"
+      ],
+      "engagement_total": 884,
+      "body_preview": "The market recently added $110 billion in just 15 hours. Total crypto market cap is now $2.54 trillion.  And the AI sector?   $TAO : $3.5B market cap, up 140% in six weeks   $FET :",
+      "web_link": "https://www.binance.com/en/square/post/313379615703633"
+    },
+    {
+      "content_id": 313379768183409,
+      "author": "Amina Chattha",
+      "username": "amina_chattha",
+      "publish_time": "1 d ago",
+      "tone": "bearish",
+      "signal_label": "high_signal",
+      "signal_score": 86.8,
+      "symbols": [
+        "PIXELUSDT",
+        "$PIXEL "
+      ],
+      "engagement_total": 316,
+      "body_preview": "$PIXEL Weak Pullback / Bounce Setup  Entry Zone: 0.0081 – 0.0083 TP1: 0.0086 TP2: 0.0090 TP3: 0.0096 SL: 0.0078 #Kalshi’sDisputewithNevada #CharlesSchwabtoRollOutSpotCryptoTrading ",
+      "web_link": "https://www.binance.com/en/square/post/313379768183409"
+    },
+    {
+      "content_id": 313379438809617,
+      "author": "Draven Kai",
+      "username": "Crypto0",
+      "publish_time": "1 d ago",
+      "tone": "bearish",
+      "signal_label": "high_signal",
+      "signal_score": 84.31,
+      "symbols": [
+        "XAUTUSDT",
+        "$XAUT "
+      ],
+      "engagement_total": 205,
+      "body_preview": "$XAUT /USDT is holding strong after a sharp liquidity sweep near 4,751. Price reclaimed structure and is now consolidating just below resistance, building pressure for a breakout m",
+      "web_link": "https://www.binance.com/en/square/post/313379438809617"
+    },
+    {
+      "content_id": 313379941003282,
+      "author": "Draven Kai",
+      "username": "Crypto0",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 83.57,
+      "symbols": [
+        "KATUSDT",
+        "$KAT "
+      ],
+      "engagement_total": 170,
+      "body_preview": "$KAT  — Momentum Building on 15m  Price: 0.00865 24H High: 0.00893 24H Low: 0.00816 Trend: Short-term consolidation after impulsive move, higher low forming  Setup: Bullish continu",
+      "web_link": "https://www.binance.com/en/square/post/313379941003282"
+    },
+    {
+      "content_id": 313380114805873,
+      "author": "Raja Boss official",
+      "username": "Raja_Boss_official",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 83.21,
+      "symbols": [
+        "SIRENUSDT"
+      ],
+      "engagement_total": 121,
+      "body_preview": "WTF is this 😱😭  $SIREN just came back from the dead…  Look at that move…  a massive pump in just 3 candles absolutely insane 💀  And now I’m already seeing people jumping into short",
+      "web_link": "https://www.binance.com/en/square/post/313380114805873"
+    },
+    {
+      "content_id": 313379181426641,
+      "author": "Crypto Catalysts",
+      "username": "Crypto_Catalysts",
+      "publish_time": "1 d ago",
+      "tone": "bearish",
+      "signal_label": "high_signal",
+      "signal_score": 82.0,
+      "symbols": [
+        "RAVEUSDT",
+        "ASAPUSDT"
+      ],
+      "engagement_total": 548,
+      "body_preview": "$RAVE Double top is in !   Now send it to below 7$ ASAP in a single 4 Hour Candle.   Short it to zero",
+      "web_link": "https://www.binance.com/en/square/post/313379181426641"
+    },
+    {
+      "content_id": 313379542231121,
+      "author": "Jessica Elizabeth",
+      "username": "saniatg9",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 82.0,
+      "symbols": [
+        "SIRENUSDT"
+      ],
+      "engagement_total": 393,
+      "body_preview": "$SIREN = $3🌕💥•••••• CRYP'S 🔸 LOOKS MONSTER 💀 $SIREN HARD BULLISH ↗️ Anytime EXPLOaaD 🚀 FAST BUy NOw 💹 TARGET 🔸2.15 🔸2.30 🔸2.50  {future}(SIRENUSDT)",
+      "web_link": "https://www.binance.com/en/square/post/313379542231121"
+    },
+    {
+      "content_id": 313379925828433,
+      "author": "NovaNews",
+      "username": "ErinCrypto",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 77.33,
+      "symbols": [
+        "TAKEUSDT"
+      ],
+      "engagement_total": 298,
+      "body_preview": "$TAKE /USDT LONG  UPDATE 🚀  Last Price: $0.05029 📊 24H High: $0.05271 🔥 24H Low: $0.02651 📉 24H Volume: 421.54M TAKE 💰 24H Move: +80%+ ⚡  TAKE is showing strong momentum after a ma",
+      "web_link": "https://www.binance.com/en/square/post/313379925828433"
+    }
+  ],
+  "top_coin_signals": [
+    {
+      "symbol": "SIRENUSDT",
+      "post_count": 5,
+      "unique_authors": 5,
+      "bullish_posts": 4,
+      "bearish_posts": 1,
+      "neutral_posts": 0,
+      "avg_signal_score": 86.76,
+      "total_engagement": 11233,
+      "conviction_score": 100,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313380193156273,
+        313380190545362,
+        313380114805873,
+        313379555331538,
+        313379542231121
+      ]
+    },
+    {
+      "symbol": "TAKEUSDT",
+      "post_count": 2,
+      "unique_authors": 2,
+      "bullish_posts": 2,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 87.66,
+      "total_engagement": 944,
+      "conviction_score": 100,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313379925828433,
+        313379360458754
+      ]
+    },
+    {
+      "symbol": "POWERUSDT",
+      "post_count": 2,
+      "unique_authors": 2,
+      "bullish_posts": 2,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 92.82,
+      "total_engagement": 577,
+      "conviction_score": 100,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313379604018961,
+        313379116982865
+      ]
+    },
+    {
+      "symbol": "BANANAS31USDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 98.0,
+      "total_engagement": 913,
+      "conviction_score": 100,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313380039746625
+      ]
+    },
+    {
+      "symbol": "$BANANAS31 ",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 98.0,
+      "total_engagement": 913,
+      "conviction_score": 100,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313380039746625
+      ]
+    },
+    {
+      "symbol": "SOLUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 0,
+      "bearish_posts": 1,
+      "neutral_posts": 0,
+      "avg_signal_score": 90.0,
+      "total_engagement": 1734,
+      "conviction_score": 100,
+      "bias": "short_watch",
+      "sample_post_ids": [
+        313379126527889
+      ]
+    },
+    {
+      "symbol": "TSTUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 0,
+      "bearish_posts": 1,
+      "neutral_posts": 0,
+      "avg_signal_score": 98.0,
+      "total_engagement": 711,
+      "conviction_score": 99.31,
+      "bias": "short_watch",
+      "sample_post_ids": [
+        313379819184385
+      ]
+    },
+    {
+      "symbol": "$TST ",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 0,
+      "bearish_posts": 1,
+      "neutral_posts": 0,
+      "avg_signal_score": 98.0,
+      "total_engagement": 711,
+      "conviction_score": 99.31,
+      "bias": "short_watch",
+      "sample_post_ids": [
+        313379819184385
+      ]
+    },
+    {
+      "symbol": "RAVEUSDT",
+      "post_count": 3,
+      "unique_authors": 3,
+      "bullish_posts": 1,
+      "bearish_posts": 1,
+      "neutral_posts": 1,
+      "avg_signal_score": 73.19,
+      "total_engagement": 844,
+      "conviction_score": 98.69,
+      "bias": "no_trade",
+      "sample_post_ids": [
+        313379806238817,
+        313379724741746,
+        313379181426641
+      ]
+    },
+    {
+      "symbol": "BEATUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 94.52,
+      "total_engagement": 661,
+      "conviction_score": 96.96,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313379194875745
+      ]
+    }
+  ]
+}
