@@ -1,0 +1,381 @@
+{
+  "generated_at": "2026-04-18T03:08:26.158509Z",
+  "scan_config": {
+    "mode": "replay",
+    "sample_path": "projects/binance-square-scanner/samples/binance_square_replay_sample.json",
+    "min_conviction": 45.0,
+    "min_posts": 2,
+    "min_post_score": 60.0,
+    "post_limit": 20,
+    "cex_filter": {
+      "min_quote_volume_24h": 5000000,
+      "max_spread_pct": 0.35,
+      "long_min_change_24h_pct": -8.0,
+      "long_min_micro_trend_pct": -2.0,
+      "long_min_momentum_pct": -5.0,
+      "short_max_change_24h_pct": 12.0,
+      "short_max_micro_trend_pct": 2.0,
+      "short_max_momentum_pct": 5.0
+    },
+    "dex_filter": {
+      "min_quote_volume_24h": 1000000,
+      "min_liquidity_usd": 250000,
+      "min_txns_24h": 120,
+      "long_min_change_24h_pct": -20.0,
+      "long_min_micro_trend_pct": -3.0,
+      "long_min_momentum_pct": -8.0,
+      "short_max_change_24h_pct": 25.0,
+      "short_max_micro_trend_pct": 3.0,
+      "short_max_momentum_pct": 8.0
+    }
+  },
+  "summary": {
+    "fetched_posts": 12,
+    "scored_posts": 12,
+    "coin_signals": 20,
+    "trade_candidates": 1,
+    "passed_price_filter": 0,
+    "watch_posts": 9
+  },
+  "trade_candidates": [
+    {
+      "symbol": "SIRENUSDT",
+      "bias": "long_watch",
+      "confidence_band": "A",
+      "conviction_score": 100.0,
+      "avg_signal_score": 86.07,
+      "post_count": 3,
+      "unique_authors": 3,
+      "bullish_posts": 2,
+      "bearish_posts": 1,
+      "total_engagement": 10307,
+      "sample_post_ids": [
+        313380193156273,
+        313380190545362,
+        313380114805873
+      ],
+      "price_filter_passed": false,
+      "price_filter_reasons": [
+        "24h涨跌幅偏弱 -60.50%"
+      ],
+      "market_snapshot": {
+        "market_type": "dex",
+        "chain_id": "bsc",
+        "dex_id": "pancakeswap",
+        "pair_address": "0xb2AF49dBF526054FAf19602860A5E298a79F3D05",
+        "pair_url": "https://dexscreener.com/bsc/0xb2af49dbf526054faf19602860a5e298a79f3d05",
+        "base_symbol": "SIREN",
+        "quote_symbol": "WBNB",
+        "last_price": 0.6859,
+        "price_change_pct_24h": -60.5,
+        "micro_trend_pct_15m": -0.35,
+        "momentum_vs_vwap_pct": -0.92,
+        "quote_volume_24h": 28762489.51,
+        "liquidity_usd": 8952701.2,
+        "txns_buys_24h": 28490,
+        "txns_sells_24h": 29726,
+        "spread_pct": 0.0,
+        "intraday_range_pct": 0.0
+      },
+      "scanner_note": "SIRENUSDT 偏多，3 条帖子，3 位作者，情绪多头 2:1"
+    }
+  ],
+  "passed_trade_candidates": [],
+  "watch_posts": [
+    {
+      "content_id": 313380039746625,
+      "author": "Berserker_09",
+      "username": "Soban_Tariq",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 98.0,
+      "symbols": [
+        "BANANAS31USDT",
+        "$BANANAS31 "
+      ],
+      "engagement_total": 913,
+      "body_preview": "$BANANAS31 is quietly building momentum after a clean base formation.  Price swept liquidity from the lows and immediately reclaimed structure, now consolidating near local highs —",
+      "web_link": "https://www.binance.com/en/square/post/313380039746625"
+    },
+    {
+      "content_id": 313379819184385,
+      "author": "Berserker_09",
+      "username": "Soban_Tariq",
+      "publish_time": "1 d ago",
+      "tone": "bearish",
+      "signal_label": "high_signal",
+      "signal_score": 98.0,
+      "symbols": [
+        "TSTUSDT",
+        "$TST "
+      ],
+      "engagement_total": 711,
+      "body_preview": "$TST – Bounce into resistance, starting to stall out  Trading Plan Short $TST ( max 20x )  Entry: 0.0141 – 0.0151 SL: 0.0158 TP: 0.0132 TP: 0.0120 TP: 0.0110  Price pushed back up ",
+      "web_link": "https://www.binance.com/en/square/post/313379819184385"
+    },
+    {
+      "content_id": 313380193156273,
+      "author": "Professor_JAXON",
+      "username": "professor_jaxon",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 98.0,
+      "symbols": [
+        "SIRENUSDT"
+      ],
+      "engagement_total": 226,
+      "body_preview": "$SIREN USDT Pullback Holding Strong Above $2 — Next Leg Up Towards $2.30 Incoming 🚀 Trade Setup: Long Entry zone: $1.90 – $2.05 Tp1: $2.20 Tp2: $2.36 Tp3: $2.60 SL: $1.70 After a m",
+      "web_link": "https://www.binance.com/en/square/post/313380193156273"
+    },
+    {
+      "content_id": 313379802889682,
+      "author": "Professor_JAXON",
+      "username": "professor_jaxon",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 96.8,
+      "symbols": [
+        "ORDIUSDT",
+        "$ORDI ",
+        "11USDT"
+      ],
+      "engagement_total": 67,
+      "body_preview": "$ORDI USDT Bullish Pullback Before Explosive Continuation Toward $11+ Trade Setup: Long Entry zone: 8.20 - 8.60 Tp1: 9.50 Tp2: 10.30 Tp3: 11.00 SL: 7.60 Strong bullish momentum aft",
+      "web_link": "https://www.binance.com/en/square/post/313379802889682"
+    },
+    {
+      "content_id": 313379768183409,
+      "author": "Amina Chattha",
+      "username": "amina_chattha",
+      "publish_time": "1 d ago",
+      "tone": "bearish",
+      "signal_label": "high_signal",
+      "signal_score": 86.8,
+      "symbols": [
+        "PIXELUSDT",
+        "$PIXEL "
+      ],
+      "engagement_total": 316,
+      "body_preview": "$PIXEL Weak Pullback / Bounce Setup  Entry Zone: 0.0081 – 0.0083 TP1: 0.0086 TP2: 0.0090 TP3: 0.0096 SL: 0.0078 #Kalshi’sDisputewithNevada #CharlesSchwabtoRollOutSpotCryptoTrading ",
+      "web_link": "https://www.binance.com/en/square/post/313379768183409"
+    },
+    {
+      "content_id": 313379941003282,
+      "author": "Draven Kai",
+      "username": "Crypto0",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 83.57,
+      "symbols": [
+        "KATUSDT",
+        "$KAT "
+      ],
+      "engagement_total": 170,
+      "body_preview": "$KAT  — Momentum Building on 15m  Price: 0.00865 24H High: 0.00893 24H Low: 0.00816 Trend: Short-term consolidation after impulsive move, higher low forming  Setup: Bullish continu",
+      "web_link": "https://www.binance.com/en/square/post/313379941003282"
+    },
+    {
+      "content_id": 313380114805873,
+      "author": "Raja Boss official",
+      "username": "Raja_Boss_official",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 83.21,
+      "symbols": [
+        "SIRENUSDT"
+      ],
+      "engagement_total": 121,
+      "body_preview": "WTF is this 😱😭  $SIREN just came back from the dead…  Look at that move…  a massive pump in just 3 candles absolutely insane 💀  And now I’m already seeing people jumping into short",
+      "web_link": "https://www.binance.com/en/square/post/313380114805873"
+    },
+    {
+      "content_id": 313379925828433,
+      "author": "NovaNews",
+      "username": "ErinCrypto",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 77.33,
+      "symbols": [
+        "TAKEUSDT"
+      ],
+      "engagement_total": 298,
+      "body_preview": "$TAKE /USDT LONG  UPDATE 🚀  Last Price: $0.05029 📊 24H High: $0.05271 🔥 24H Low: $0.02651 📉 24H Volume: 421.54M TAKE 💰 24H Move: +80%+ ⚡  TAKE is showing strong momentum after a ma",
+      "web_link": "https://www.binance.com/en/square/post/313379925828433"
+    },
+    {
+      "content_id": 313380190545362,
+      "author": "TRADE MASTER M",
+      "username": "Oliviaroy",
+      "publish_time": "1 d ago",
+      "tone": "bearish",
+      "signal_label": "high_signal",
+      "signal_score": 77.0,
+      "symbols": [
+        "SIRENUSDT"
+      ],
+      "engagement_total": 9960,
+      "body_preview": "$SIREN Pump Again 😅😅😅 But don't give up 🤫   Keep Short $SIREN   Crash Coming Soooon 📉📉",
+      "web_link": "https://www.binance.com/en/square/post/313380190545362"
+    }
+  ],
+  "top_coin_signals": [
+    {
+      "symbol": "SIRENUSDT",
+      "post_count": 3,
+      "unique_authors": 3,
+      "bullish_posts": 2,
+      "bearish_posts": 1,
+      "neutral_posts": 0,
+      "avg_signal_score": 86.07,
+      "total_engagement": 10307,
+      "conviction_score": 100,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313380193156273,
+        313380190545362,
+        313380114805873
+      ]
+    },
+    {
+      "symbol": "BANANAS31USDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 98.0,
+      "total_engagement": 913,
+      "conviction_score": 100,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313380039746625
+      ]
+    },
+    {
+      "symbol": "$BANANAS31 ",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 98.0,
+      "total_engagement": 913,
+      "conviction_score": 100,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313380039746625
+      ]
+    },
+    {
+      "symbol": "TSTUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 0,
+      "bearish_posts": 1,
+      "neutral_posts": 0,
+      "avg_signal_score": 98.0,
+      "total_engagement": 711,
+      "conviction_score": 99.31,
+      "bias": "short_watch",
+      "sample_post_ids": [
+        313379819184385
+      ]
+    },
+    {
+      "symbol": "$TST ",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 0,
+      "bearish_posts": 1,
+      "neutral_posts": 0,
+      "avg_signal_score": 98.0,
+      "total_engagement": 711,
+      "conviction_score": 99.31,
+      "bias": "short_watch",
+      "sample_post_ids": [
+        313379819184385
+      ]
+    },
+    {
+      "symbol": "PIXELUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 0,
+      "bearish_posts": 1,
+      "neutral_posts": 0,
+      "avg_signal_score": 86.8,
+      "total_engagement": 316,
+      "conviction_score": 88.29,
+      "bias": "short_watch",
+      "sample_post_ids": [
+        313379768183409
+      ]
+    },
+    {
+      "symbol": "$PIXEL ",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 0,
+      "bearish_posts": 1,
+      "neutral_posts": 0,
+      "avg_signal_score": 86.8,
+      "total_engagement": 316,
+      "conviction_score": 88.29,
+      "bias": "short_watch",
+      "sample_post_ids": [
+        313379768183409
+      ]
+    },
+    {
+      "symbol": "ORDIUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 96.8,
+      "total_engagement": 67,
+      "conviction_score": 84.56,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313379802889682
+      ]
+    },
+    {
+      "symbol": "$ORDI ",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 96.8,
+      "total_engagement": 67,
+      "conviction_score": 84.56,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313379802889682
+      ]
+    },
+    {
+      "symbol": "11USDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 96.8,
+      "total_engagement": 67,
+      "conviction_score": 84.56,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313379802889682
+      ]
+    }
+  ]
+}
