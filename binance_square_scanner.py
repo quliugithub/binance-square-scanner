@@ -15,6 +15,7 @@ RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 TICKER_24H_API = 'https://api.binance.com/api/v3/ticker/24hr'
 BOOK_TICKER_API = 'https://api.binance.com/api/v3/ticker/bookTicker'
 KLINES_API = 'https://api.binance.com/api/v3/klines'
+DEX_SEARCH_API = 'https://api.dexscreener.com/latest/dex/search'
 
 
 def utc_now_iso() -> str:
@@ -46,7 +47,7 @@ def _get_json(url: str, params: Dict[str, Any]) -> Any:
     return resp.json()
 
 
-def fetch_market_snapshot(symbol: str) -> Dict[str, Any]:
+def fetch_cex_market_snapshot(symbol: str) -> Dict[str, Any]:
     ticker_data = _get_json(TICKER_24H_API, {'symbol': symbol})
     book_data = _get_json(BOOK_TICKER_API, {'symbol': symbol})
     kline_rows = _get_json(KLINES_API, {'symbol': symbol, 'interval': '15m', 'limit': 5})
@@ -73,6 +74,7 @@ def fetch_market_snapshot(symbol: str) -> Dict[str, Any]:
         micro_trend_pct = (recent_closes[-1] / recent_closes[0] - 1) * 100
 
     return {
+        'market_type': 'cex_spot',
         'last_price': last_price,
         'price_change_pct_24h': safe_float(ticker_data.get('priceChangePercent')),
         'weighted_avg_price': weighted_price,
@@ -87,45 +89,144 @@ def fetch_market_snapshot(symbol: str) -> Dict[str, Any]:
     }
 
 
+def _dex_pair_quality(pair: Dict[str, Any], normalized: str) -> float:
+    base_symbol = str(((pair.get('baseToken') or {}).get('symbol') or '')).upper()
+    volume_h24 = safe_float(((pair.get('volume') or {}).get('h24')))
+    liquidity_usd = safe_float(((pair.get('liquidity') or {}).get('usd')))
+    buys_h24 = int(safe_float((((pair.get('txns') or {}).get('h24') or {}).get('buys'))))
+    sells_h24 = int(safe_float((((pair.get('txns') or {}).get('h24') or {}).get('sells'))))
+    txns_total = buys_h24 + sells_h24
+    price_usd = safe_float(pair.get('priceUsd'))
+    change_h24 = abs(safe_float(((pair.get('priceChange') or {}).get('h24'))))
+
+    score = 0.0
+    if base_symbol == normalized:
+        score += 1000
+    score += min(volume_h24 / 1000.0, 500)
+    score += min(liquidity_usd / 1000.0, 500)
+    score += min(txns_total, 500)
+
+    if price_usd <= 0 or price_usd > 1_000_000:
+        score -= 1000
+    if change_h24 > 500:
+        score -= 600
+    if txns_total < 20:
+        score -= 300
+    return score
+
+
+def fetch_dex_market_snapshot(symbol: str) -> Dict[str, Any]:
+    query = symbol.replace('USDT', '').replace('USDC', '').strip()
+    data = requests.get(DEX_SEARCH_API, params={'q': query}, timeout=20)
+    data.raise_for_status()
+    payload = data.json()
+    pairs = payload.get('pairs') or []
+    if not pairs:
+        raise ValueError(f'asset_not_found:{symbol}')
+
+    normalized = query.upper()
+    matching_pairs = [
+        pair for pair in pairs
+        if str(((pair.get('baseToken') or {}).get('symbol') or '')).upper() == normalized
+    ]
+    candidates = matching_pairs or pairs
+    filtered_candidates = [
+        pair for pair in candidates
+        if safe_float(pair.get('priceUsd')) > 0
+    ]
+    if not filtered_candidates:
+        raise ValueError(f'asset_not_found:{symbol}')
+
+    best = max(filtered_candidates, key=lambda pair: _dex_pair_quality(pair, normalized))
+
+    liquidity_usd = safe_float(((best.get('liquidity') or {}).get('usd')))
+    volume_h24 = safe_float(((best.get('volume') or {}).get('h24')))
+    buys_h24 = int(safe_float((((best.get('txns') or {}).get('h24') or {}).get('buys'))))
+    sells_h24 = int(safe_float((((best.get('txns') or {}).get('h24') or {}).get('sells'))))
+    price_usd = safe_float(best.get('priceUsd'))
+    price_change_h24 = safe_float(((best.get('priceChange') or {}).get('h24')))
+    price_change_h1 = safe_float(((best.get('priceChange') or {}).get('h1')))
+    price_change_m5 = safe_float(((best.get('priceChange') or {}).get('m5')))
+
+    return {
+        'market_type': 'dex',
+        'chain_id': best.get('chainId'),
+        'dex_id': best.get('dexId'),
+        'pair_address': best.get('pairAddress'),
+        'pair_url': best.get('url'),
+        'base_symbol': ((best.get('baseToken') or {}).get('symbol')),
+        'quote_symbol': ((best.get('quoteToken') or {}).get('symbol')),
+        'last_price': price_usd,
+        'price_change_pct_24h': price_change_h24,
+        'micro_trend_pct_15m': price_change_m5,
+        'momentum_vs_vwap_pct': price_change_h1,
+        'quote_volume_24h': volume_h24,
+        'liquidity_usd': liquidity_usd,
+        'txns_buys_24h': buys_h24,
+        'txns_sells_24h': sells_h24,
+        'spread_pct': 0.0,
+        'intraday_range_pct': 0.0,
+    }
+
+
+def fetch_market_snapshot(symbol: str) -> Dict[str, Any]:
+    try:
+        return fetch_cex_market_snapshot(symbol)
+    except Exception as exc:
+        if 'symbol_not_supported:' not in str(exc):
+            raise
+    return fetch_dex_market_snapshot(symbol)
+
+
 def evaluate_market_filters(symbol: str, bias: str, snapshot: Dict[str, Any], max_spread_pct: float, min_quote_volume: float) -> Tuple[bool, List[str]]:
     reasons: List[str] = []
     passed = True
+    market_type = snapshot.get('market_type')
 
     if snapshot.get('quote_volume_24h', 0.0) < min_quote_volume:
         passed = False
         reasons.append(f'24h成交额不足 {int(min_quote_volume)}')
 
-    if snapshot.get('spread_pct', 0.0) > max_spread_pct:
+    if market_type == 'cex_spot' and snapshot.get('spread_pct', 0.0) > max_spread_pct:
         passed = False
         reasons.append(f'盘口价差过大 {snapshot.get("spread_pct"):.4f}%')
+
+    if market_type == 'dex':
+        if snapshot.get('liquidity_usd', 0.0) < min_quote_volume * 0.1:
+            passed = False
+            reasons.append(f'DEX流动性不足 {int(min_quote_volume * 0.1)}')
+        txns_total = int(snapshot.get('txns_buys_24h', 0)) + int(snapshot.get('txns_sells_24h', 0))
+        if txns_total < 200:
+            passed = False
+            reasons.append(f'DEX成交笔数偏低 {txns_total}')
 
     change_24h = snapshot.get('price_change_pct_24h', 0.0)
     micro_trend = snapshot.get('micro_trend_pct_15m', 0.0)
     momentum = snapshot.get('momentum_vs_vwap_pct', 0.0)
 
     if bias == 'long_watch':
-        if change_24h <= -3:
+        if change_24h <= -8:
             passed = False
             reasons.append(f'24h涨跌幅偏弱 {change_24h:.2f}%')
-        if micro_trend <= -0.8:
+        if micro_trend <= -2.0:
             passed = False
-            reasons.append(f'15m微趋势转弱 {micro_trend:.2f}%')
-        if momentum <= -1.0:
+            reasons.append(f'短线动能转弱 {micro_trend:.2f}%')
+        if momentum <= -5.0:
             passed = False
-            reasons.append(f'现价弱于VWAP {momentum:.2f}%')
+            reasons.append(f'1h动量偏弱 {momentum:.2f}%')
     elif bias == 'short_watch':
-        if change_24h >= 3:
+        if change_24h >= 12:
             passed = False
             reasons.append(f'24h涨幅过强 {change_24h:.2f}%')
-        if micro_trend >= 0.8:
+        if micro_trend >= 2.0:
             passed = False
-            reasons.append(f'15m微趋势转强 {micro_trend:.2f}%')
-        if momentum >= 1.0:
+            reasons.append(f'短线动能转强 {micro_trend:.2f}%')
+        if momentum >= 5.0:
             passed = False
-            reasons.append(f'现价高于VWAP过多 {momentum:.2f}%')
+            reasons.append(f'1h动量过强 {momentum:.2f}%')
 
     if passed:
-        reasons.append('通过真实价格过滤')
+        reasons.append(f'通过真实价格过滤 ({market_type})')
     return passed, reasons
 
 
@@ -155,9 +256,12 @@ def build_trade_candidates(coin_signals: List[Dict[str, Any]], min_conviction: f
             )
         except Exception as exc:
             message = str(exc)
-            if 'symbol_not_supported:' in message:
+            if 'asset_not_found:' in message:
+                missing_symbol = message.split(':', 1)[1]
+                filter_reasons = [f'价格过滤失败: {missing_symbol} 在 CEX 和 DEX 都没找到有效市场']
+            elif 'symbol_not_supported:' in message:
                 unsupported_symbol = message.split(':', 1)[1]
-                filter_reasons = [f'价格过滤失败: {unsupported_symbol} 不在 Binance 现货可交易列表']
+                filter_reasons = [f'现货不可交易，且链上市场探测失败: {unsupported_symbol}']
             else:
                 filter_reasons = [f'价格过滤失败: {exc}']
 

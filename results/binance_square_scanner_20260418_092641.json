@@ -1,0 +1,511 @@
+{
+  "generated_at": "2026-04-18T01:26:41.998735Z",
+  "scan_config": {
+    "limit": 20,
+    "start_page": 1,
+    "max_pages": 2,
+    "min_conviction": 45.0,
+    "min_posts": 2,
+    "min_post_score": 60.0,
+    "post_limit": 20,
+    "max_spread_pct": 0.35,
+    "min_quote_volume": 5000000
+  },
+  "summary": {
+    "fetched_posts": 20,
+    "scored_posts": 20,
+    "coin_signals": 41,
+    "trade_candidates": 2,
+    "passed_price_filter": 0,
+    "watch_posts": 15
+  },
+  "trade_candidates": [
+    {
+      "symbol": "SIRENUSDT",
+      "bias": "long_watch",
+      "confidence_band": "A",
+      "conviction_score": 100.0,
+      "avg_signal_score": 86.75,
+      "post_count": 5,
+      "unique_authors": 5,
+      "bullish_posts": 4,
+      "bearish_posts": 1,
+      "total_engagement": 11187,
+      "sample_post_ids": [
+        313380193156273,
+        313380190545362,
+        313380114805873,
+        313379555331538,
+        313379542231121
+      ],
+      "price_filter_passed": false,
+      "price_filter_reasons": [
+        "24h涨跌幅偏弱 -63.35%"
+      ],
+      "market_snapshot": {
+        "market_type": "dex",
+        "chain_id": "bsc",
+        "dex_id": "pancakeswap",
+        "pair_address": "0xb2AF49dBF526054FAf19602860A5E298a79F3D05",
+        "pair_url": "https://dexscreener.com/bsc/0xb2af49dbf526054faf19602860a5e298a79f3d05",
+        "base_symbol": "SIREN",
+        "quote_symbol": "WBNB",
+        "last_price": 0.6887,
+        "price_change_pct_24h": -63.35,
+        "micro_trend_pct_15m": -0.1,
+        "momentum_vs_vwap_pct": 4.93,
+        "quote_volume_24h": 31104031.29,
+        "liquidity_usd": 8982846.02,
+        "txns_buys_24h": 31322,
+        "txns_sells_24h": 31424,
+        "spread_pct": 0.0,
+        "intraday_range_pct": 0.0
+      },
+      "scanner_note": "SIRENUSDT 偏多，5 条帖子，5 位作者，情绪多头 4:1"
+    },
+    {
+      "symbol": "RAVEUSDT",
+      "bias": "long_watch",
+      "confidence_band": "A",
+      "conviction_score": 84.0,
+      "avg_signal_score": 68.79,
+      "post_count": 2,
+      "unique_authors": 2,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "total_engagement": 296,
+      "sample_post_ids": [
+        313379806238817,
+        313379724741746
+      ],
+      "price_filter_passed": false,
+      "price_filter_reasons": [
+        "24h成交额不足 5000000"
+      ],
+      "market_snapshot": {
+        "market_type": "dex",
+        "chain_id": "base",
+        "dex_id": "aerodrome",
+        "pair_address": "0x51663B8A28E7Ea197c5CcF983AfC084Da0a8023D",
+        "pair_url": "https://dexscreener.com/base/0x51663b8a28e7ea197c5ccf983afc084da0a8023d",
+        "base_symbol": "RAVE",
+        "quote_symbol": "USDC",
+        "last_price": 26.51,
+        "price_change_pct_24h": 58.0,
+        "micro_trend_pct_15m": -0.4,
+        "momentum_vs_vwap_pct": 8.97,
+        "quote_volume_24h": 1240197.69,
+        "liquidity_usd": 523698.08,
+        "txns_buys_24h": 5690,
+        "txns_sells_24h": 5750,
+        "spread_pct": 0.0,
+        "intraday_range_pct": 0.0
+      },
+      "scanner_note": "RAVEUSDT 偏多，2 条帖子，2 位作者，情绪多头 1:0"
+    }
+  ],
+  "passed_trade_candidates": [],
+  "watch_posts": [
+    {
+      "content_id": 313380039746625,
+      "author": "Berserker_09",
+      "username": "Soban_Tariq",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 98.0,
+      "symbols": [
+        "BANANAS31USDT",
+        "$BANANAS31 "
+      ],
+      "engagement_total": 907,
+      "body_preview": "$BANANAS31 is quietly building momentum after a clean base formation.  Price swept liquidity from the lows and immediately reclaimed structure, now consolidating near local highs —",
+      "web_link": "https://www.binance.com/en/square/post/313380039746625"
+    },
+    {
+      "content_id": 313379819184385,
+      "author": "Berserker_09",
+      "username": "Soban_Tariq",
+      "publish_time": "1 d ago",
+      "tone": "bearish",
+      "signal_label": "high_signal",
+      "signal_score": 98.0,
+      "symbols": [
+        "TSTUSDT",
+        "$TST "
+      ],
+      "engagement_total": 711,
+      "body_preview": "$TST – Bounce into resistance, starting to stall out  Trading Plan Short $TST ( max 20x )  Entry: 0.0141 – 0.0151 SL: 0.0158 TP: 0.0132 TP: 0.0120 TP: 0.0110  Price pushed back up ",
+      "web_link": "https://www.binance.com/en/square/post/313379819184385"
+    },
+    {
+      "content_id": 313380193156273,
+      "author": "Professor_JAXON",
+      "username": "professor_jaxon",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 98.0,
+      "symbols": [
+        "SIRENUSDT"
+      ],
+      "engagement_total": 226,
+      "body_preview": "$SIREN USDT Pullback Holding Strong Above $2 — Next Leg Up Towards $2.30 Incoming 🚀 Trade Setup: Long Entry zone: $1.90 – $2.05 Tp1: $2.20 Tp2: $2.36 Tp3: $2.60 SL: $1.70 After a m",
+      "web_link": "https://www.binance.com/en/square/post/313380193156273"
+    },
+    {
+      "content_id": 313379724741746,
+      "author": "CryptoGuru12",
+      "username": "cryptobysaqib",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 96.81,
+      "symbols": [
+        "RAVEUSDT",
+        "17USDT",
+        "18USDT",
+        "16USDT",
+        "19USDT",
+        "21USDT",
+        "23USDT"
+      ],
+      "engagement_total": 295,
+      "body_preview": "Market showing strong bullish continuation with breakout towards higher resistance  Entry $17.60 $18.00 SL $16.80  TP1 $19.50 TP2 $21.00 TP3 $23.00  Why this setup  Strong uptrend ",
+      "web_link": "https://www.binance.com/en/square/post/313379724741746"
+    },
+    {
+      "content_id": 313379802889682,
+      "author": "Professor_JAXON",
+      "username": "professor_jaxon",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 96.8,
+      "symbols": [
+        "ORDIUSDT",
+        "$ORDI ",
+        "11USDT"
+      ],
+      "engagement_total": 67,
+      "body_preview": "$ORDI USDT Bullish Pullback Before Explosive Continuation Toward $11+ Trade Setup: Long Entry zone: 8.20 - 8.60 Tp1: 9.50 Tp2: 10.30 Tp3: 11.00 SL: 7.60 Strong bullish momentum aft",
+      "web_link": "https://www.binance.com/en/square/post/313379802889682"
+    },
+    {
+      "content_id": 313379555331538,
+      "author": "MissBlockChain_01",
+      "username": "zoe_cryptoanalyst",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 93.56,
+      "symbols": [
+        "SIRENUSDT"
+      ],
+      "engagement_total": 520,
+      "body_preview": "$SIREN   Parabolic Move, High Volatility Continuation Setup 📈⚠️ Trade Setup: Long Entry Zone: $1.85 – $1.95 TP1: $2.20 TP2: $2.45 TP3: $2.70 SL: $1.60 SIREN has already printed a m",
+      "web_link": "https://www.binance.com/en/square/post/313379555331538"
+    },
+    {
+      "content_id": 313379604018961,
+      "author": "Crypto Alpha",
+      "username": "CryptoExpertOne",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 91.16,
+      "symbols": [
+        "POWERUSDT"
+      ],
+      "engagement_total": 285,
+      "body_preview": "Strong bullish structure with higher highs and continuation momentum building  Price has shown a clean trend reversal from the lows and is now forming higher highs and higher lows.",
+      "web_link": "https://www.binance.com/en/square/post/313379604018961"
+    },
+    {
+      "content_id": 313379615703633,
+      "author": "Berserker_09",
+      "username": "Soban_Tariq",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 88.0,
+      "symbols": [
+        "INJUSDT",
+        "FETUSDT",
+        "TAOUSDT",
+        "$TAO ",
+        "$FET ",
+        "$INJ ",
+        "110USDT",
+        "RENDERUSDT"
+      ],
+      "engagement_total": 882,
+      "body_preview": "The market recently added $110 billion in just 15 hours. Total crypto market cap is now $2.54 trillion.  And the AI sector?   $TAO : $3.5B market cap, up 140% in six weeks   $FET :",
+      "web_link": "https://www.binance.com/en/square/post/313379615703633"
+    },
+    {
+      "content_id": 313379768183409,
+      "author": "Amina Chattha",
+      "username": "amina_chattha",
+      "publish_time": "1 d ago",
+      "tone": "bearish",
+      "signal_label": "high_signal",
+      "signal_score": 86.8,
+      "symbols": [
+        "PIXELUSDT",
+        "$PIXEL "
+      ],
+      "engagement_total": 316,
+      "body_preview": "$PIXEL Weak Pullback / Bounce Setup  Entry Zone: 0.0081 – 0.0083 TP1: 0.0086 TP2: 0.0090 TP3: 0.0096 SL: 0.0078 #Kalshi’sDisputewithNevada #CharlesSchwabtoRollOutSpotCryptoTrading ",
+      "web_link": "https://www.binance.com/en/square/post/313379768183409"
+    },
+    {
+      "content_id": 313379438809617,
+      "author": "Draven Kai",
+      "username": "Crypto0",
+      "publish_time": "1 d ago",
+      "tone": "bearish",
+      "signal_label": "high_signal",
+      "signal_score": 84.31,
+      "symbols": [
+        "XAUTUSDT",
+        "$XAUT "
+      ],
+      "engagement_total": 205,
+      "body_preview": "$XAUT /USDT is holding strong after a sharp liquidity sweep near 4,751. Price reclaimed structure and is now consolidating just below resistance, building pressure for a breakout m",
+      "web_link": "https://www.binance.com/en/square/post/313379438809617"
+    },
+    {
+      "content_id": 313379941003282,
+      "author": "Draven Kai",
+      "username": "Crypto0",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 83.57,
+      "symbols": [
+        "KATUSDT",
+        "$KAT "
+      ],
+      "engagement_total": 170,
+      "body_preview": "$KAT  — Momentum Building on 15m  Price: 0.00865 24H High: 0.00893 24H Low: 0.00816 Trend: Short-term consolidation after impulsive move, higher low forming  Setup: Bullish continu",
+      "web_link": "https://www.binance.com/en/square/post/313379941003282"
+    },
+    {
+      "content_id": 313380114805873,
+      "author": "Raja Boss official",
+      "username": "Raja_Boss_official",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 83.21,
+      "symbols": [
+        "SIRENUSDT"
+      ],
+      "engagement_total": 121,
+      "body_preview": "WTF is this 😱😭  $SIREN just came back from the dead…  Look at that move…  a massive pump in just 3 candles absolutely insane 💀  And now I’m already seeing people jumping into short",
+      "web_link": "https://www.binance.com/en/square/post/313380114805873"
+    },
+    {
+      "content_id": 313379542231121,
+      "author": "Jessica Elizabeth",
+      "username": "saniatg9",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 82.0,
+      "symbols": [
+        "SIRENUSDT"
+      ],
+      "engagement_total": 389,
+      "body_preview": "$SIREN = $3🌕💥•••••• CRYP'S 🔸 LOOKS MONSTER 💀 $SIREN HARD BULLISH ↗️ Anytime EXPLOaaD 🚀 FAST BUy NOw 💹 TARGET 🔸2.15 🔸2.30 🔸2.50  {future}(SIRENUSDT)",
+      "web_link": "https://www.binance.com/en/square/post/313379542231121"
+    },
+    {
+      "content_id": 313379925828433,
+      "author": "NovaNews",
+      "username": "ErinCrypto",
+      "publish_time": "1 d ago",
+      "tone": "bullish",
+      "signal_label": "high_signal",
+      "signal_score": 77.33,
+      "symbols": [
+        "TAKEUSDT"
+      ],
+      "engagement_total": 298,
+      "body_preview": "$TAKE /USDT LONG  UPDATE 🚀  Last Price: $0.05029 📊 24H High: $0.05271 🔥 24H Low: $0.02651 📉 24H Volume: 421.54M TAKE 💰 24H Move: +80%+ ⚡  TAKE is showing strong momentum after a ma",
+      "web_link": "https://www.binance.com/en/square/post/313379925828433"
+    },
+    {
+      "content_id": 313380190545362,
+      "author": "TRADE MASTER M",
+      "username": "Oliviaroy",
+      "publish_time": "1 d ago",
+      "tone": "bearish",
+      "signal_label": "high_signal",
+      "signal_score": 77.0,
+      "symbols": [
+        "SIRENUSDT"
+      ],
+      "engagement_total": 9931,
+      "body_preview": "$SIREN Pump Again 😅😅😅 But don't give up 🤫   Keep Short $SIREN   Crash Coming Soooon 📉📉",
+      "web_link": "https://www.binance.com/en/square/post/313380190545362"
+    }
+  ],
+  "top_coin_signals": [
+    {
+      "symbol": "SIRENUSDT",
+      "post_count": 5,
+      "unique_authors": 5,
+      "bullish_posts": 4,
+      "bearish_posts": 1,
+      "neutral_posts": 0,
+      "avg_signal_score": 86.75,
+      "total_engagement": 11187,
+      "conviction_score": 100,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313380193156273,
+        313380190545362,
+        313380114805873,
+        313379555331538,
+        313379542231121
+      ]
+    },
+    {
+      "symbol": "BANANAS31USDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 98.0,
+      "total_engagement": 907,
+      "conviction_score": 100,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313380039746625
+      ]
+    },
+    {
+      "symbol": "$BANANAS31 ",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 98.0,
+      "total_engagement": 907,
+      "conviction_score": 100,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313380039746625
+      ]
+    },
+    {
+      "symbol": "TSTUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 0,
+      "bearish_posts": 1,
+      "neutral_posts": 0,
+      "avg_signal_score": 98.0,
+      "total_engagement": 711,
+      "conviction_score": 99.31,
+      "bias": "short_watch",
+      "sample_post_ids": [
+        313379819184385
+      ]
+    },
+    {
+      "symbol": "$TST ",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 0,
+      "bearish_posts": 1,
+      "neutral_posts": 0,
+      "avg_signal_score": 98.0,
+      "total_engagement": 711,
+      "conviction_score": 99.31,
+      "bias": "short_watch",
+      "sample_post_ids": [
+        313379819184385
+      ]
+    },
+    {
+      "symbol": "INJUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 88.0,
+      "total_engagement": 882,
+      "conviction_score": 95.1,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313379615703633
+      ]
+    },
+    {
+      "symbol": "FETUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 88.0,
+      "total_engagement": 882,
+      "conviction_score": 95.1,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313379615703633
+      ]
+    },
+    {
+      "symbol": "TAOUSDT",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 88.0,
+      "total_engagement": 882,
+      "conviction_score": 95.1,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313379615703633
+      ]
+    },
+    {
+      "symbol": "$TAO ",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 88.0,
+      "total_engagement": 882,
+      "conviction_score": 95.1,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313379615703633
+      ]
+    },
+    {
+      "symbol": "$FET ",
+      "post_count": 1,
+      "unique_authors": 1,
+      "bullish_posts": 1,
+      "bearish_posts": 0,
+      "neutral_posts": 0,
+      "avg_signal_score": 88.0,
+      "total_engagement": 882,
+      "conviction_score": 95.1,
+      "bias": "long_watch",
+      "sample_post_ids": [
+        313379615703633
+      ]
+    }
+  ]
+}
