@@ -178,50 +178,83 @@ def fetch_market_snapshot(symbol: str) -> Dict[str, Any]:
     return fetch_dex_market_snapshot(symbol)
 
 
-def evaluate_market_filters(symbol: str, bias: str, snapshot: Dict[str, Any], max_spread_pct: float, min_quote_volume: float) -> Tuple[bool, List[str]]:
+def default_cex_filter_config() -> Dict[str, float]:
+    return {
+        'min_quote_volume_24h': 5_000_000.0,
+        'max_spread_pct': 0.35,
+        'long_min_change_24h_pct': -8.0,
+        'long_min_micro_trend_pct': -2.0,
+        'long_min_momentum_pct': -5.0,
+        'short_max_change_24h_pct': 12.0,
+        'short_max_micro_trend_pct': 2.0,
+        'short_max_momentum_pct': 5.0,
+    }
+
+
+def default_dex_filter_config() -> Dict[str, float]:
+    return {
+        'min_quote_volume_24h': 1_000_000.0,
+        'min_liquidity_usd': 250_000.0,
+        'min_txns_24h': 120.0,
+        'long_min_change_24h_pct': -20.0,
+        'long_min_micro_trend_pct': -3.0,
+        'long_min_momentum_pct': -8.0,
+        'short_max_change_24h_pct': 25.0,
+        'short_max_micro_trend_pct': 3.0,
+        'short_max_momentum_pct': 8.0,
+    }
+
+
+def evaluate_market_filters(symbol: str, bias: str, snapshot: Dict[str, Any], cex_filter: Dict[str, float], dex_filter: Dict[str, float]) -> Tuple[bool, List[str]]:
     reasons: List[str] = []
     passed = True
     market_type = snapshot.get('market_type')
 
-    if snapshot.get('quote_volume_24h', 0.0) < min_quote_volume:
-        passed = False
-        reasons.append(f'24h成交额不足 {int(min_quote_volume)}')
-
-    if market_type == 'cex_spot' and snapshot.get('spread_pct', 0.0) > max_spread_pct:
-        passed = False
-        reasons.append(f'盘口价差过大 {snapshot.get("spread_pct"):.4f}%')
-
-    if market_type == 'dex':
-        if snapshot.get('liquidity_usd', 0.0) < min_quote_volume * 0.1:
+    if market_type == 'cex_spot':
+        if snapshot.get('quote_volume_24h', 0.0) < cex_filter['min_quote_volume_24h']:
             passed = False
-            reasons.append(f'DEX流动性不足 {int(min_quote_volume * 0.1)}')
+            reasons.append(f"24h成交额不足 {int(cex_filter['min_quote_volume_24h'])}")
+        if snapshot.get('spread_pct', 0.0) > cex_filter['max_spread_pct']:
+            passed = False
+            reasons.append(f'盘口价差过大 {snapshot.get("spread_pct"):.4f}%')
+    elif market_type == 'dex':
+        if snapshot.get('quote_volume_24h', 0.0) < dex_filter['min_quote_volume_24h']:
+            passed = False
+            reasons.append(f"24h成交额不足 {int(dex_filter['min_quote_volume_24h'])}")
+        if snapshot.get('liquidity_usd', 0.0) < dex_filter['min_liquidity_usd']:
+            passed = False
+            reasons.append(f"DEX流动性不足 {int(dex_filter['min_liquidity_usd'])}")
         txns_total = int(snapshot.get('txns_buys_24h', 0)) + int(snapshot.get('txns_sells_24h', 0))
-        if txns_total < 200:
+        if txns_total < dex_filter['min_txns_24h']:
             passed = False
             reasons.append(f'DEX成交笔数偏低 {txns_total}')
+    else:
+        passed = False
+        reasons.append(f'未知市场类型 {market_type}')
 
     change_24h = snapshot.get('price_change_pct_24h', 0.0)
     micro_trend = snapshot.get('micro_trend_pct_15m', 0.0)
     momentum = snapshot.get('momentum_vs_vwap_pct', 0.0)
+    cfg = cex_filter if market_type == 'cex_spot' else dex_filter
 
     if bias == 'long_watch':
-        if change_24h <= -8:
+        if change_24h <= cfg['long_min_change_24h_pct']:
             passed = False
             reasons.append(f'24h涨跌幅偏弱 {change_24h:.2f}%')
-        if micro_trend <= -2.0:
+        if micro_trend <= cfg['long_min_micro_trend_pct']:
             passed = False
             reasons.append(f'短线动能转弱 {micro_trend:.2f}%')
-        if momentum <= -5.0:
+        if momentum <= cfg['long_min_momentum_pct']:
             passed = False
             reasons.append(f'1h动量偏弱 {momentum:.2f}%')
     elif bias == 'short_watch':
-        if change_24h >= 12:
+        if change_24h >= cfg['short_max_change_24h_pct']:
             passed = False
             reasons.append(f'24h涨幅过强 {change_24h:.2f}%')
-        if micro_trend >= 2.0:
+        if micro_trend >= cfg['short_max_micro_trend_pct']:
             passed = False
             reasons.append(f'短线动能转强 {micro_trend:.2f}%')
-        if momentum >= 5.0:
+        if momentum >= cfg['short_max_momentum_pct']:
             passed = False
             reasons.append(f'1h动量过强 {momentum:.2f}%')
 
@@ -230,7 +263,7 @@ def evaluate_market_filters(symbol: str, bias: str, snapshot: Dict[str, Any], ma
     return passed, reasons
 
 
-def build_trade_candidates(coin_signals: List[Dict[str, Any]], min_conviction: float, min_posts: int, max_spread_pct: float, min_quote_volume: float) -> List[Dict[str, Any]]:
+def build_trade_candidates(coin_signals: List[Dict[str, Any]], min_conviction: float, min_posts: int, cex_filter: Dict[str, float], dex_filter: Dict[str, float]) -> List[Dict[str, Any]]:
     rows: List[Dict[str, Any]] = []
     for row in coin_signals:
         if row.get('bias') == 'no_trade':
@@ -251,8 +284,8 @@ def build_trade_candidates(coin_signals: List[Dict[str, Any]], min_conviction: f
                 symbol=symbol,
                 bias=row.get('bias') or 'no_trade',
                 snapshot=market_snapshot,
-                max_spread_pct=max_spread_pct,
-                min_quote_volume=min_quote_volume,
+                cex_filter=cex_filter,
+                dex_filter=dex_filter,
             )
         except Exception as exc:
             message = str(exc)
@@ -321,7 +354,7 @@ def build_post_watchlist(posts: List[Dict[str, Any]], min_post_score: float, lim
     return rows[:limit]
 
 
-def run_scan(limit: int, start_page: int, max_pages: int, min_conviction: float, min_posts: int, min_post_score: float, post_limit: int, max_spread_pct: float, min_quote_volume: float) -> Dict[str, Any]:
+def run_scan(limit: int, start_page: int, max_pages: int, min_conviction: float, min_posts: int, min_post_score: float, post_limit: int, cex_filter: Dict[str, float], dex_filter: Dict[str, float]) -> Dict[str, Any]:
     raw_posts = scrape_square(limit=limit, start_page=start_page, max_pages=max_pages)
     scored_posts = [score_post(post) for post in raw_posts if not post.get('error')]
     coin_signals = aggregate_coin_signals(scored_posts)
@@ -329,8 +362,8 @@ def run_scan(limit: int, start_page: int, max_pages: int, min_conviction: float,
         coin_signals,
         min_conviction=min_conviction,
         min_posts=min_posts,
-        max_spread_pct=max_spread_pct,
-        min_quote_volume=min_quote_volume,
+        cex_filter=cex_filter,
+        dex_filter=dex_filter,
     )
     post_watchlist = build_post_watchlist(scored_posts, min_post_score=min_post_score, limit=post_limit)
     passed_candidates = [row for row in trade_candidates if row.get('price_filter_passed')]
@@ -345,8 +378,8 @@ def run_scan(limit: int, start_page: int, max_pages: int, min_conviction: float,
             'min_posts': min_posts,
             'min_post_score': min_post_score,
             'post_limit': post_limit,
-            'max_spread_pct': max_spread_pct,
-            'min_quote_volume': min_quote_volume,
+            'cex_filter': cex_filter,
+            'dex_filter': dex_filter,
         },
         'summary': {
             'fetched_posts': len(raw_posts),
@@ -383,10 +416,22 @@ def main() -> None:
     parser.add_argument('--min-posts', type=int, default=2)
     parser.add_argument('--min-post-score', type=float, default=60.0)
     parser.add_argument('--post-limit', type=int, default=20)
-    parser.add_argument('--max-spread-pct', type=float, default=0.35)
-    parser.add_argument('--min-quote-volume', type=float, default=5000000)
+    parser.add_argument('--cex-min-quote-volume', type=float, default=5_000_000)
+    parser.add_argument('--cex-max-spread-pct', type=float, default=0.35)
+    parser.add_argument('--dex-min-quote-volume', type=float, default=1_000_000)
+    parser.add_argument('--dex-min-liquidity-usd', type=float, default=250_000)
+    parser.add_argument('--dex-min-txns-24h', type=float, default=120)
     parser.add_argument('--output')
     args = parser.parse_args()
+
+    cex_filter = default_cex_filter_config()
+    cex_filter['min_quote_volume_24h'] = args.cex_min_quote_volume
+    cex_filter['max_spread_pct'] = args.cex_max_spread_pct
+
+    dex_filter = default_dex_filter_config()
+    dex_filter['min_quote_volume_24h'] = args.dex_min_quote_volume
+    dex_filter['min_liquidity_usd'] = args.dex_min_liquidity_usd
+    dex_filter['min_txns_24h'] = args.dex_min_txns_24h
 
     payload = run_scan(
         limit=args.limit,
@@ -396,8 +441,8 @@ def main() -> None:
         min_posts=args.min_posts,
         min_post_score=args.min_post_score,
         post_limit=args.post_limit,
-        max_spread_pct=args.max_spread_pct,
-        min_quote_volume=args.min_quote_volume,
+        cex_filter=cex_filter,
+        dex_filter=dex_filter,
     )
     out = save_payload(payload, args.output)
     print(out)
