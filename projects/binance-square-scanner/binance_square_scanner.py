@@ -536,13 +536,41 @@ def run_replay(sample_path: str, min_conviction: float, min_posts: int, min_post
 
 
 def render_watchlist_markdown(payload: Dict[str, Any]) -> str:
+    def fmt_num(value: Any, digits: int = 2) -> str:
+        try:
+            num = float(value)
+            if abs(num) >= 1_000_000_000:
+                return f'{num/1_000_000_000:.2f}B'
+            if abs(num) >= 1_000_000:
+                return f'{num/1_000_000:.2f}M'
+            if abs(num) >= 1_000:
+                return f'{num/1_000:.2f}K'
+            return f'{num:.{digits}f}'
+        except Exception:
+            return str(value)
+
+    def bias_badge(bias: Optional[str]) -> str:
+        if bias == 'long_watch':
+            return '🟢 LONG'
+        if bias == 'short_watch':
+            return '🔴 SHORT'
+        return '⚪ NEUTRAL'
+
+    def market_badge(market_type: Optional[str]) -> str:
+        if market_type == 'dex':
+            return '🧬 DEX'
+        if market_type == 'cex_spot':
+            return '🏦 CEX'
+        return '❓ UNKNOWN'
+
     lines: List[str] = []
-    lines.append('# Binance Square Scanner Watchlist')
+    lines.append('# ✨ Binance Square Scanner Watchlist')
     lines.append('')
     summary = payload.get('summary') or {}
-    lines.append(f"- fetched_posts: {summary.get('fetched_posts', 0)}")
-    lines.append(f"- trade_candidates: {summary.get('trade_candidates', 0)}")
-    lines.append(f"- passed_price_filter: {summary.get('passed_price_filter', 0)}")
+    lines.append('## Overview')
+    lines.append(f"- 📥 Fetched posts: **{summary.get('fetched_posts', 0)}**")
+    lines.append(f"- 🎯 Trade candidates: **{summary.get('trade_candidates', 0)}**")
+    lines.append(f"- ✅ Passed filter: **{summary.get('passed_price_filter', 0)}**")
     lines.append('')
 
     watchlist = payload.get('passed_candidate_watchlist') or []
@@ -550,59 +578,62 @@ def render_watchlist_markdown(payload: Dict[str, Any]) -> str:
         lines.append('## No passed candidates')
         return '\n'.join(lines)
 
+    lines.append('## Opportunity Cards')
+    lines.append('')
     for idx, item in enumerate(watchlist, start=1):
         market = item.get('market_snapshot') or {}
         top_posts = item.get('top_posts') or []
         top_post = top_posts[0] if top_posts else {}
         plan = top_post.get('trade_plan') or {}
-        lines.append(f"## {idx}. {item.get('symbol')}")
-        lines.append(f"- bias: {item.get('bias')}")
-        lines.append(f"- conviction: {item.get('conviction_score')} ({item.get('confidence_band')})")
-        lines.append(f"- market: {market.get('market_type')}")
+        lines.append(f"### {idx}. {item.get('symbol')}  {bias_badge(item.get('bias'))}  {market_badge(market.get('market_type'))}")
+        lines.append('')
+        lines.append(f"- **Conviction**: {item.get('conviction_score')} ({item.get('confidence_band')})")
         if market.get('chain_id'):
-            lines.append(f"- venue: {market.get('chain_id')} / {market.get('dex_id')}")
-        lines.append(f"- last_price: {market.get('last_price')}")
-        lines.append(f"- 24h_change: {market.get('price_change_pct_24h')}")
-        lines.append(f"- 24h_volume: {market.get('quote_volume_24h')}")
+            lines.append(f"- **Venue**: `{market.get('chain_id')} / {market.get('dex_id')}`")
+        lines.append(f"- **Last Price**: `{fmt_num(market.get('last_price'), 5)}`")
+        lines.append(f"- **24h Change**: `{fmt_num(market.get('price_change_pct_24h'))}%`")
+        lines.append(f"- **24h Volume**: `{fmt_num(market.get('quote_volume_24h'))}`")
         if market.get('liquidity_usd') is not None:
-            lines.append(f"- liquidity: {market.get('liquidity_usd')}")
+            lines.append(f"- **Liquidity**: `{fmt_num(market.get('liquidity_usd'))}`")
         if plan.get('direction'):
-            lines.append(f"- direction: {plan.get('direction')}")
+            lines.append(f"- **Direction**: `{plan.get('direction')}`")
         if plan.get('entry'):
-            lines.append(f"- entry: {plan.get('entry')}")
+            lines.append(f"- **Entry**: `{plan.get('entry')}`")
         if plan.get('stop_loss'):
-            lines.append(f"- stop_loss: {plan.get('stop_loss')}")
+            lines.append(f"- **Stop Loss**: `{plan.get('stop_loss')}`")
         if plan.get('take_profits'):
-            lines.append(f"- take_profits: {', '.join(plan.get('take_profits'))}")
+            lines.append(f"- **Take Profits**: `{', '.join(plan.get('take_profits'))}`")
         if plan.get('leverage'):
-            lines.append(f"- leverage: {plan.get('leverage')}")
-        lines.append(f"- note: {item.get('scanner_note')}")
-        lines.append(f"- source_post: {top_post.get('web_link')}")
-        lines.append(f"- preview: {top_post.get('body_preview')}")
+            lines.append(f"- **Leverage**: `{plan.get('leverage')}`")
+        lines.append(f"- **Signal Note**: {item.get('scanner_note')}")
+        if top_post.get('web_link'):
+            lines.append(f"- **Source Post**: <{top_post.get('web_link')}>")
+        if top_post.get('body_preview'):
+            lines.append(f"> {top_post.get('body_preview')}")
         lines.append('')
 
     lines.append('---')
     lines.append('')
-    lines.append('## Detailed Source Posts')
+    lines.append('## Source Post Details')
     lines.append('')
     for idx, item in enumerate(watchlist, start=1):
         lines.append(f"### {idx}. {item.get('symbol')}")
         for post_idx, post in enumerate(item.get('top_posts') or [], start=1):
             plan = post.get('trade_plan') or {}
-            lines.append(f"- Post {post_idx}: {post.get('author')} (@{post.get('username')})")
-            lines.append(f"  - signal_score: {post.get('signal_score')}")
-            lines.append(f"  - link: {post.get('web_link')}")
-            lines.append(f"  - preview: {post.get('body_preview')}")
+            lines.append(f"- **Post {post_idx}**: {post.get('author')} (@{post.get('username')})")
+            lines.append(f"  - Signal Score: `{post.get('signal_score')}`")
+            lines.append(f"  - Link: <{post.get('web_link')}>")
+            lines.append(f"  - Preview: {post.get('body_preview')}")
             if plan.get('direction'):
-                lines.append(f"  - direction: {plan.get('direction')}")
+                lines.append(f"  - Direction: `{plan.get('direction')}`")
             if plan.get('entry'):
-                lines.append(f"  - entry: {plan.get('entry')}")
+                lines.append(f"  - Entry: `{plan.get('entry')}`")
             if plan.get('stop_loss'):
-                lines.append(f"  - stop_loss: {plan.get('stop_loss')}")
+                lines.append(f"  - Stop Loss: `{plan.get('stop_loss')}`")
             if plan.get('take_profits'):
-                lines.append(f"  - take_profits: {', '.join(plan.get('take_profits'))}")
+                lines.append(f"  - Take Profits: `{', '.join(plan.get('take_profits'))}`")
             if plan.get('leverage'):
-                lines.append(f"  - leverage: {plan.get('leverage')}")
+                lines.append(f"  - Leverage: `{plan.get('leverage')}`")
             lines.append('')
 
     return '\n'.join(lines).rstrip() + '\n'
