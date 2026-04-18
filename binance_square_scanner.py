@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 import json
+import sys
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
@@ -354,8 +355,7 @@ def build_post_watchlist(posts: List[Dict[str, Any]], min_post_score: float, lim
     return rows[:limit]
 
 
-def run_scan(limit: int, start_page: int, max_pages: int, min_conviction: float, min_posts: int, min_post_score: float, post_limit: int, cex_filter: Dict[str, float], dex_filter: Dict[str, float]) -> Dict[str, Any]:
-    raw_posts = scrape_square(limit=limit, start_page=start_page, max_pages=max_pages)
+def build_scan_payload(raw_posts: List[Dict[str, Any]], min_conviction: float, min_posts: int, min_post_score: float, post_limit: int, cex_filter: Dict[str, float], dex_filter: Dict[str, float], scan_config: Dict[str, Any]) -> Dict[str, Any]:
     scored_posts = [score_post(post) for post in raw_posts if not post.get('error')]
     coin_signals = aggregate_coin_signals(scored_posts)
     trade_candidates = build_trade_candidates(
@@ -370,17 +370,7 @@ def run_scan(limit: int, start_page: int, max_pages: int, min_conviction: float,
 
     return {
         'generated_at': utc_now_iso(),
-        'scan_config': {
-            'limit': limit,
-            'start_page': start_page,
-            'max_pages': max_pages,
-            'min_conviction': min_conviction,
-            'min_posts': min_posts,
-            'min_post_score': min_post_score,
-            'post_limit': post_limit,
-            'cex_filter': cex_filter,
-            'dex_filter': dex_filter,
-        },
+        'scan_config': scan_config,
         'summary': {
             'fetched_posts': len(raw_posts),
             'scored_posts': len(scored_posts),
@@ -396,6 +386,66 @@ def run_scan(limit: int, start_page: int, max_pages: int, min_conviction: float,
     }
 
 
+def run_scan(limit: int, start_page: int, max_pages: int, min_conviction: float, min_posts: int, min_post_score: float, post_limit: int, cex_filter: Dict[str, float], dex_filter: Dict[str, float]) -> Dict[str, Any]:
+    raw_posts = scrape_square(limit=limit, start_page=start_page, max_pages=max_pages)
+    return build_scan_payload(
+        raw_posts=raw_posts,
+        min_conviction=min_conviction,
+        min_posts=min_posts,
+        min_post_score=min_post_score,
+        post_limit=post_limit,
+        cex_filter=cex_filter,
+        dex_filter=dex_filter,
+        scan_config={
+            'mode': 'live',
+            'limit': limit,
+            'start_page': start_page,
+            'max_pages': max_pages,
+            'min_conviction': min_conviction,
+            'min_posts': min_posts,
+            'min_post_score': min_post_score,
+            'post_limit': post_limit,
+            'cex_filter': cex_filter,
+            'dex_filter': dex_filter,
+        },
+    )
+
+
+def load_posts_from_file(path: str) -> List[Dict[str, Any]]:
+    payload = json.loads(Path(path).read_text(encoding='utf-8'))
+    if isinstance(payload, list):
+        return payload
+    if isinstance(payload, dict):
+        if isinstance(payload.get('posts'), list):
+            return payload['posts']
+        if isinstance(payload.get('watch_posts'), list):
+            raise ValueError('watch_posts 不是原始帖子样本，不能用于回放')
+    raise ValueError('不支持的样本格式，需为原始帖子列表或包含 posts 字段的 JSON')
+
+
+def run_replay(sample_path: str, min_conviction: float, min_posts: int, min_post_score: float, post_limit: int, cex_filter: Dict[str, float], dex_filter: Dict[str, float]) -> Dict[str, Any]:
+    raw_posts = load_posts_from_file(sample_path)
+    return build_scan_payload(
+        raw_posts=raw_posts,
+        min_conviction=min_conviction,
+        min_posts=min_posts,
+        min_post_score=min_post_score,
+        post_limit=post_limit,
+        cex_filter=cex_filter,
+        dex_filter=dex_filter,
+        scan_config={
+            'mode': 'replay',
+            'sample_path': sample_path,
+            'min_conviction': min_conviction,
+            'min_posts': min_posts,
+            'min_post_score': min_post_score,
+            'post_limit': post_limit,
+            'cex_filter': cex_filter,
+            'dex_filter': dex_filter,
+        },
+    )
+
+
 def save_payload(payload: Dict[str, Any], output: Optional[str]) -> str:
     if output:
         path = Path(output)
@@ -409,20 +459,31 @@ def save_payload(payload: Dict[str, Any], output: Optional[str]) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description='Binance Square 信号扫描器原型')
-    parser.add_argument('--limit', type=int, default=80)
-    parser.add_argument('--start-page', type=int, default=1)
-    parser.add_argument('--max-pages', type=int, default=6)
-    parser.add_argument('--min-conviction', type=float, default=45.0)
-    parser.add_argument('--min-posts', type=int, default=2)
-    parser.add_argument('--min-post-score', type=float, default=60.0)
-    parser.add_argument('--post-limit', type=int, default=20)
-    parser.add_argument('--cex-min-quote-volume', type=float, default=5_000_000)
-    parser.add_argument('--cex-max-spread-pct', type=float, default=0.35)
-    parser.add_argument('--dex-min-quote-volume', type=float, default=1_000_000)
-    parser.add_argument('--dex-min-liquidity-usd', type=float, default=250_000)
-    parser.add_argument('--dex-min-txns-24h', type=float, default=120)
-    parser.add_argument('--output')
+    sub = parser.add_subparsers(dest='command')
+
+    common = argparse.ArgumentParser(add_help=False)
+    common.add_argument('--min-conviction', type=float, default=45.0)
+    common.add_argument('--min-posts', type=int, default=2)
+    common.add_argument('--min-post-score', type=float, default=60.0)
+    common.add_argument('--post-limit', type=int, default=20)
+    common.add_argument('--cex-min-quote-volume', type=float, default=5_000_000)
+    common.add_argument('--cex-max-spread-pct', type=float, default=0.35)
+    common.add_argument('--dex-min-quote-volume', type=float, default=1_000_000)
+    common.add_argument('--dex-min-liquidity-usd', type=float, default=250_000)
+    common.add_argument('--dex-min-txns-24h', type=float, default=120)
+    common.add_argument('--output')
+
+    live_parser = sub.add_parser('live', parents=[common], help='实时抓取并扫描')
+    live_parser.add_argument('--limit', type=int, default=80)
+    live_parser.add_argument('--start-page', type=int, default=1)
+    live_parser.add_argument('--max-pages', type=int, default=6)
+
+    replay_parser = sub.add_parser('replay', parents=[common], help='对本地样本做回放')
+    replay_parser.add_argument('--input', required=True, help='原始帖子样本 JSON 文件')
+
     args = parser.parse_args()
+    if not args.command:
+        args = parser.parse_args(['live', *sys.argv[1:]])
 
     cex_filter = default_cex_filter_config()
     cex_filter['min_quote_volume_24h'] = args.cex_min_quote_volume
@@ -433,17 +494,28 @@ def main() -> None:
     dex_filter['min_liquidity_usd'] = args.dex_min_liquidity_usd
     dex_filter['min_txns_24h'] = args.dex_min_txns_24h
 
-    payload = run_scan(
-        limit=args.limit,
-        start_page=args.start_page,
-        max_pages=args.max_pages,
-        min_conviction=args.min_conviction,
-        min_posts=args.min_posts,
-        min_post_score=args.min_post_score,
-        post_limit=args.post_limit,
-        cex_filter=cex_filter,
-        dex_filter=dex_filter,
-    )
+    if args.command == 'replay':
+        payload = run_replay(
+            sample_path=args.input,
+            min_conviction=args.min_conviction,
+            min_posts=args.min_posts,
+            min_post_score=args.min_post_score,
+            post_limit=args.post_limit,
+            cex_filter=cex_filter,
+            dex_filter=dex_filter,
+        )
+    else:
+        payload = run_scan(
+            limit=args.limit,
+            start_page=args.start_page,
+            max_pages=args.max_pages,
+            min_conviction=args.min_conviction,
+            min_posts=args.min_posts,
+            min_post_score=args.min_post_score,
+            post_limit=args.post_limit,
+            cex_filter=cex_filter,
+            dex_filter=dex_filter,
+        )
     out = save_payload(payload, args.output)
     print(out)
     print(json.dumps({
@@ -454,4 +526,8 @@ def main() -> None:
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except Exception as exc:
+        print(json.dumps({'error': str(exc)}, ensure_ascii=False), file=sys.stderr)
+        sys.exit(1)
