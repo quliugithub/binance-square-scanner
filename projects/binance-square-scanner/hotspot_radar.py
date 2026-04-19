@@ -273,6 +273,20 @@ def build_hotspot_payload(limit: int, start_page: int, max_pages: int, top_n: in
             stage = '观察'
 
         spot_snapshot = fetch_spot_snapshot(symbol) if symbol.endswith('USDT') else None
+        quote_volume_24h = safe_float((timing or {}).get('quote_volume_24h'))
+        oi_change_pct = safe_float((timing or {}).get('oi_change_pct'))
+        oi_value_change_pct = safe_float((timing or {}).get('oi_value_change_pct'))
+        spot_quote_volume_24h = safe_float((spot_snapshot or {}).get('quoteVolume')) if spot_snapshot else 0.0
+        market_quality_ok = quote_volume_24h >= 8_000_000 or spot_quote_volume_24h >= 3_000_000
+        strong_capital_confirmed = bool(
+            square_bias == 'long_watch'
+            and direction_bias == 'long'
+            and oi_change_pct >= 0.15
+            and oi_value_change_pct >= 0.3
+            and market_quality_ok
+            and final_score >= 55
+        )
+
         radar_rows.append({
             'symbol': symbol,
             'square_heat': square,
@@ -281,7 +295,7 @@ def build_hotspot_payload(limit: int, start_page: int, max_pages: int, top_n: in
             'spot_market_snapshot': {
                 'last_price': safe_float((spot_snapshot or {}).get('lastPrice')),
                 'price_change_pct_24h': safe_float((spot_snapshot or {}).get('priceChangePercent')),
-                'quote_volume_24h': safe_float((spot_snapshot or {}).get('quoteVolume')),
+                'quote_volume_24h': spot_quote_volume_24h,
             } if spot_snapshot else None,
             'heat_score': round(heat_score, 2),
             'timing_score': round(timing_score, 2),
@@ -290,6 +304,7 @@ def build_hotspot_payload(limit: int, start_page: int, max_pages: int, top_n: in
             'venue': venue,
             'stage': stage,
             'is_buy_candidate': stage in {'可关注买入', '热度偏多', '资金异动观察'},
+            'strong_capital_confirmed': strong_capital_confirmed,
             'reason_summary': build_reason_summary(square, heat, timing),
         })
 
@@ -316,6 +331,7 @@ def build_hotspot_payload(limit: int, start_page: int, max_pages: int, top_n: in
         },
         'top_opportunities': radar_rows[:top_n],
         'buy_candidates': [row for row in radar_rows if row.get('is_buy_candidate')][:top_n],
+        'strong_capital_buy_candidates': [row for row in radar_rows if row.get('strong_capital_confirmed')][:top_n],
         'radar_candidates': radar_rows,
         'heat_ranking': heat_ranking[:top_n],
         'timing_ranking': timing_rows[:top_n],
@@ -332,9 +348,9 @@ def render_markdown(payload: Dict[str, Any]) -> str:
     lines.append(f"- timing_symbols: **{summary.get('timing_symbols', 0)}**")
     lines.append(f"- radar_candidates: **{summary.get('radar_candidates', 0)}**")
     lines.append('')
-    lines.append('## Buy candidates')
+    lines.append('## Strong capital confirmed buy candidates')
     lines.append('')
-    for row in payload.get('buy_candidates') or []:
+    for row in payload.get('strong_capital_buy_candidates') or []:
         timing = row.get('timing_signal') or {}
         lines.append(f"### {row.get('priority_rank')}. {row.get('symbol')} [{row.get('stage')}]")
         lines.append(f"- final_score: `{row.get('final_score')}`")
@@ -379,6 +395,7 @@ def main() -> None:
     print(out)
     print(json.dumps({
         'summary': payload['summary'],
+        'strong_capital_buy_candidates': payload['strong_capital_buy_candidates'][:5],
         'buy_candidates': payload['buy_candidates'][:5],
         'top_opportunities': payload['top_opportunities'][:5],
         'timing_ranking': payload['timing_ranking'][:5],
