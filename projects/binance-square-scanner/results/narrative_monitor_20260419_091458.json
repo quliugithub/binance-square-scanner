@@ -1,0 +1,1706 @@
+{
+  "generated_at": "2026-04-19T01:14:58.184362Z",
+  "scan_config": {
+    "mode": "narrative_monitor_v1",
+    "limit": 50,
+    "start_page": 1,
+    "max_pages": 4,
+    "top_n": 8
+  },
+  "summary": {
+    "fetched_posts": 30,
+    "tagged_posts": 17,
+    "narratives": 7,
+    "symbols": 28
+  },
+  "top_narratives": [
+    {
+      "narrative": "BSC",
+      "post_count": 5,
+      "unique_authors": 5,
+      "avg_signal_score": 86.78,
+      "total_engagement": 11685,
+      "narrative_heat_score": 140,
+      "dominant_sentiment": "偏多",
+      "dominant_stage": "中期扩散",
+      "funds_confirmation_mix": {
+        "待确认": 4,
+        "资金确认": 1
+      },
+      "top_symbols": [
+        "SIRENUSDT"
+      ],
+      "sample_posts": [
+        {
+          "content_id": 313380193156273,
+          "author": "Professor_JAXON",
+          "username": "professor_jaxon",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313380193156273",
+          "narrative": "BSC",
+          "narrative_score": 18,
+          "keyword_hits": 0,
+          "symbol_hits": 1,
+          "signal_score": 98.0,
+          "signal_label": "high_signal",
+          "engagement_total": 226,
+          "sentiment": "偏多",
+          "stage": "中期扩散",
+          "funds_confirmation": "待确认",
+          "symbols": [
+            "SIRENUSDT"
+          ],
+          "body_preview": "$SIREN USDT Pullback Holding Strong Above $2 — Next Leg Up Towards $2.30 Incoming 🚀 Trade Setup: Long Entry zone: $1.90 – $2.05 Tp1: $2.20 Tp2: $2.36 Tp3: $2.60 SL: $1.70 After a massive impulsive rally, price is consoli"
+        },
+        {
+          "content_id": 313379555331538,
+          "author": "MissBlockChain_01",
+          "username": "zoe_cryptoanalyst",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313379555331538",
+          "narrative": "BSC",
+          "narrative_score": 18,
+          "keyword_hits": 0,
+          "symbol_hits": 1,
+          "signal_score": 93.67,
+          "signal_label": "high_signal",
+          "engagement_total": 534,
+          "sentiment": "偏多",
+          "stage": "中期扩散",
+          "funds_confirmation": "资金确认",
+          "symbols": [
+            "SIRENUSDT"
+          ],
+          "body_preview": "$SIREN   Parabolic Move, High Volatility Continuation Setup 📈⚠️ Trade Setup: Long Entry Zone: $1.85 – $1.95 TP1: $2.20 TP2: $2.45 TP3: $2.70 SL: $1.60 SIREN has already printed a massive +130% move, showing strong bullis"
+        },
+        {
+          "content_id": 313380114805873,
+          "author": "Raja Boss official",
+          "username": "Raja_Boss_official",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313380114805873",
+          "narrative": "BSC",
+          "narrative_score": 18,
+          "keyword_hits": 0,
+          "symbol_hits": 1,
+          "signal_score": 83.21,
+          "signal_label": "high_signal",
+          "engagement_total": 121,
+          "sentiment": "偏空",
+          "stage": "早期发酵",
+          "funds_confirmation": "待确认",
+          "symbols": [
+            "SIRENUSDT"
+          ],
+          "body_preview": "WTF is this 😱😭  $SIREN just came back from the dead…  Look at that move…  a massive pump in just 3 candles absolutely insane 💀  And now I’m already seeing people jumping into shorts…  thinking “it’s over, dump coming”  B"
+        }
+      ],
+      "narrative_rank": 1
+    },
+    {
+      "narrative": "Meme",
+      "post_count": 5,
+      "unique_authors": 5,
+      "avg_signal_score": 56.14,
+      "total_engagement": 925,
+      "narrative_heat_score": 117.71,
+      "dominant_sentiment": "偏多",
+      "dominant_stage": "观察期",
+      "funds_confirmation_mix": {
+        "待确认": 4,
+        "资金确认": 1
+      },
+      "top_symbols": [
+        "DOGEUSDT",
+        "SHIBUSDT",
+        "PEPEUSDT",
+        "BANANAS31USDT",
+        "$BANANAS31 "
+      ],
+      "sample_posts": [
+        {
+          "content_id": 313380013198785,
+          "author": "sophia.bull",
+          "username": "0xHoward_Peng",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313380013198785",
+          "narrative": "Meme",
+          "narrative_score": 76,
+          "keyword_hits": 4,
+          "symbol_hits": 2,
+          "signal_score": 45.0,
+          "signal_label": "noise",
+          "engagement_total": 0,
+          "sentiment": "中性",
+          "stage": "早期发酵",
+          "funds_confirmation": "待确认",
+          "symbols": [
+            "DOGEUSDT",
+            "SHIBUSDT",
+            "PEPEUSDT"
+          ],
+          "body_preview": "Next wave hitting $DOGE $SHIB $PEPE?  Meme season rotation looking overdue. BTC dominance cooling off, alts bleeding for weeks. Classic setup for degen capital to flow back into the OG meme plays.  Watch for: - Volume sp"
+        },
+        {
+          "content_id": 313380039746625,
+          "author": "Berserker_09",
+          "username": "Soban_Tariq",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313380039746625",
+          "narrative": "Meme",
+          "narrative_score": 18,
+          "keyword_hits": 0,
+          "symbol_hits": 1,
+          "signal_score": 98.0,
+          "signal_label": "high_signal",
+          "engagement_total": 913,
+          "sentiment": "偏多",
+          "stage": "末端过热",
+          "funds_confirmation": "资金确认",
+          "symbols": [
+            "BANANAS31USDT",
+            "$BANANAS31 "
+          ],
+          "body_preview": "$BANANAS31 is quietly building momentum after a clean base formation.  Price swept liquidity from the lows and immediately reclaimed structure, now consolidating near local highs — a classic sign of strength and continua"
+        },
+        {
+          "content_id": 313379777512305,
+          "author": "Square-Creator-e49d54810",
+          "username": "Square-Creator-e49d54810",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313379777512305",
+          "narrative": "Meme",
+          "narrative_score": 10,
+          "keyword_hits": 1,
+          "symbol_hits": 0,
+          "signal_score": 54.94,
+          "signal_label": "noise",
+          "engagement_total": 11,
+          "sentiment": "偏多",
+          "stage": "观察期",
+          "funds_confirmation": "待确认",
+          "symbols": [
+            "1MBABYDOGEUSDT",
+            "$1MBABYDOGE ",
+            "59USDT"
+          ],
+          "body_preview": "1MBABYDOGE Surges 2.87% on Binance Amid 51% Token Burn, TON Network Integration, and Guinness World Record  1MBABYDOGEUSDT has experienced a 2.87% price increase over the past 24 hours, rising from a 24h open of $0.00042"
+        }
+      ],
+      "narrative_rank": 2
+    },
+    {
+      "narrative": "DeFi",
+      "post_count": 2,
+      "unique_authors": 2,
+      "avg_signal_score": 68.11,
+      "total_engagement": 456,
+      "narrative_heat_score": 47.8,
+      "dominant_sentiment": "中性",
+      "dominant_stage": "早期发酵",
+      "funds_confirmation_mix": {
+        "资金确认": 1,
+        "待确认": 1
+      },
+      "top_symbols": [
+        "PIXELUSDT",
+        "$PIXEL ",
+        "LDOUSDT",
+        "CFGUSDT"
+      ],
+      "sample_posts": [
+        {
+          "content_id": 313335838578802,
+          "author": "ZGOD OFFICIAL",
+          "username": "TaSaN007",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313335838578802",
+          "narrative": "DeFi",
+          "narrative_score": 20,
+          "keyword_hits": 2,
+          "symbol_hits": 0,
+          "signal_score": 73.0,
+          "signal_label": "watch",
+          "engagement_total": 83,
+          "sentiment": "中性",
+          "stage": "早期发酵",
+          "funds_confirmation": "资金确认",
+          "symbols": [
+            "PIXELUSDT",
+            "$PIXEL "
+          ],
+          "body_preview": "I've been watching Web3 gaming for years, and I've noticed a pattern. Most projects spend their entire lives screaming into a megaphone about blockchain. \"Look, you can own your sword!\" \"The economy is on-chain!\" \"Freedo"
+        },
+        {
+          "content_id": 313379006935377,
+          "author": "CryptorInsight",
+          "username": "CryptorInsight",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313379006935377",
+          "narrative": "DeFi",
+          "narrative_score": 18,
+          "keyword_hits": 0,
+          "symbol_hits": 1,
+          "signal_score": 63.23,
+          "signal_label": "watch",
+          "engagement_total": 373,
+          "sentiment": "偏空",
+          "stage": "观察期",
+          "funds_confirmation": "待确认",
+          "symbols": [
+            "LDOUSDT",
+            "CFGUSDT"
+          ],
+          "body_preview": "Alpha dogfight: Which one has better short-term potential? LDO or CFG ? Vote now and share your reasoning."
+        }
+      ],
+      "narrative_rank": 3
+    },
+    {
+      "narrative": "BTCFi",
+      "post_count": 2,
+      "unique_authors": 2,
+      "avg_signal_score": 92.59,
+      "total_engagement": 209,
+      "narrative_heat_score": 45.74,
+      "dominant_sentiment": "偏多",
+      "dominant_stage": "中期扩散",
+      "funds_confirmation_mix": {
+        "待确认": 2
+      },
+      "top_symbols": [
+        "ORDIUSDT",
+        "$ORDI ",
+        "11USDT",
+        "14USDT"
+      ],
+      "sample_posts": [
+        {
+          "content_id": 313379802889682,
+          "author": "Professor_JAXON",
+          "username": "professor_jaxon",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313379802889682",
+          "narrative": "BTCFi",
+          "narrative_score": 18,
+          "keyword_hits": 0,
+          "symbol_hits": 1,
+          "signal_score": 96.8,
+          "signal_label": "high_signal",
+          "engagement_total": 67,
+          "sentiment": "偏多",
+          "stage": "中期扩散",
+          "funds_confirmation": "待确认",
+          "symbols": [
+            "ORDIUSDT",
+            "$ORDI ",
+            "11USDT"
+          ],
+          "body_preview": "$ORDI USDT Bullish Pullback Before Explosive Continuation Toward $11+ Trade Setup: Long Entry zone: 8.20 - 8.60 Tp1: 9.50 Tp2: 10.30 Tp3: 11.00 SL: 7.60 Strong bullish momentum after massive 100% rally, with price now co"
+        },
+        {
+          "content_id": 313379225979330,
+          "author": "NovaNews",
+          "username": "ErinCrypto",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313379225979330",
+          "narrative": "BTCFi",
+          "narrative_score": 18,
+          "keyword_hits": 0,
+          "symbol_hits": 1,
+          "signal_score": 88.37,
+          "signal_label": "high_signal",
+          "engagement_total": 142,
+          "sentiment": "偏多",
+          "stage": "中期扩散",
+          "funds_confirmation": "待确认",
+          "symbols": [
+            "ORDIUSDT",
+            "$ORDI ",
+            "14USDT"
+          ],
+          "body_preview": "$ORDI /USDT LONG UPDATE 🚀  Entry: $2.99 Current Price: $6.90 📈 Unrealized P&L: +$14,462 USDT 💰 ROE: +2,617% 🔥 Leverage: 20X Cross ⚡  From $2.99 to $6.90 — this move is already running strong. Patience + conviction is wha"
+        }
+      ],
+      "narrative_rank": 4
+    },
+    {
+      "narrative": "Solana",
+      "post_count": 1,
+      "unique_authors": 1,
+      "avg_signal_score": 90.0,
+      "total_engagement": 1735,
+      "narrative_heat_score": 36.46,
+      "dominant_sentiment": "偏空",
+      "dominant_stage": "末端过热",
+      "funds_confirmation_mix": {
+        "热度确认": 1
+      },
+      "top_symbols": [
+        "SOLUSDT"
+      ],
+      "sample_posts": [
+        {
+          "content_id": 313379126527889,
+          "author": "Signalx Killer",
+          "username": "MarketInsights",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313379126527889",
+          "narrative": "Solana",
+          "narrative_score": 18,
+          "keyword_hits": 0,
+          "symbol_hits": 1,
+          "signal_score": 90.0,
+          "signal_label": "high_signal",
+          "engagement_total": 1735,
+          "sentiment": "偏空",
+          "stage": "末端过热",
+          "funds_confirmation": "热度确认",
+          "symbols": [
+            "SOLUSDT"
+          ],
+          "body_preview": "Setup short $SOL  entry : 89-93  sl : 95.2  TP 1 : 87.6  TP 2 : 84.3  TP3 : 79.7  Regulatory Uncertainty: The CLARITY Act's potential non-passage poses a significant regulatory risk, which could lead to substantial marke"
+        }
+      ],
+      "narrative_rank": 5
+    },
+    {
+      "narrative": "AI",
+      "post_count": 1,
+      "unique_authors": 1,
+      "avg_signal_score": 88.0,
+      "total_engagement": 885,
+      "narrative_heat_score": 29.38,
+      "dominant_sentiment": "偏多",
+      "dominant_stage": "中期扩散",
+      "funds_confirmation_mix": {
+        "热度确认": 1
+      },
+      "top_symbols": [
+        "INJUSDT",
+        "FETUSDT",
+        "TAOUSDT",
+        "$TAO ",
+        "$FET "
+      ],
+      "sample_posts": [
+        {
+          "content_id": 313379615703633,
+          "author": "Berserker_09",
+          "username": "Soban_Tariq",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313379615703633",
+          "narrative": "AI",
+          "narrative_score": 56,
+          "keyword_hits": 2,
+          "symbol_hits": 2,
+          "signal_score": 88.0,
+          "signal_label": "high_signal",
+          "engagement_total": 885,
+          "sentiment": "偏多",
+          "stage": "中期扩散",
+          "funds_confirmation": "热度确认",
+          "symbols": [
+            "INJUSDT",
+            "FETUSDT",
+            "TAOUSDT",
+            "$TAO ",
+            "$FET ",
+            "$INJ ",
+            "110USDT",
+            "RENDERUSDT"
+          ],
+          "body_preview": "The market recently added $110 billion in just 15 hours. Total crypto market cap is now $2.54 trillion.  And the AI sector?   $TAO : $3.5B market cap, up 140% in six weeks   $FET : $0.23, holding strong support at 50-day"
+        }
+      ],
+      "narrative_rank": 6
+    },
+    {
+      "narrative": "GameFi",
+      "post_count": 1,
+      "unique_authors": 1,
+      "avg_signal_score": 73.0,
+      "total_engagement": 83,
+      "narrative_heat_score": 22.69,
+      "dominant_sentiment": "中性",
+      "dominant_stage": "早期发酵",
+      "funds_confirmation_mix": {
+        "资金确认": 1
+      },
+      "top_symbols": [
+        "PIXELUSDT",
+        "$PIXEL "
+      ],
+      "sample_posts": [
+        {
+          "content_id": 313335838578802,
+          "author": "ZGOD OFFICIAL",
+          "username": "TaSaN007",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313335838578802",
+          "narrative": "GameFi",
+          "narrative_score": 20,
+          "keyword_hits": 2,
+          "symbol_hits": 0,
+          "signal_score": 73.0,
+          "signal_label": "watch",
+          "engagement_total": 83,
+          "sentiment": "中性",
+          "stage": "早期发酵",
+          "funds_confirmation": "资金确认",
+          "symbols": [
+            "PIXELUSDT",
+            "$PIXEL "
+          ],
+          "body_preview": "I've been watching Web3 gaming for years, and I've noticed a pattern. Most projects spend their entire lives screaming into a megaphone about blockchain. \"Look, you can own your sword!\" \"The economy is on-chain!\" \"Freedo"
+        }
+      ],
+      "narrative_rank": 7
+    }
+  ],
+  "narrative_rank": [
+    {
+      "narrative": "BSC",
+      "post_count": 5,
+      "unique_authors": 5,
+      "avg_signal_score": 86.78,
+      "total_engagement": 11685,
+      "narrative_heat_score": 140,
+      "dominant_sentiment": "偏多",
+      "dominant_stage": "中期扩散",
+      "funds_confirmation_mix": {
+        "待确认": 4,
+        "资金确认": 1
+      },
+      "top_symbols": [
+        "SIRENUSDT"
+      ],
+      "sample_posts": [
+        {
+          "content_id": 313380193156273,
+          "author": "Professor_JAXON",
+          "username": "professor_jaxon",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313380193156273",
+          "narrative": "BSC",
+          "narrative_score": 18,
+          "keyword_hits": 0,
+          "symbol_hits": 1,
+          "signal_score": 98.0,
+          "signal_label": "high_signal",
+          "engagement_total": 226,
+          "sentiment": "偏多",
+          "stage": "中期扩散",
+          "funds_confirmation": "待确认",
+          "symbols": [
+            "SIRENUSDT"
+          ],
+          "body_preview": "$SIREN USDT Pullback Holding Strong Above $2 — Next Leg Up Towards $2.30 Incoming 🚀 Trade Setup: Long Entry zone: $1.90 – $2.05 Tp1: $2.20 Tp2: $2.36 Tp3: $2.60 SL: $1.70 After a massive impulsive rally, price is consoli"
+        },
+        {
+          "content_id": 313379555331538,
+          "author": "MissBlockChain_01",
+          "username": "zoe_cryptoanalyst",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313379555331538",
+          "narrative": "BSC",
+          "narrative_score": 18,
+          "keyword_hits": 0,
+          "symbol_hits": 1,
+          "signal_score": 93.67,
+          "signal_label": "high_signal",
+          "engagement_total": 534,
+          "sentiment": "偏多",
+          "stage": "中期扩散",
+          "funds_confirmation": "资金确认",
+          "symbols": [
+            "SIRENUSDT"
+          ],
+          "body_preview": "$SIREN   Parabolic Move, High Volatility Continuation Setup 📈⚠️ Trade Setup: Long Entry Zone: $1.85 – $1.95 TP1: $2.20 TP2: $2.45 TP3: $2.70 SL: $1.60 SIREN has already printed a massive +130% move, showing strong bullis"
+        },
+        {
+          "content_id": 313380114805873,
+          "author": "Raja Boss official",
+          "username": "Raja_Boss_official",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313380114805873",
+          "narrative": "BSC",
+          "narrative_score": 18,
+          "keyword_hits": 0,
+          "symbol_hits": 1,
+          "signal_score": 83.21,
+          "signal_label": "high_signal",
+          "engagement_total": 121,
+          "sentiment": "偏空",
+          "stage": "早期发酵",
+          "funds_confirmation": "待确认",
+          "symbols": [
+            "SIRENUSDT"
+          ],
+          "body_preview": "WTF is this 😱😭  $SIREN just came back from the dead…  Look at that move…  a massive pump in just 3 candles absolutely insane 💀  And now I’m already seeing people jumping into shorts…  thinking “it’s over, dump coming”  B"
+        }
+      ],
+      "narrative_rank": 1
+    },
+    {
+      "narrative": "Meme",
+      "post_count": 5,
+      "unique_authors": 5,
+      "avg_signal_score": 56.14,
+      "total_engagement": 925,
+      "narrative_heat_score": 117.71,
+      "dominant_sentiment": "偏多",
+      "dominant_stage": "观察期",
+      "funds_confirmation_mix": {
+        "待确认": 4,
+        "资金确认": 1
+      },
+      "top_symbols": [
+        "DOGEUSDT",
+        "SHIBUSDT",
+        "PEPEUSDT",
+        "BANANAS31USDT",
+        "$BANANAS31 "
+      ],
+      "sample_posts": [
+        {
+          "content_id": 313380013198785,
+          "author": "sophia.bull",
+          "username": "0xHoward_Peng",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313380013198785",
+          "narrative": "Meme",
+          "narrative_score": 76,
+          "keyword_hits": 4,
+          "symbol_hits": 2,
+          "signal_score": 45.0,
+          "signal_label": "noise",
+          "engagement_total": 0,
+          "sentiment": "中性",
+          "stage": "早期发酵",
+          "funds_confirmation": "待确认",
+          "symbols": [
+            "DOGEUSDT",
+            "SHIBUSDT",
+            "PEPEUSDT"
+          ],
+          "body_preview": "Next wave hitting $DOGE $SHIB $PEPE?  Meme season rotation looking overdue. BTC dominance cooling off, alts bleeding for weeks. Classic setup for degen capital to flow back into the OG meme plays.  Watch for: - Volume sp"
+        },
+        {
+          "content_id": 313380039746625,
+          "author": "Berserker_09",
+          "username": "Soban_Tariq",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313380039746625",
+          "narrative": "Meme",
+          "narrative_score": 18,
+          "keyword_hits": 0,
+          "symbol_hits": 1,
+          "signal_score": 98.0,
+          "signal_label": "high_signal",
+          "engagement_total": 913,
+          "sentiment": "偏多",
+          "stage": "末端过热",
+          "funds_confirmation": "资金确认",
+          "symbols": [
+            "BANANAS31USDT",
+            "$BANANAS31 "
+          ],
+          "body_preview": "$BANANAS31 is quietly building momentum after a clean base formation.  Price swept liquidity from the lows and immediately reclaimed structure, now consolidating near local highs — a classic sign of strength and continua"
+        },
+        {
+          "content_id": 313379777512305,
+          "author": "Square-Creator-e49d54810",
+          "username": "Square-Creator-e49d54810",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313379777512305",
+          "narrative": "Meme",
+          "narrative_score": 10,
+          "keyword_hits": 1,
+          "symbol_hits": 0,
+          "signal_score": 54.94,
+          "signal_label": "noise",
+          "engagement_total": 11,
+          "sentiment": "偏多",
+          "stage": "观察期",
+          "funds_confirmation": "待确认",
+          "symbols": [
+            "1MBABYDOGEUSDT",
+            "$1MBABYDOGE ",
+            "59USDT"
+          ],
+          "body_preview": "1MBABYDOGE Surges 2.87% on Binance Amid 51% Token Burn, TON Network Integration, and Guinness World Record  1MBABYDOGEUSDT has experienced a 2.87% price increase over the past 24 hours, rising from a 24h open of $0.00042"
+        }
+      ],
+      "narrative_rank": 2
+    },
+    {
+      "narrative": "DeFi",
+      "post_count": 2,
+      "unique_authors": 2,
+      "avg_signal_score": 68.11,
+      "total_engagement": 456,
+      "narrative_heat_score": 47.8,
+      "dominant_sentiment": "中性",
+      "dominant_stage": "早期发酵",
+      "funds_confirmation_mix": {
+        "资金确认": 1,
+        "待确认": 1
+      },
+      "top_symbols": [
+        "PIXELUSDT",
+        "$PIXEL ",
+        "LDOUSDT",
+        "CFGUSDT"
+      ],
+      "sample_posts": [
+        {
+          "content_id": 313335838578802,
+          "author": "ZGOD OFFICIAL",
+          "username": "TaSaN007",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313335838578802",
+          "narrative": "DeFi",
+          "narrative_score": 20,
+          "keyword_hits": 2,
+          "symbol_hits": 0,
+          "signal_score": 73.0,
+          "signal_label": "watch",
+          "engagement_total": 83,
+          "sentiment": "中性",
+          "stage": "早期发酵",
+          "funds_confirmation": "资金确认",
+          "symbols": [
+            "PIXELUSDT",
+            "$PIXEL "
+          ],
+          "body_preview": "I've been watching Web3 gaming for years, and I've noticed a pattern. Most projects spend their entire lives screaming into a megaphone about blockchain. \"Look, you can own your sword!\" \"The economy is on-chain!\" \"Freedo"
+        },
+        {
+          "content_id": 313379006935377,
+          "author": "CryptorInsight",
+          "username": "CryptorInsight",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313379006935377",
+          "narrative": "DeFi",
+          "narrative_score": 18,
+          "keyword_hits": 0,
+          "symbol_hits": 1,
+          "signal_score": 63.23,
+          "signal_label": "watch",
+          "engagement_total": 373,
+          "sentiment": "偏空",
+          "stage": "观察期",
+          "funds_confirmation": "待确认",
+          "symbols": [
+            "LDOUSDT",
+            "CFGUSDT"
+          ],
+          "body_preview": "Alpha dogfight: Which one has better short-term potential? LDO or CFG ? Vote now and share your reasoning."
+        }
+      ],
+      "narrative_rank": 3
+    },
+    {
+      "narrative": "BTCFi",
+      "post_count": 2,
+      "unique_authors": 2,
+      "avg_signal_score": 92.59,
+      "total_engagement": 209,
+      "narrative_heat_score": 45.74,
+      "dominant_sentiment": "偏多",
+      "dominant_stage": "中期扩散",
+      "funds_confirmation_mix": {
+        "待确认": 2
+      },
+      "top_symbols": [
+        "ORDIUSDT",
+        "$ORDI ",
+        "11USDT",
+        "14USDT"
+      ],
+      "sample_posts": [
+        {
+          "content_id": 313379802889682,
+          "author": "Professor_JAXON",
+          "username": "professor_jaxon",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313379802889682",
+          "narrative": "BTCFi",
+          "narrative_score": 18,
+          "keyword_hits": 0,
+          "symbol_hits": 1,
+          "signal_score": 96.8,
+          "signal_label": "high_signal",
+          "engagement_total": 67,
+          "sentiment": "偏多",
+          "stage": "中期扩散",
+          "funds_confirmation": "待确认",
+          "symbols": [
+            "ORDIUSDT",
+            "$ORDI ",
+            "11USDT"
+          ],
+          "body_preview": "$ORDI USDT Bullish Pullback Before Explosive Continuation Toward $11+ Trade Setup: Long Entry zone: 8.20 - 8.60 Tp1: 9.50 Tp2: 10.30 Tp3: 11.00 SL: 7.60 Strong bullish momentum after massive 100% rally, with price now co"
+        },
+        {
+          "content_id": 313379225979330,
+          "author": "NovaNews",
+          "username": "ErinCrypto",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313379225979330",
+          "narrative": "BTCFi",
+          "narrative_score": 18,
+          "keyword_hits": 0,
+          "symbol_hits": 1,
+          "signal_score": 88.37,
+          "signal_label": "high_signal",
+          "engagement_total": 142,
+          "sentiment": "偏多",
+          "stage": "中期扩散",
+          "funds_confirmation": "待确认",
+          "symbols": [
+            "ORDIUSDT",
+            "$ORDI ",
+            "14USDT"
+          ],
+          "body_preview": "$ORDI /USDT LONG UPDATE 🚀  Entry: $2.99 Current Price: $6.90 📈 Unrealized P&L: +$14,462 USDT 💰 ROE: +2,617% 🔥 Leverage: 20X Cross ⚡  From $2.99 to $6.90 — this move is already running strong. Patience + conviction is wha"
+        }
+      ],
+      "narrative_rank": 4
+    },
+    {
+      "narrative": "Solana",
+      "post_count": 1,
+      "unique_authors": 1,
+      "avg_signal_score": 90.0,
+      "total_engagement": 1735,
+      "narrative_heat_score": 36.46,
+      "dominant_sentiment": "偏空",
+      "dominant_stage": "末端过热",
+      "funds_confirmation_mix": {
+        "热度确认": 1
+      },
+      "top_symbols": [
+        "SOLUSDT"
+      ],
+      "sample_posts": [
+        {
+          "content_id": 313379126527889,
+          "author": "Signalx Killer",
+          "username": "MarketInsights",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313379126527889",
+          "narrative": "Solana",
+          "narrative_score": 18,
+          "keyword_hits": 0,
+          "symbol_hits": 1,
+          "signal_score": 90.0,
+          "signal_label": "high_signal",
+          "engagement_total": 1735,
+          "sentiment": "偏空",
+          "stage": "末端过热",
+          "funds_confirmation": "热度确认",
+          "symbols": [
+            "SOLUSDT"
+          ],
+          "body_preview": "Setup short $SOL  entry : 89-93  sl : 95.2  TP 1 : 87.6  TP 2 : 84.3  TP3 : 79.7  Regulatory Uncertainty: The CLARITY Act's potential non-passage poses a significant regulatory risk, which could lead to substantial marke"
+        }
+      ],
+      "narrative_rank": 5
+    },
+    {
+      "narrative": "AI",
+      "post_count": 1,
+      "unique_authors": 1,
+      "avg_signal_score": 88.0,
+      "total_engagement": 885,
+      "narrative_heat_score": 29.38,
+      "dominant_sentiment": "偏多",
+      "dominant_stage": "中期扩散",
+      "funds_confirmation_mix": {
+        "热度确认": 1
+      },
+      "top_symbols": [
+        "INJUSDT",
+        "FETUSDT",
+        "TAOUSDT",
+        "$TAO ",
+        "$FET "
+      ],
+      "sample_posts": [
+        {
+          "content_id": 313379615703633,
+          "author": "Berserker_09",
+          "username": "Soban_Tariq",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313379615703633",
+          "narrative": "AI",
+          "narrative_score": 56,
+          "keyword_hits": 2,
+          "symbol_hits": 2,
+          "signal_score": 88.0,
+          "signal_label": "high_signal",
+          "engagement_total": 885,
+          "sentiment": "偏多",
+          "stage": "中期扩散",
+          "funds_confirmation": "热度确认",
+          "symbols": [
+            "INJUSDT",
+            "FETUSDT",
+            "TAOUSDT",
+            "$TAO ",
+            "$FET ",
+            "$INJ ",
+            "110USDT",
+            "RENDERUSDT"
+          ],
+          "body_preview": "The market recently added $110 billion in just 15 hours. Total crypto market cap is now $2.54 trillion.  And the AI sector?   $TAO : $3.5B market cap, up 140% in six weeks   $FET : $0.23, holding strong support at 50-day"
+        }
+      ],
+      "narrative_rank": 6
+    },
+    {
+      "narrative": "GameFi",
+      "post_count": 1,
+      "unique_authors": 1,
+      "avg_signal_score": 73.0,
+      "total_engagement": 83,
+      "narrative_heat_score": 22.69,
+      "dominant_sentiment": "中性",
+      "dominant_stage": "早期发酵",
+      "funds_confirmation_mix": {
+        "资金确认": 1
+      },
+      "top_symbols": [
+        "PIXELUSDT",
+        "$PIXEL "
+      ],
+      "sample_posts": [
+        {
+          "content_id": 313335838578802,
+          "author": "ZGOD OFFICIAL",
+          "username": "TaSaN007",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313335838578802",
+          "narrative": "GameFi",
+          "narrative_score": 20,
+          "keyword_hits": 2,
+          "symbol_hits": 0,
+          "signal_score": 73.0,
+          "signal_label": "watch",
+          "engagement_total": 83,
+          "sentiment": "中性",
+          "stage": "早期发酵",
+          "funds_confirmation": "资金确认",
+          "symbols": [
+            "PIXELUSDT",
+            "$PIXEL "
+          ],
+          "body_preview": "I've been watching Web3 gaming for years, and I've noticed a pattern. Most projects spend their entire lives screaming into a megaphone about blockchain. \"Look, you can own your sword!\" \"The economy is on-chain!\" \"Freedo"
+        }
+      ],
+      "narrative_rank": 7
+    }
+  ],
+  "symbol_narrative_view": [
+    {
+      "symbol": "SIRENUSDT",
+      "narratives": [
+        "BSC"
+      ],
+      "post_count": 5,
+      "dominant_stage": "中期扩散",
+      "dominant_sentiment": "偏多",
+      "funds_confirmation_mix": {
+        "待确认": 4,
+        "资金确认": 1
+      },
+      "avg_signal_score": 86.78,
+      "total_engagement": 11685,
+      "sample_posts": [
+        {
+          "content_id": 313380193156273,
+          "author": "Professor_JAXON",
+          "username": "professor_jaxon",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313380193156273",
+          "narrative": "BSC",
+          "narrative_score": 18,
+          "keyword_hits": 0,
+          "symbol_hits": 1,
+          "signal_score": 98.0,
+          "signal_label": "high_signal",
+          "engagement_total": 226,
+          "sentiment": "偏多",
+          "stage": "中期扩散",
+          "funds_confirmation": "待确认",
+          "symbols": [
+            "SIRENUSDT"
+          ],
+          "body_preview": "$SIREN USDT Pullback Holding Strong Above $2 — Next Leg Up Towards $2.30 Incoming 🚀 Trade Setup: Long Entry zone: $1.90 – $2.05 Tp1: $2.20 Tp2: $2.36 Tp3: $2.60 SL: $1.70 After a massive impulsive rally, price is consoli"
+        },
+        {
+          "content_id": 313379555331538,
+          "author": "MissBlockChain_01",
+          "username": "zoe_cryptoanalyst",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313379555331538",
+          "narrative": "BSC",
+          "narrative_score": 18,
+          "keyword_hits": 0,
+          "symbol_hits": 1,
+          "signal_score": 93.67,
+          "signal_label": "high_signal",
+          "engagement_total": 534,
+          "sentiment": "偏多",
+          "stage": "中期扩散",
+          "funds_confirmation": "资金确认",
+          "symbols": [
+            "SIRENUSDT"
+          ],
+          "body_preview": "$SIREN   Parabolic Move, High Volatility Continuation Setup 📈⚠️ Trade Setup: Long Entry Zone: $1.85 – $1.95 TP1: $2.20 TP2: $2.45 TP3: $2.70 SL: $1.60 SIREN has already printed a massive +130% move, showing strong bullis"
+        }
+      ]
+    },
+    {
+      "symbol": "ORDIUSDT",
+      "narratives": [
+        "BTCFi"
+      ],
+      "post_count": 2,
+      "dominant_stage": "中期扩散",
+      "dominant_sentiment": "偏多",
+      "funds_confirmation_mix": {
+        "待确认": 2
+      },
+      "avg_signal_score": 92.59,
+      "total_engagement": 209,
+      "sample_posts": [
+        {
+          "content_id": 313379802889682,
+          "author": "Professor_JAXON",
+          "username": "professor_jaxon",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313379802889682",
+          "narrative": "BTCFi",
+          "narrative_score": 18,
+          "keyword_hits": 0,
+          "symbol_hits": 1,
+          "signal_score": 96.8,
+          "signal_label": "high_signal",
+          "engagement_total": 67,
+          "sentiment": "偏多",
+          "stage": "中期扩散",
+          "funds_confirmation": "待确认",
+          "symbols": [
+            "ORDIUSDT",
+            "$ORDI ",
+            "11USDT"
+          ],
+          "body_preview": "$ORDI USDT Bullish Pullback Before Explosive Continuation Toward $11+ Trade Setup: Long Entry zone: 8.20 - 8.60 Tp1: 9.50 Tp2: 10.30 Tp3: 11.00 SL: 7.60 Strong bullish momentum after massive 100% rally, with price now co"
+        },
+        {
+          "content_id": 313379225979330,
+          "author": "NovaNews",
+          "username": "ErinCrypto",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313379225979330",
+          "narrative": "BTCFi",
+          "narrative_score": 18,
+          "keyword_hits": 0,
+          "symbol_hits": 1,
+          "signal_score": 88.37,
+          "signal_label": "high_signal",
+          "engagement_total": 142,
+          "sentiment": "偏多",
+          "stage": "中期扩散",
+          "funds_confirmation": "待确认",
+          "symbols": [
+            "ORDIUSDT",
+            "$ORDI ",
+            "14USDT"
+          ],
+          "body_preview": "$ORDI /USDT LONG UPDATE 🚀  Entry: $2.99 Current Price: $6.90 📈 Unrealized P&L: +$14,462 USDT 💰 ROE: +2,617% 🔥 Leverage: 20X Cross ⚡  From $2.99 to $6.90 — this move is already running strong. Patience + conviction is wha"
+        }
+      ]
+    },
+    {
+      "symbol": "$ORDI ",
+      "narratives": [
+        "BTCFi"
+      ],
+      "post_count": 2,
+      "dominant_stage": "中期扩散",
+      "dominant_sentiment": "偏多",
+      "funds_confirmation_mix": {
+        "待确认": 2
+      },
+      "avg_signal_score": 92.59,
+      "total_engagement": 209,
+      "sample_posts": [
+        {
+          "content_id": 313379802889682,
+          "author": "Professor_JAXON",
+          "username": "professor_jaxon",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313379802889682",
+          "narrative": "BTCFi",
+          "narrative_score": 18,
+          "keyword_hits": 0,
+          "symbol_hits": 1,
+          "signal_score": 96.8,
+          "signal_label": "high_signal",
+          "engagement_total": 67,
+          "sentiment": "偏多",
+          "stage": "中期扩散",
+          "funds_confirmation": "待确认",
+          "symbols": [
+            "ORDIUSDT",
+            "$ORDI ",
+            "11USDT"
+          ],
+          "body_preview": "$ORDI USDT Bullish Pullback Before Explosive Continuation Toward $11+ Trade Setup: Long Entry zone: 8.20 - 8.60 Tp1: 9.50 Tp2: 10.30 Tp3: 11.00 SL: 7.60 Strong bullish momentum after massive 100% rally, with price now co"
+        },
+        {
+          "content_id": 313379225979330,
+          "author": "NovaNews",
+          "username": "ErinCrypto",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313379225979330",
+          "narrative": "BTCFi",
+          "narrative_score": 18,
+          "keyword_hits": 0,
+          "symbol_hits": 1,
+          "signal_score": 88.37,
+          "signal_label": "high_signal",
+          "engagement_total": 142,
+          "sentiment": "偏多",
+          "stage": "中期扩散",
+          "funds_confirmation": "待确认",
+          "symbols": [
+            "ORDIUSDT",
+            "$ORDI ",
+            "14USDT"
+          ],
+          "body_preview": "$ORDI /USDT LONG UPDATE 🚀  Entry: $2.99 Current Price: $6.90 📈 Unrealized P&L: +$14,462 USDT 💰 ROE: +2,617% 🔥 Leverage: 20X Cross ⚡  From $2.99 to $6.90 — this move is already running strong. Patience + conviction is wha"
+        }
+      ]
+    },
+    {
+      "symbol": "PIXELUSDT",
+      "narratives": [
+        "GameFi",
+        "DeFi"
+      ],
+      "post_count": 2,
+      "dominant_stage": "早期发酵",
+      "dominant_sentiment": "中性",
+      "funds_confirmation_mix": {
+        "资金确认": 2
+      },
+      "avg_signal_score": 73.0,
+      "total_engagement": 166,
+      "sample_posts": [
+        {
+          "content_id": 313335838578802,
+          "author": "ZGOD OFFICIAL",
+          "username": "TaSaN007",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313335838578802",
+          "narrative": "GameFi",
+          "narrative_score": 20,
+          "keyword_hits": 2,
+          "symbol_hits": 0,
+          "signal_score": 73.0,
+          "signal_label": "watch",
+          "engagement_total": 83,
+          "sentiment": "中性",
+          "stage": "早期发酵",
+          "funds_confirmation": "资金确认",
+          "symbols": [
+            "PIXELUSDT",
+            "$PIXEL "
+          ],
+          "body_preview": "I've been watching Web3 gaming for years, and I've noticed a pattern. Most projects spend their entire lives screaming into a megaphone about blockchain. \"Look, you can own your sword!\" \"The economy is on-chain!\" \"Freedo"
+        },
+        {
+          "content_id": 313335838578802,
+          "author": "ZGOD OFFICIAL",
+          "username": "TaSaN007",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313335838578802",
+          "narrative": "DeFi",
+          "narrative_score": 20,
+          "keyword_hits": 2,
+          "symbol_hits": 0,
+          "signal_score": 73.0,
+          "signal_label": "watch",
+          "engagement_total": 83,
+          "sentiment": "中性",
+          "stage": "早期发酵",
+          "funds_confirmation": "资金确认",
+          "symbols": [
+            "PIXELUSDT",
+            "$PIXEL "
+          ],
+          "body_preview": "I've been watching Web3 gaming for years, and I've noticed a pattern. Most projects spend their entire lives screaming into a megaphone about blockchain. \"Look, you can own your sword!\" \"The economy is on-chain!\" \"Freedo"
+        }
+      ]
+    },
+    {
+      "symbol": "$PIXEL ",
+      "narratives": [
+        "GameFi",
+        "DeFi"
+      ],
+      "post_count": 2,
+      "dominant_stage": "早期发酵",
+      "dominant_sentiment": "中性",
+      "funds_confirmation_mix": {
+        "资金确认": 2
+      },
+      "avg_signal_score": 73.0,
+      "total_engagement": 166,
+      "sample_posts": [
+        {
+          "content_id": 313335838578802,
+          "author": "ZGOD OFFICIAL",
+          "username": "TaSaN007",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313335838578802",
+          "narrative": "GameFi",
+          "narrative_score": 20,
+          "keyword_hits": 2,
+          "symbol_hits": 0,
+          "signal_score": 73.0,
+          "signal_label": "watch",
+          "engagement_total": 83,
+          "sentiment": "中性",
+          "stage": "早期发酵",
+          "funds_confirmation": "资金确认",
+          "symbols": [
+            "PIXELUSDT",
+            "$PIXEL "
+          ],
+          "body_preview": "I've been watching Web3 gaming for years, and I've noticed a pattern. Most projects spend their entire lives screaming into a megaphone about blockchain. \"Look, you can own your sword!\" \"The economy is on-chain!\" \"Freedo"
+        },
+        {
+          "content_id": 313335838578802,
+          "author": "ZGOD OFFICIAL",
+          "username": "TaSaN007",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313335838578802",
+          "narrative": "DeFi",
+          "narrative_score": 20,
+          "keyword_hits": 2,
+          "symbol_hits": 0,
+          "signal_score": 73.0,
+          "signal_label": "watch",
+          "engagement_total": 83,
+          "sentiment": "中性",
+          "stage": "早期发酵",
+          "funds_confirmation": "资金确认",
+          "symbols": [
+            "PIXELUSDT",
+            "$PIXEL "
+          ],
+          "body_preview": "I've been watching Web3 gaming for years, and I've noticed a pattern. Most projects spend their entire lives screaming into a megaphone about blockchain. \"Look, you can own your sword!\" \"The economy is on-chain!\" \"Freedo"
+        }
+      ]
+    },
+    {
+      "symbol": "BANANAS31USDT",
+      "narratives": [
+        "Meme"
+      ],
+      "post_count": 1,
+      "dominant_stage": "末端过热",
+      "dominant_sentiment": "偏多",
+      "funds_confirmation_mix": {
+        "资金确认": 1
+      },
+      "avg_signal_score": 98.0,
+      "total_engagement": 913,
+      "sample_posts": [
+        {
+          "content_id": 313380039746625,
+          "author": "Berserker_09",
+          "username": "Soban_Tariq",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313380039746625",
+          "narrative": "Meme",
+          "narrative_score": 18,
+          "keyword_hits": 0,
+          "symbol_hits": 1,
+          "signal_score": 98.0,
+          "signal_label": "high_signal",
+          "engagement_total": 913,
+          "sentiment": "偏多",
+          "stage": "末端过热",
+          "funds_confirmation": "资金确认",
+          "symbols": [
+            "BANANAS31USDT",
+            "$BANANAS31 "
+          ],
+          "body_preview": "$BANANAS31 is quietly building momentum after a clean base formation.  Price swept liquidity from the lows and immediately reclaimed structure, now consolidating near local highs — a classic sign of strength and continua"
+        }
+      ]
+    },
+    {
+      "symbol": "$BANANAS31 ",
+      "narratives": [
+        "Meme"
+      ],
+      "post_count": 1,
+      "dominant_stage": "末端过热",
+      "dominant_sentiment": "偏多",
+      "funds_confirmation_mix": {
+        "资金确认": 1
+      },
+      "avg_signal_score": 98.0,
+      "total_engagement": 913,
+      "sample_posts": [
+        {
+          "content_id": 313380039746625,
+          "author": "Berserker_09",
+          "username": "Soban_Tariq",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313380039746625",
+          "narrative": "Meme",
+          "narrative_score": 18,
+          "keyword_hits": 0,
+          "symbol_hits": 1,
+          "signal_score": 98.0,
+          "signal_label": "high_signal",
+          "engagement_total": 913,
+          "sentiment": "偏多",
+          "stage": "末端过热",
+          "funds_confirmation": "资金确认",
+          "symbols": [
+            "BANANAS31USDT",
+            "$BANANAS31 "
+          ],
+          "body_preview": "$BANANAS31 is quietly building momentum after a clean base formation.  Price swept liquidity from the lows and immediately reclaimed structure, now consolidating near local highs — a classic sign of strength and continua"
+        }
+      ]
+    },
+    {
+      "symbol": "11USDT",
+      "narratives": [
+        "BTCFi"
+      ],
+      "post_count": 1,
+      "dominant_stage": "中期扩散",
+      "dominant_sentiment": "偏多",
+      "funds_confirmation_mix": {
+        "待确认": 1
+      },
+      "avg_signal_score": 96.8,
+      "total_engagement": 67,
+      "sample_posts": [
+        {
+          "content_id": 313379802889682,
+          "author": "Professor_JAXON",
+          "username": "professor_jaxon",
+          "publish_time": "2026-04-17",
+          "web_link": "https://www.binance.com/en/square/post/313379802889682",
+          "narrative": "BTCFi",
+          "narrative_score": 18,
+          "keyword_hits": 0,
+          "symbol_hits": 1,
+          "signal_score": 96.8,
+          "signal_label": "high_signal",
+          "engagement_total": 67,
+          "sentiment": "偏多",
+          "stage": "中期扩散",
+          "funds_confirmation": "待确认",
+          "symbols": [
+            "ORDIUSDT",
+            "$ORDI ",
+            "11USDT"
+          ],
+          "body_preview": "$ORDI USDT Bullish Pullback Before Explosive Continuation Toward $11+ Trade Setup: Long Entry zone: 8.20 - 8.60 Tp1: 9.50 Tp2: 10.30 Tp3: 11.00 SL: 7.60 Strong bullish momentum after massive 100% rally, with price now co"
+        }
+      ]
+    }
+  ],
+  "tagged_posts": [
+    {
+      "content_id": 313380013198785,
+      "author": "sophia.bull",
+      "username": "0xHoward_Peng",
+      "publish_time": "2026-04-17",
+      "web_link": "https://www.binance.com/en/square/post/313380013198785",
+      "narrative": "Meme",
+      "narrative_score": 76,
+      "keyword_hits": 4,
+      "symbol_hits": 2,
+      "signal_score": 45.0,
+      "signal_label": "noise",
+      "engagement_total": 0,
+      "sentiment": "中性",
+      "stage": "早期发酵",
+      "funds_confirmation": "待确认",
+      "symbols": [
+        "DOGEUSDT",
+        "SHIBUSDT",
+        "PEPEUSDT"
+      ],
+      "body_preview": "Next wave hitting $DOGE $SHIB $PEPE?  Meme season rotation looking overdue. BTC dominance cooling off, alts bleeding for weeks. Classic setup for degen capital to flow back into the OG meme plays.  Watch for: - Volume sp"
+    },
+    {
+      "content_id": 313379615703633,
+      "author": "Berserker_09",
+      "username": "Soban_Tariq",
+      "publish_time": "2026-04-17",
+      "web_link": "https://www.binance.com/en/square/post/313379615703633",
+      "narrative": "AI",
+      "narrative_score": 56,
+      "keyword_hits": 2,
+      "symbol_hits": 2,
+      "signal_score": 88.0,
+      "signal_label": "high_signal",
+      "engagement_total": 885,
+      "sentiment": "偏多",
+      "stage": "中期扩散",
+      "funds_confirmation": "热度确认",
+      "symbols": [
+        "INJUSDT",
+        "FETUSDT",
+        "TAOUSDT",
+        "$TAO ",
+        "$FET ",
+        "$INJ ",
+        "110USDT",
+        "RENDERUSDT"
+      ],
+      "body_preview": "The market recently added $110 billion in just 15 hours. Total crypto market cap is now $2.54 trillion.  And the AI sector?   $TAO : $3.5B market cap, up 140% in six weeks   $FET : $0.23, holding strong support at 50-day"
+    },
+    {
+      "content_id": 313335838578802,
+      "author": "ZGOD OFFICIAL",
+      "username": "TaSaN007",
+      "publish_time": "2026-04-17",
+      "web_link": "https://www.binance.com/en/square/post/313335838578802",
+      "narrative": "GameFi",
+      "narrative_score": 20,
+      "keyword_hits": 2,
+      "symbol_hits": 0,
+      "signal_score": 73.0,
+      "signal_label": "watch",
+      "engagement_total": 83,
+      "sentiment": "中性",
+      "stage": "早期发酵",
+      "funds_confirmation": "资金确认",
+      "symbols": [
+        "PIXELUSDT",
+        "$PIXEL "
+      ],
+      "body_preview": "I've been watching Web3 gaming for years, and I've noticed a pattern. Most projects spend their entire lives screaming into a megaphone about blockchain. \"Look, you can own your sword!\" \"The economy is on-chain!\" \"Freedo"
+    },
+    {
+      "content_id": 313335838578802,
+      "author": "ZGOD OFFICIAL",
+      "username": "TaSaN007",
+      "publish_time": "2026-04-17",
+      "web_link": "https://www.binance.com/en/square/post/313335838578802",
+      "narrative": "DeFi",
+      "narrative_score": 20,
+      "keyword_hits": 2,
+      "symbol_hits": 0,
+      "signal_score": 73.0,
+      "signal_label": "watch",
+      "engagement_total": 83,
+      "sentiment": "中性",
+      "stage": "早期发酵",
+      "funds_confirmation": "资金确认",
+      "symbols": [
+        "PIXELUSDT",
+        "$PIXEL "
+      ],
+      "body_preview": "I've been watching Web3 gaming for years, and I've noticed a pattern. Most projects spend their entire lives screaming into a megaphone about blockchain. \"Look, you can own your sword!\" \"The economy is on-chain!\" \"Freedo"
+    },
+    {
+      "content_id": 313380039746625,
+      "author": "Berserker_09",
+      "username": "Soban_Tariq",
+      "publish_time": "2026-04-17",
+      "web_link": "https://www.binance.com/en/square/post/313380039746625",
+      "narrative": "Meme",
+      "narrative_score": 18,
+      "keyword_hits": 0,
+      "symbol_hits": 1,
+      "signal_score": 98.0,
+      "signal_label": "high_signal",
+      "engagement_total": 913,
+      "sentiment": "偏多",
+      "stage": "末端过热",
+      "funds_confirmation": "资金确认",
+      "symbols": [
+        "BANANAS31USDT",
+        "$BANANAS31 "
+      ],
+      "body_preview": "$BANANAS31 is quietly building momentum after a clean base formation.  Price swept liquidity from the lows and immediately reclaimed structure, now consolidating near local highs — a classic sign of strength and continua"
+    },
+    {
+      "content_id": 313380193156273,
+      "author": "Professor_JAXON",
+      "username": "professor_jaxon",
+      "publish_time": "2026-04-17",
+      "web_link": "https://www.binance.com/en/square/post/313380193156273",
+      "narrative": "BSC",
+      "narrative_score": 18,
+      "keyword_hits": 0,
+      "symbol_hits": 1,
+      "signal_score": 98.0,
+      "signal_label": "high_signal",
+      "engagement_total": 226,
+      "sentiment": "偏多",
+      "stage": "中期扩散",
+      "funds_confirmation": "待确认",
+      "symbols": [
+        "SIRENUSDT"
+      ],
+      "body_preview": "$SIREN USDT Pullback Holding Strong Above $2 — Next Leg Up Towards $2.30 Incoming 🚀 Trade Setup: Long Entry zone: $1.90 – $2.05 Tp1: $2.20 Tp2: $2.36 Tp3: $2.60 SL: $1.70 After a massive impulsive rally, price is consoli"
+    },
+    {
+      "content_id": 313379802889682,
+      "author": "Professor_JAXON",
+      "username": "professor_jaxon",
+      "publish_time": "2026-04-17",
+      "web_link": "https://www.binance.com/en/square/post/313379802889682",
+      "narrative": "BTCFi",
+      "narrative_score": 18,
+      "keyword_hits": 0,
+      "symbol_hits": 1,
+      "signal_score": 96.8,
+      "signal_label": "high_signal",
+      "engagement_total": 67,
+      "sentiment": "偏多",
+      "stage": "中期扩散",
+      "funds_confirmation": "待确认",
+      "symbols": [
+        "ORDIUSDT",
+        "$ORDI ",
+        "11USDT"
+      ],
+      "body_preview": "$ORDI USDT Bullish Pullback Before Explosive Continuation Toward $11+ Trade Setup: Long Entry zone: 8.20 - 8.60 Tp1: 9.50 Tp2: 10.30 Tp3: 11.00 SL: 7.60 Strong bullish momentum after massive 100% rally, with price now co"
+    },
+    {
+      "content_id": 313379555331538,
+      "author": "MissBlockChain_01",
+      "username": "zoe_cryptoanalyst",
+      "publish_time": "2026-04-17",
+      "web_link": "https://www.binance.com/en/square/post/313379555331538",
+      "narrative": "BSC",
+      "narrative_score": 18,
+      "keyword_hits": 0,
+      "symbol_hits": 1,
+      "signal_score": 93.67,
+      "signal_label": "high_signal",
+      "engagement_total": 534,
+      "sentiment": "偏多",
+      "stage": "中期扩散",
+      "funds_confirmation": "资金确认",
+      "symbols": [
+        "SIRENUSDT"
+      ],
+      "body_preview": "$SIREN   Parabolic Move, High Volatility Continuation Setup 📈⚠️ Trade Setup: Long Entry Zone: $1.85 – $1.95 TP1: $2.20 TP2: $2.45 TP3: $2.70 SL: $1.60 SIREN has already printed a massive +130% move, showing strong bullis"
+    },
+    {
+      "content_id": 313379126527889,
+      "author": "Signalx Killer",
+      "username": "MarketInsights",
+      "publish_time": "2026-04-17",
+      "web_link": "https://www.binance.com/en/square/post/313379126527889",
+      "narrative": "Solana",
+      "narrative_score": 18,
+      "keyword_hits": 0,
+      "symbol_hits": 1,
+      "signal_score": 90.0,
+      "signal_label": "high_signal",
+      "engagement_total": 1735,
+      "sentiment": "偏空",
+      "stage": "末端过热",
+      "funds_confirmation": "热度确认",
+      "symbols": [
+        "SOLUSDT"
+      ],
+      "body_preview": "Setup short $SOL  entry : 89-93  sl : 95.2  TP 1 : 87.6  TP 2 : 84.3  TP3 : 79.7  Regulatory Uncertainty: The CLARITY Act's potential non-passage poses a significant regulatory risk, which could lead to substantial marke"
+    },
+    {
+      "content_id": 313379225979330,
+      "author": "NovaNews",
+      "username": "ErinCrypto",
+      "publish_time": "2026-04-17",
+      "web_link": "https://www.binance.com/en/square/post/313379225979330",
+      "narrative": "BTCFi",
+      "narrative_score": 18,
+      "keyword_hits": 0,
+      "symbol_hits": 1,
+      "signal_score": 88.37,
+      "signal_label": "high_signal",
+      "engagement_total": 142,
+      "sentiment": "偏多",
+      "stage": "中期扩散",
+      "funds_confirmation": "待确认",
+      "symbols": [
+        "ORDIUSDT",
+        "$ORDI ",
+        "14USDT"
+      ],
+      "body_preview": "$ORDI /USDT LONG UPDATE 🚀  Entry: $2.99 Current Price: $6.90 📈 Unrealized P&L: +$14,462 USDT 💰 ROE: +2,617% 🔥 Leverage: 20X Cross ⚡  From $2.99 to $6.90 — this move is already running strong. Patience + conviction is wha"
+    },
+    {
+      "content_id": 313380114805873,
+      "author": "Raja Boss official",
+      "username": "Raja_Boss_official",
+      "publish_time": "2026-04-17",
+      "web_link": "https://www.binance.com/en/square/post/313380114805873",
+      "narrative": "BSC",
+      "narrative_score": 18,
+      "keyword_hits": 0,
+      "symbol_hits": 1,
+      "signal_score": 83.21,
+      "signal_label": "high_signal",
+      "engagement_total": 121,
+      "sentiment": "偏空",
+      "stage": "早期发酵",
+      "funds_confirmation": "待确认",
+      "symbols": [
+        "SIRENUSDT"
+      ],
+      "body_preview": "WTF is this 😱😭  $SIREN just came back from the dead…  Look at that move…  a massive pump in just 3 candles absolutely insane 💀  And now I’m already seeing people jumping into shorts…  thinking “it’s over, dump coming”  B"
+    },
+    {
+      "content_id": 313379542231121,
+      "author": "Jessica Elizabeth",
+      "username": "saniatg9",
+      "publish_time": "2026-04-17",
+      "web_link": "https://www.binance.com/en/square/post/313379542231121",
+      "narrative": "BSC",
+      "narrative_score": 18,
+      "keyword_hits": 0,
+      "symbol_hits": 1,
+      "signal_score": 82.0,
+      "signal_label": "high_signal",
+      "engagement_total": 415,
+      "sentiment": "偏多",
+      "stage": "中期扩散",
+      "funds_confirmation": "待确认",
+      "symbols": [
+        "SIRENUSDT"
+      ],
+      "body_preview": "$SIREN = $3🌕💥•••••• CRYP'S 🔸 LOOKS MONSTER 💀 $SIREN HARD BULLISH ↗️ Anytime EXPLOaaD 🚀 FAST BUy NOw 💹 TARGET 🔸2.15 🔸2.30 🔸2.50  {future}(SIRENUSDT)"
+    },
+    {
+      "content_id": 313380190545362,
+      "author": "TRADE MASTER M",
+      "username": "Oliviaroy",
+      "publish_time": "2026-04-17",
+      "web_link": "https://www.binance.com/en/square/post/313380190545362",
+      "narrative": "BSC",
+      "narrative_score": 18,
+      "keyword_hits": 0,
+      "symbol_hits": 1,
+      "signal_score": 77.0,
+      "signal_label": "high_signal",
+      "engagement_total": 10389,
+      "sentiment": "偏空",
+      "stage": "中期扩散",
+      "funds_confirmation": "待确认",
+      "symbols": [
+        "SIRENUSDT"
+      ],
+      "body_preview": "$SIREN Pump Again 😅😅😅 But don't give up 🤫   Keep Short $SIREN   Crash Coming Soooon 📉📉"
+    },
+    {
+      "content_id": 313379006935377,
+      "author": "CryptorInsight",
+      "username": "CryptorInsight",
+      "publish_time": "2026-04-17",
+      "web_link": "https://www.binance.com/en/square/post/313379006935377",
+      "narrative": "DeFi",
+      "narrative_score": 18,
+      "keyword_hits": 0,
+      "symbol_hits": 1,
+      "signal_score": 63.23,
+      "signal_label": "watch",
+      "engagement_total": 373,
+      "sentiment": "偏空",
+      "stage": "观察期",
+      "funds_confirmation": "待确认",
+      "symbols": [
+        "LDOUSDT",
+        "CFGUSDT"
+      ],
+      "body_preview": "Alpha dogfight: Which one has better short-term potential? LDO or CFG ? Vote now and share your reasoning."
+    },
+    {
+      "content_id": 313379777512305,
+      "author": "Square-Creator-e49d54810",
+      "username": "Square-Creator-e49d54810",
+      "publish_time": "2026-04-17",
+      "web_link": "https://www.binance.com/en/square/post/313379777512305",
+      "narrative": "Meme",
+      "narrative_score": 10,
+      "keyword_hits": 1,
+      "symbol_hits": 0,
+      "signal_score": 54.94,
+      "signal_label": "noise",
+      "engagement_total": 11,
+      "sentiment": "偏多",
+      "stage": "观察期",
+      "funds_confirmation": "待确认",
+      "symbols": [
+        "1MBABYDOGEUSDT",
+        "$1MBABYDOGE ",
+        "59USDT"
+      ],
+      "body_preview": "1MBABYDOGE Surges 2.87% on Binance Amid 51% Token Burn, TON Network Integration, and Guinness World Record  1MBABYDOGEUSDT has experienced a 2.87% price increase over the past 24 hours, rising from a 24h open of $0.00042"
+    },
+    {
+      "content_id": 313378863099649,
+      "author": "sara.defi",
+      "username": "0xBigPineapple",
+      "publish_time": "2026-04-17",
+      "web_link": "https://www.binance.com/en/square/post/313378863099649",
+      "narrative": "Meme",
+      "narrative_score": 10,
+      "keyword_hits": 1,
+      "symbol_hits": 0,
+      "signal_score": 42.0,
+      "signal_label": "noise",
+      "engagement_total": 0,
+      "sentiment": "偏多",
+      "stage": "观察期",
+      "funds_confirmation": "待确认",
+      "symbols": [
+        "BTCUSDT"
+      ],
+      "body_preview": "🚨 FLORIDA DROPS THE HAMMER  First U.S. state to propose eliminating capital gains tax on Bitcoin. Zero. Nada.  This isn't just bullish for price action — it's a structural shift. If this passes:  → Institutional capital "
+    },
+    {
+      "content_id": 313379806238817,
+      "author": "Alpha Signal Feed",
+      "username": "0xRainandCoffee",
+      "publish_time": "2026-04-17",
+      "web_link": "https://www.binance.com/en/square/post/313379806238817",
+      "narrative": "Meme",
+      "narrative_score": 10,
+      "keyword_hits": 1,
+      "symbol_hits": 0,
+      "signal_score": 40.77,
+      "signal_label": "noise",
+      "engagement_total": 1,
+      "sentiment": "偏空",
+      "stage": "观察期",
+      "funds_confirmation": "待确认",
+      "symbols": [
+        "RAVEUSDT"
+      ],
+      "body_preview": "$RAVE pumped 100x and degens were shorting it with borrowed money at insane funding rates.  This isn't trading. This is pure gambling — and they picked the worst game to play.  Everyone knows this token is 99% controlled"
+    }
+  ]
+}
