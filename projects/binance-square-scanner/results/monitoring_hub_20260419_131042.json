@@ -1,0 +1,3211 @@
+{
+  "generated_at": "2026-04-19T05:10:42.628427Z",
+  "scan_config": {
+    "mode": "monitoring_hub_v1",
+    "limit": 40,
+    "start_page": 1,
+    "max_pages": 4,
+    "top_n": 6,
+    "onchain_limit": 12
+  },
+  "system_summary": {
+    "trend_candidates": 6,
+    "buy_candidates": 6,
+    "strong_capital_buy_candidates": 0,
+    "top_narratives": 6,
+    "onchain_strong_buy_candidates": 2,
+    "onchain_observation_candidates": 1
+  },
+  "focus_board": {
+    "strong_capital_buy_candidates": [],
+    "buy_candidates": [
+      {
+        "symbol": "INJUSDT",
+        "square_heat": {
+          "symbol": "INJUSDT",
+          "square_conviction_score": 95.12,
+          "square_avg_signal_score": 88.0,
+          "square_post_count": 1,
+          "square_unique_authors": 1,
+          "square_total_engagement": 885,
+          "square_bias": "long_watch",
+          "sample_post_ids": [
+            313379615703633
+          ]
+        },
+        "external_heat": {
+          "symbol": "INJ",
+          "square_mentions": 1,
+          "unique_authors": 1,
+          "square_engagement_score": 885,
+          "sample_posts": [
+            {
+              "content_id": 313379615703633,
+              "author": "Berserker_09",
+              "username": "Soban_Tariq",
+              "web_link": "https://www.binance.com/en/square/post/313379615703633",
+              "body_preview": "The market recently added $110 billion in just 15 hours. Total crypto market cap is now $2.54 trillion.  And the AI sector?   $TAO : $3.5B market cap, up 140% in six weeks   $FET :"
+            }
+          ],
+          "coingecko_trending_flag": false,
+          "coingecko_rank": null,
+          "coingecko_name": null,
+          "coingecko_score": 0,
+          "futures_movers_flag": false,
+          "futures_rank": null,
+          "futures_symbol": null,
+          "futures_change_pct_24h": null,
+          "futures_quote_volume": null,
+          "futures_score": 0,
+          "heat_score": 16.21,
+          "heat_rank": 14
+        },
+        "timing_signal": {
+          "symbol": "INJUSDT",
+          "oi_change_pct": 0.01,
+          "oi_value_change_pct": 0.17,
+          "price_change_pct_24h": -3.95,
+          "divergence_ratio": 0.0,
+          "timing_score": 24.31,
+          "direction_bias": "long",
+          "last_price": 3.206,
+          "quote_volume_24h": 14297080.0173,
+          "count_24h": 113389,
+          "momentum_vs_vwap_pct": -1.62,
+          "open_interest": 3586043.2,
+          "open_interest_value": 11489865.37272406,
+          "market_type": "binance_futures",
+          "venue": "binance_futures",
+          "timing_rank": 6
+        },
+        "spot_market_snapshot": {
+          "last_price": 3.211,
+          "price_change_pct_24h": -3.949,
+          "quote_volume_24h": 2534391.3857
+        },
+        "heat_score": 95.12,
+        "timing_score": 24.31,
+        "final_score": 74.17,
+        "market_type": "binance_futures",
+        "venue": "binance_futures",
+        "stage": "热度偏多",
+        "is_buy_candidate": true,
+        "strong_capital_confirmed": false,
+        "reason_summary": "广场提及 1 帖, 1 位作者，广场情绪偏多，OI 0.01% / 价格 -3.95%",
+        "priority_rank": 1
+      },
+      {
+        "symbol": "RENDERUSDT",
+        "square_heat": {
+          "symbol": "RENDERUSDT",
+          "square_conviction_score": 95.12,
+          "square_avg_signal_score": 88.0,
+          "square_post_count": 1,
+          "square_unique_authors": 1,
+          "square_total_engagement": 885,
+          "square_bias": "long_watch",
+          "sample_post_ids": [
+            313379615703633
+          ]
+        },
+        "external_heat": {
+          "symbol": "RENDER",
+          "square_mentions": 1,
+          "unique_authors": 1,
+          "square_engagement_score": 885,
+          "sample_posts": [
+            {
+              "content_id": 313379615703633,
+              "author": "Berserker_09",
+              "username": "Soban_Tariq",
+              "web_link": "https://www.binance.com/en/square/post/313379615703633",
+              "body_preview": "The market recently added $110 billion in just 15 hours. Total crypto market cap is now $2.54 trillion.  And the AI sector?   $TAO : $3.5B market cap, up 140% in six weeks   $FET :"
+            }
+          ],
+          "coingecko_trending_flag": false,
+          "coingecko_rank": null,
+          "coingecko_name": null,
+          "coingecko_score": 0,
+          "futures_movers_flag": false,
+          "futures_rank": null,
+          "futures_symbol": null,
+          "futures_change_pct_24h": null,
+          "futures_quote_volume": null,
+          "futures_score": 0,
+          "heat_score": 16.21,
+          "heat_rank": 13
+        },
+        "timing_signal": {
+          "symbol": "RENDERUSDT",
+          "oi_change_pct": 0.04,
+          "oi_value_change_pct": 0.61,
+          "price_change_pct_24h": -5.15,
+          "divergence_ratio": 0.01,
+          "timing_score": 19.07,
+          "direction_bias": "long",
+          "last_price": 1.767,
+          "quote_volume_24h": 27419608.9218,
+          "count_24h": 144071,
+          "momentum_vs_vwap_pct": -2.02,
+          "open_interest": 7321749.8,
+          "open_interest_value": 12967245.97346583,
+          "market_type": "binance_futures",
+          "venue": "binance_futures",
+          "timing_rank": 7
+        },
+        "spot_market_snapshot": {
+          "last_price": 1.769,
+          "price_change_pct_24h": -5.35,
+          "quote_volume_24h": 5803393.89095
+        },
+        "heat_score": 95.12,
+        "timing_score": 19.07,
+        "final_score": 71.29,
+        "market_type": "binance_futures",
+        "venue": "binance_futures",
+        "stage": "热度偏多",
+        "is_buy_candidate": true,
+        "strong_capital_confirmed": false,
+        "reason_summary": "广场提及 1 帖, 1 位作者，广场情绪偏多，OI 0.04% / 价格 -5.15%",
+        "priority_rank": 2
+      },
+      {
+        "symbol": "POWERUSDT",
+        "square_heat": {
+          "symbol": "POWERUSDT",
+          "square_conviction_score": 100.0,
+          "square_avg_signal_score": 92.82,
+          "square_post_count": 2,
+          "square_unique_authors": 2,
+          "square_total_engagement": 577,
+          "square_bias": "long_watch",
+          "sample_post_ids": [
+            313379604018961,
+            313379116982865
+          ]
+        },
+        "external_heat": {
+          "symbol": "POWER",
+          "square_mentions": 2,
+          "unique_authors": 2,
+          "square_engagement_score": 577,
+          "sample_posts": [
+            {
+              "content_id": 313379604018961,
+              "author": "Crypto Alpha",
+              "username": "CryptoExpertOne",
+              "web_link": "https://www.binance.com/en/square/post/313379604018961",
+              "body_preview": "Strong bullish structure with higher highs and continuation momentum building  Price has shown a clean trend reversal from the lows and is now forming higher highs and higher lows."
+            },
+            {
+              "content_id": 313379116982865,
+              "author": "CryptoGuru12",
+              "username": "cryptobysaqib",
+              "web_link": "https://www.binance.com/en/square/post/313379116982865",
+              "body_preview": "Market showing steady bullish continuation with higher highs forming  Entry $0.0990 $0.1005 SL $0.0960  TP1 $0.1040 TP2 $0.1080 TP3 $0.1120  Why this setup  Clear higher highs and "
+            }
+          ],
+          "coingecko_trending_flag": false,
+          "coingecko_rank": null,
+          "coingecko_name": null,
+          "coingecko_score": 0,
+          "futures_movers_flag": false,
+          "futures_rank": null,
+          "futures_symbol": null,
+          "futures_change_pct_24h": null,
+          "futures_quote_volume": null,
+          "futures_score": 0,
+          "heat_score": 29.44,
+          "heat_rank": 6
+        },
+        "timing_signal": {
+          "symbol": "POWERUSDT",
+          "oi_change_pct": 0.06,
+          "oi_value_change_pct": 0.29,
+          "price_change_pct_24h": -10.29,
+          "divergence_ratio": 0.01,
+          "timing_score": 10.61,
+          "direction_bias": "mixed",
+          "last_price": 0.08857,
+          "quote_volume_24h": 11525489.55668,
+          "count_24h": 336884,
+          "momentum_vs_vwap_pct": -3.2,
+          "open_interest": 64600239.0,
+          "open_interest_value": 5708723.12043,
+          "market_type": "binance_futures",
+          "venue": "binance_futures",
+          "timing_rank": 20
+        },
+        "spot_market_snapshot": null,
+        "heat_score": 100.0,
+        "timing_score": 10.61,
+        "final_score": 60.84,
+        "market_type": "binance_futures",
+        "venue": "binance_futures",
+        "stage": "热度偏多",
+        "is_buy_candidate": true,
+        "strong_capital_confirmed": false,
+        "reason_summary": "广场提及 2 帖, 2 位作者，广场情绪偏多，OI 0.06% / 价格 -10.29%",
+        "priority_rank": 3
+      },
+      {
+        "symbol": "FETUSDT",
+        "square_heat": {
+          "symbol": "FETUSDT",
+          "square_conviction_score": 95.12,
+          "square_avg_signal_score": 88.0,
+          "square_post_count": 1,
+          "square_unique_authors": 1,
+          "square_total_engagement": 885,
+          "square_bias": "long_watch",
+          "sample_post_ids": [
+            313379615703633
+          ]
+        },
+        "external_heat": {
+          "symbol": "FET",
+          "square_mentions": 1,
+          "unique_authors": 1,
+          "square_engagement_score": 885,
+          "sample_posts": [
+            {
+              "content_id": 313379615703633,
+              "author": "Berserker_09",
+              "username": "Soban_Tariq",
+              "web_link": "https://www.binance.com/en/square/post/313379615703633",
+              "body_preview": "The market recently added $110 billion in just 15 hours. Total crypto market cap is now $2.54 trillion.  And the AI sector?   $TAO : $3.5B market cap, up 140% in six weeks   $FET :"
+            }
+          ],
+          "coingecko_trending_flag": false,
+          "coingecko_rank": null,
+          "coingecko_name": null,
+          "coingecko_score": 0,
+          "futures_movers_flag": false,
+          "futures_rank": null,
+          "futures_symbol": null,
+          "futures_change_pct_24h": null,
+          "futures_quote_volume": null,
+          "futures_score": 0,
+          "heat_score": 16.21,
+          "heat_rank": 11
+        },
+        "timing_signal": {
+          "symbol": "FETUSDT",
+          "oi_change_pct": 0.12,
+          "oi_value_change_pct": -0.49,
+          "price_change_pct_24h": -6.91,
+          "divergence_ratio": 0.02,
+          "timing_score": 12.38,
+          "direction_bias": "mixed",
+          "last_price": 0.2142,
+          "quote_volume_24h": 48759678.4562,
+          "count_24h": 249395,
+          "momentum_vs_vwap_pct": -3.38,
+          "open_interest": 171465260.0,
+          "open_interest_value": 36727858.692,
+          "market_type": "binance_futures",
+          "venue": "binance_futures",
+          "timing_rank": 18
+        },
+        "spot_market_snapshot": {
+          "last_price": 0.2145,
+          "price_change_pct_24h": -7.022,
+          "quote_volume_24h": 12897292.28696
+        },
+        "heat_score": 95.12,
+        "timing_score": 12.38,
+        "final_score": 59.61,
+        "market_type": "binance_futures",
+        "venue": "binance_futures",
+        "stage": "热度偏多",
+        "is_buy_candidate": true,
+        "strong_capital_confirmed": false,
+        "reason_summary": "广场提及 1 帖, 1 位作者，广场情绪偏多，OI 0.12% / 价格 -6.91%",
+        "priority_rank": 4
+      },
+      {
+        "symbol": "BEATUSDT",
+        "square_heat": {
+          "symbol": "BEATUSDT",
+          "square_conviction_score": 96.96,
+          "square_avg_signal_score": 94.52,
+          "square_post_count": 1,
+          "square_unique_authors": 1,
+          "square_total_engagement": 661,
+          "square_bias": "long_watch",
+          "sample_post_ids": [
+            313379194875745
+          ]
+        },
+        "external_heat": {
+          "symbol": "BEAT",
+          "square_mentions": 1,
+          "unique_authors": 1,
+          "square_engagement_score": 661,
+          "sample_posts": [
+            {
+              "content_id": 313379194875745,
+              "author": "Berserker_09",
+              "username": "Soban_Tariq",
+              "web_link": "https://www.binance.com/en/square/post/313379194875745",
+              "body_preview": "$BEAT  is pushing into strength after a steady trend buildup.  Market structure shows a sequence of higher highs with controlled pullbacks, meaning buyers are absorbing supply and "
+            }
+          ],
+          "coingecko_trending_flag": false,
+          "coingecko_rank": null,
+          "coingecko_name": null,
+          "coingecko_score": 0,
+          "futures_movers_flag": false,
+          "futures_rank": null,
+          "futures_symbol": null,
+          "futures_change_pct_24h": null,
+          "futures_quote_volume": null,
+          "futures_score": 0,
+          "heat_score": 15.65,
+          "heat_rank": 16
+        },
+        "timing_signal": {
+          "symbol": "BEATUSDT",
+          "oi_change_pct": -0.04,
+          "oi_value_change_pct": 0.35,
+          "price_change_pct_24h": 0.06,
+          "divergence_ratio": -0.06,
+          "timing_score": 8.52,
+          "direction_bias": "mixed",
+          "last_price": 0.4926,
+          "quote_volume_24h": 33055163.5932,
+          "count_24h": 701289,
+          "momentum_vs_vwap_pct": -3.08,
+          "open_interest": 40433082.0,
+          "open_interest_value": 19899553.7237364,
+          "market_type": "binance_futures",
+          "venue": "binance_futures",
+          "timing_rank": 21
+        },
+        "spot_market_snapshot": null,
+        "heat_score": 96.96,
+        "timing_score": 8.52,
+        "final_score": 58.32,
+        "market_type": "binance_futures",
+        "venue": "binance_futures",
+        "stage": "热度偏多",
+        "is_buy_candidate": true,
+        "strong_capital_confirmed": false,
+        "reason_summary": "广场提及 1 帖, 1 位作者，广场情绪偏多",
+        "priority_rank": 5
+      },
+      {
+        "symbol": "TAOUSDT",
+        "square_heat": {
+          "symbol": "TAOUSDT",
+          "square_conviction_score": 95.12,
+          "square_avg_signal_score": 88.0,
+          "square_post_count": 1,
+          "square_unique_authors": 1,
+          "square_total_engagement": 885,
+          "square_bias": "long_watch",
+          "sample_post_ids": [
+            313379615703633
+          ]
+        },
+        "external_heat": {
+          "symbol": "TAO",
+          "square_mentions": 1,
+          "unique_authors": 1,
+          "square_engagement_score": 885,
+          "sample_posts": [
+            {
+              "content_id": 313379615703633,
+              "author": "Berserker_09",
+              "username": "Soban_Tariq",
+              "web_link": "https://www.binance.com/en/square/post/313379615703633",
+              "body_preview": "The market recently added $110 billion in just 15 hours. Total crypto market cap is now $2.54 trillion.  And the AI sector?   $TAO : $3.5B market cap, up 140% in six weeks   $FET :"
+            }
+          ],
+          "coingecko_trending_flag": false,
+          "coingecko_rank": null,
+          "coingecko_name": null,
+          "coingecko_score": 0,
+          "futures_movers_flag": false,
+          "futures_rank": null,
+          "futures_symbol": null,
+          "futures_change_pct_24h": null,
+          "futures_quote_volume": null,
+          "futures_score": 0,
+          "heat_score": 16.21,
+          "heat_rank": 12
+        },
+        "timing_signal": {
+          "symbol": "TAOUSDT",
+          "oi_change_pct": -0.3,
+          "oi_value_change_pct": -0.25,
+          "price_change_pct_24h": -4.75,
+          "divergence_ratio": -0.06,
+          "timing_score": 8.0,
+          "direction_bias": "mixed",
+          "last_price": 241.64,
+          "quote_volume_24h": 144268639.54,
+          "count_24h": 829933,
+          "momentum_vs_vwap_pct": -2.35,
+          "open_interest": 310493.255,
+          "open_interest_value": 75235620.61905,
+          "market_type": "binance_futures",
+          "venue": "binance_futures",
+          "timing_rank": 23
+        },
+        "spot_market_snapshot": {
+          "last_price": 241.8,
+          "price_change_pct_24h": -5.065,
+          "quote_volume_24h": 23157940.95469
+        },
+        "heat_score": 95.12,
+        "timing_score": 8.0,
+        "final_score": 57.2,
+        "market_type": "binance_futures",
+        "venue": "binance_futures",
+        "stage": "热度偏多",
+        "is_buy_candidate": true,
+        "strong_capital_confirmed": false,
+        "reason_summary": "广场提及 1 帖, 1 位作者，广场情绪偏多",
+        "priority_rank": 6
+      }
+    ],
+    "top_narratives": [
+      {
+        "narrative": "BSC",
+        "post_count": 5,
+        "unique_authors": 5,
+        "avg_signal_score": 86.78,
+        "total_engagement": 11697,
+        "narrative_heat_score": 140,
+        "dominant_sentiment": "偏多",
+        "dominant_stage": "中期扩散",
+        "funds_confirmation_mix": {
+          "待确认": 4,
+          "资金确认": 1
+        },
+        "top_symbols": [
+          "SIRENUSDT"
+        ],
+        "sample_posts": [
+          {
+            "content_id": 313380193156273,
+            "author": "Professor_JAXON",
+            "username": "professor_jaxon",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313380193156273",
+            "narrative": "BSC",
+            "narrative_score": 18,
+            "keyword_hits": 0,
+            "symbol_hits": 1,
+            "signal_score": 98.0,
+            "signal_label": "high_signal",
+            "engagement_total": 226,
+            "sentiment": "偏多",
+            "stage": "中期扩散",
+            "funds_confirmation": "待确认",
+            "symbols": [
+              "SIRENUSDT"
+            ],
+            "body_preview": "$SIREN USDT Pullback Holding Strong Above $2 — Next Leg Up Towards $2.30 Incoming 🚀 Trade Setup: Long Entry zone: $1.90 – $2.05 Tp1: $2.20 Tp2: $2.36 Tp3: $2.60 SL: $1.70 After a massive impulsive rally, price is consoli"
+          },
+          {
+            "content_id": 313379555331538,
+            "author": "MissBlockChain_01",
+            "username": "zoe_cryptoanalyst",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313379555331538",
+            "narrative": "BSC",
+            "narrative_score": 18,
+            "keyword_hits": 0,
+            "symbol_hits": 1,
+            "signal_score": 93.67,
+            "signal_label": "high_signal",
+            "engagement_total": 534,
+            "sentiment": "偏多",
+            "stage": "中期扩散",
+            "funds_confirmation": "资金确认",
+            "symbols": [
+              "SIRENUSDT"
+            ],
+            "body_preview": "$SIREN   Parabolic Move, High Volatility Continuation Setup 📈⚠️ Trade Setup: Long Entry Zone: $1.85 – $1.95 TP1: $2.20 TP2: $2.45 TP3: $2.70 SL: $1.60 SIREN has already printed a massive +130% move, showing strong bullis"
+          },
+          {
+            "content_id": 313380114805873,
+            "author": "Raja Boss official",
+            "username": "Raja_Boss_official",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313380114805873",
+            "narrative": "BSC",
+            "narrative_score": 18,
+            "keyword_hits": 0,
+            "symbol_hits": 1,
+            "signal_score": 83.21,
+            "signal_label": "high_signal",
+            "engagement_total": 121,
+            "sentiment": "偏空",
+            "stage": "早期发酵",
+            "funds_confirmation": "待确认",
+            "symbols": [
+              "SIRENUSDT"
+            ],
+            "body_preview": "WTF is this 😱😭  $SIREN just came back from the dead…  Look at that move…  a massive pump in just 3 candles absolutely insane 💀  And now I’m already seeing people jumping into shorts…  thinking “it’s over, dump coming”  B"
+          }
+        ],
+        "narrative_rank": 1
+      },
+      {
+        "narrative": "Meme",
+        "post_count": 5,
+        "unique_authors": 5,
+        "avg_signal_score": 56.14,
+        "total_engagement": 925,
+        "narrative_heat_score": 117.71,
+        "dominant_sentiment": "偏多",
+        "dominant_stage": "观察期",
+        "funds_confirmation_mix": {
+          "待确认": 4,
+          "资金确认": 1
+        },
+        "top_symbols": [
+          "DOGEUSDT",
+          "SHIBUSDT",
+          "PEPEUSDT",
+          "BANANAS31USDT",
+          "$BANANAS31 "
+        ],
+        "sample_posts": [
+          {
+            "content_id": 313380013198785,
+            "author": "sophia.bull",
+            "username": "0xHoward_Peng",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313380013198785",
+            "narrative": "Meme",
+            "narrative_score": 76,
+            "keyword_hits": 4,
+            "symbol_hits": 2,
+            "signal_score": 45.0,
+            "signal_label": "noise",
+            "engagement_total": 0,
+            "sentiment": "中性",
+            "stage": "早期发酵",
+            "funds_confirmation": "待确认",
+            "symbols": [
+              "DOGEUSDT",
+              "SHIBUSDT",
+              "PEPEUSDT"
+            ],
+            "body_preview": "Next wave hitting $DOGE $SHIB $PEPE?  Meme season rotation looking overdue. BTC dominance cooling off, alts bleeding for weeks. Classic setup for degen capital to flow back into the OG meme plays.  Watch for: - Volume sp"
+          },
+          {
+            "content_id": 313380039746625,
+            "author": "Berserker_09",
+            "username": "Soban_Tariq",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313380039746625",
+            "narrative": "Meme",
+            "narrative_score": 18,
+            "keyword_hits": 0,
+            "symbol_hits": 1,
+            "signal_score": 98.0,
+            "signal_label": "high_signal",
+            "engagement_total": 913,
+            "sentiment": "偏多",
+            "stage": "末端过热",
+            "funds_confirmation": "资金确认",
+            "symbols": [
+              "BANANAS31USDT",
+              "$BANANAS31 "
+            ],
+            "body_preview": "$BANANAS31 is quietly building momentum after a clean base formation.  Price swept liquidity from the lows and immediately reclaimed structure, now consolidating near local highs — a classic sign of strength and continua"
+          },
+          {
+            "content_id": 313379777512305,
+            "author": "Square-Creator-e49d54810",
+            "username": "Square-Creator-e49d54810",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313379777512305",
+            "narrative": "Meme",
+            "narrative_score": 10,
+            "keyword_hits": 1,
+            "symbol_hits": 0,
+            "signal_score": 54.94,
+            "signal_label": "noise",
+            "engagement_total": 11,
+            "sentiment": "偏多",
+            "stage": "观察期",
+            "funds_confirmation": "待确认",
+            "symbols": [
+              "1MBABYDOGEUSDT",
+              "$1MBABYDOGE ",
+              "59USDT"
+            ],
+            "body_preview": "1MBABYDOGE Surges 2.87% on Binance Amid 51% Token Burn, TON Network Integration, and Guinness World Record  1MBABYDOGEUSDT has experienced a 2.87% price increase over the past 24 hours, rising from a 24h open of $0.00042"
+          }
+        ],
+        "narrative_rank": 2
+      },
+      {
+        "narrative": "DeFi",
+        "post_count": 2,
+        "unique_authors": 2,
+        "avg_signal_score": 68.12,
+        "total_engagement": 457,
+        "narrative_heat_score": 47.81,
+        "dominant_sentiment": "中性",
+        "dominant_stage": "早期发酵",
+        "funds_confirmation_mix": {
+          "资金确认": 1,
+          "待确认": 1
+        },
+        "top_symbols": [
+          "PIXELUSDT",
+          "$PIXEL ",
+          "LDOUSDT",
+          "CFGUSDT"
+        ],
+        "sample_posts": [
+          {
+            "content_id": 313335838578802,
+            "author": "ZGOD OFFICIAL",
+            "username": "TaSaN007",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313335838578802",
+            "narrative": "DeFi",
+            "narrative_score": 20,
+            "keyword_hits": 2,
+            "symbol_hits": 0,
+            "signal_score": 73.0,
+            "signal_label": "watch",
+            "engagement_total": 83,
+            "sentiment": "中性",
+            "stage": "早期发酵",
+            "funds_confirmation": "资金确认",
+            "symbols": [
+              "PIXELUSDT",
+              "$PIXEL "
+            ],
+            "body_preview": "I've been watching Web3 gaming for years, and I've noticed a pattern. Most projects spend their entire lives screaming into a megaphone about blockchain. \"Look, you can own your sword!\" \"The economy is on-chain!\" \"Freedo"
+          },
+          {
+            "content_id": 313379006935377,
+            "author": "CryptorInsight",
+            "username": "CryptorInsight",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313379006935377",
+            "narrative": "DeFi",
+            "narrative_score": 18,
+            "keyword_hits": 0,
+            "symbol_hits": 1,
+            "signal_score": 63.24,
+            "signal_label": "watch",
+            "engagement_total": 374,
+            "sentiment": "偏空",
+            "stage": "观察期",
+            "funds_confirmation": "待确认",
+            "symbols": [
+              "LDOUSDT",
+              "CFGUSDT"
+            ],
+            "body_preview": "Alpha dogfight: Which one has better short-term potential? LDO or CFG ? Vote now and share your reasoning."
+          }
+        ],
+        "narrative_rank": 3
+      },
+      {
+        "narrative": "BTCFi",
+        "post_count": 2,
+        "unique_authors": 2,
+        "avg_signal_score": 92.59,
+        "total_engagement": 209,
+        "narrative_heat_score": 45.74,
+        "dominant_sentiment": "偏多",
+        "dominant_stage": "中期扩散",
+        "funds_confirmation_mix": {
+          "待确认": 2
+        },
+        "top_symbols": [
+          "ORDIUSDT",
+          "$ORDI ",
+          "11USDT",
+          "14USDT"
+        ],
+        "sample_posts": [
+          {
+            "content_id": 313379802889682,
+            "author": "Professor_JAXON",
+            "username": "professor_jaxon",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313379802889682",
+            "narrative": "BTCFi",
+            "narrative_score": 18,
+            "keyword_hits": 0,
+            "symbol_hits": 1,
+            "signal_score": 96.8,
+            "signal_label": "high_signal",
+            "engagement_total": 67,
+            "sentiment": "偏多",
+            "stage": "中期扩散",
+            "funds_confirmation": "待确认",
+            "symbols": [
+              "ORDIUSDT",
+              "$ORDI ",
+              "11USDT"
+            ],
+            "body_preview": "$ORDI USDT Bullish Pullback Before Explosive Continuation Toward $11+ Trade Setup: Long Entry zone: 8.20 - 8.60 Tp1: 9.50 Tp2: 10.30 Tp3: 11.00 SL: 7.60 Strong bullish momentum after massive 100% rally, with price now co"
+          },
+          {
+            "content_id": 313379225979330,
+            "author": "NovaNews",
+            "username": "ErinCrypto",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313379225979330",
+            "narrative": "BTCFi",
+            "narrative_score": 18,
+            "keyword_hits": 0,
+            "symbol_hits": 1,
+            "signal_score": 88.37,
+            "signal_label": "high_signal",
+            "engagement_total": 142,
+            "sentiment": "偏多",
+            "stage": "中期扩散",
+            "funds_confirmation": "待确认",
+            "symbols": [
+              "ORDIUSDT",
+              "$ORDI ",
+              "14USDT"
+            ],
+            "body_preview": "$ORDI /USDT LONG UPDATE 🚀  Entry: $2.99 Current Price: $6.90 📈 Unrealized P&L: +$14,462 USDT 💰 ROE: +2,617% 🔥 Leverage: 20X Cross ⚡  From $2.99 to $6.90 — this move is already running strong. Patience + conviction is wha"
+          }
+        ],
+        "narrative_rank": 4
+      },
+      {
+        "narrative": "Solana",
+        "post_count": 1,
+        "unique_authors": 1,
+        "avg_signal_score": 90.0,
+        "total_engagement": 1735,
+        "narrative_heat_score": 36.46,
+        "dominant_sentiment": "偏空",
+        "dominant_stage": "末端过热",
+        "funds_confirmation_mix": {
+          "热度确认": 1
+        },
+        "top_symbols": [
+          "SOLUSDT"
+        ],
+        "sample_posts": [
+          {
+            "content_id": 313379126527889,
+            "author": "Signalx Killer",
+            "username": "MarketInsights",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313379126527889",
+            "narrative": "Solana",
+            "narrative_score": 18,
+            "keyword_hits": 0,
+            "symbol_hits": 1,
+            "signal_score": 90.0,
+            "signal_label": "high_signal",
+            "engagement_total": 1735,
+            "sentiment": "偏空",
+            "stage": "末端过热",
+            "funds_confirmation": "热度确认",
+            "symbols": [
+              "SOLUSDT"
+            ],
+            "body_preview": "Setup short $SOL  entry : 89-93  sl : 95.2  TP 1 : 87.6  TP 2 : 84.3  TP3 : 79.7  Regulatory Uncertainty: The CLARITY Act's potential non-passage poses a significant regulatory risk, which could lead to substantial marke"
+          }
+        ],
+        "narrative_rank": 5
+      },
+      {
+        "narrative": "AI",
+        "post_count": 1,
+        "unique_authors": 1,
+        "avg_signal_score": 88.0,
+        "total_engagement": 885,
+        "narrative_heat_score": 29.38,
+        "dominant_sentiment": "偏多",
+        "dominant_stage": "中期扩散",
+        "funds_confirmation_mix": {
+          "热度确认": 1
+        },
+        "top_symbols": [
+          "INJUSDT",
+          "FETUSDT",
+          "TAOUSDT",
+          "$TAO ",
+          "$FET "
+        ],
+        "sample_posts": [
+          {
+            "content_id": 313379615703633,
+            "author": "Berserker_09",
+            "username": "Soban_Tariq",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313379615703633",
+            "narrative": "AI",
+            "narrative_score": 56,
+            "keyword_hits": 2,
+            "symbol_hits": 2,
+            "signal_score": 88.0,
+            "signal_label": "high_signal",
+            "engagement_total": 885,
+            "sentiment": "偏多",
+            "stage": "中期扩散",
+            "funds_confirmation": "热度确认",
+            "symbols": [
+              "INJUSDT",
+              "FETUSDT",
+              "TAOUSDT",
+              "$TAO ",
+              "$FET ",
+              "$INJ ",
+              "110USDT",
+              "RENDERUSDT"
+            ],
+            "body_preview": "The market recently added $110 billion in just 15 hours. Total crypto market cap is now $2.54 trillion.  And the AI sector?   $TAO : $3.5B market cap, up 140% in six weeks   $FET : $0.23, holding strong support at 50-day"
+          }
+        ],
+        "narrative_rank": 6
+      }
+    ],
+    "onchain_strong_buy_candidates": [
+      {
+        "symbol": "SIREN",
+        "chain_id": "bsc",
+        "dex_id": "pancakeswap",
+        "pair_address": "0xb2AF49dBF526054FAf19602860A5E298a79F3D05",
+        "pair_url": "https://dexscreener.com/bsc/0xb2af49dbf526054faf19602860a5e298a79f3d05",
+        "price_usd": 0.6255,
+        "price_change_pct_m5": -0.48,
+        "price_change_pct_h1": -8.86,
+        "price_change_pct_h24": -12.39,
+        "volume_m5": 111393.52,
+        "volume_h1": 1290206.97,
+        "volume_h24": 6169670.4,
+        "liquidity_usd": 8430505.11,
+        "txns_buys_m5": 245,
+        "txns_sells_m5": 80,
+        "txns_buys_h1": 1231,
+        "txns_sells_h1": 1742,
+        "buy_sell_imbalance": 165,
+        "buy_sell_ratio_m5": 3.06,
+        "buy_sell_ratio_h1": 0.71,
+        "volume_spike_score": 1.04,
+        "onchain_buy_score": 58.36,
+        "risk_flags": [],
+        "stage": "强买盘候选",
+        "reason_summary": "m5 买卖差 165，流动性 8430505 USD",
+        "rank": 1
+      },
+      {
+        "symbol": "BANANAS31",
+        "chain_id": "bsc",
+        "dex_id": "pancakeswap",
+        "pair_address": "0x7F51BBf34156ba802dEB0E38B7671DC4fa32041d",
+        "pair_url": "https://dexscreener.com/bsc/0x7f51bbf34156ba802deb0e38b7671dc4fa32041d",
+        "price_usd": 0.009561,
+        "price_change_pct_m5": 0.19,
+        "price_change_pct_h1": 0.37,
+        "price_change_pct_h24": -5.44,
+        "volume_m5": 9434.74,
+        "volume_h1": 130686.2,
+        "volume_h24": 4519177.22,
+        "liquidity_usd": 4154404.47,
+        "txns_buys_m5": 28,
+        "txns_sells_m5": 16,
+        "txns_buys_h1": 256,
+        "txns_sells_h1": 264,
+        "buy_sell_imbalance": 12,
+        "buy_sell_ratio_m5": 1.75,
+        "buy_sell_ratio_h1": 0.97,
+        "volume_spike_score": 0.87,
+        "onchain_buy_score": 53.4,
+        "risk_flags": [],
+        "stage": "强买盘候选",
+        "reason_summary": "m5 买卖差 12，流动性 4154404 USD，1h 涨幅 0.37%",
+        "rank": 2
+      }
+    ],
+    "onchain_observation_candidates": [
+      {
+        "symbol": "AAVE",
+        "chain_id": "base",
+        "dex_id": "aerodrome",
+        "pair_address": "0x4a79B0168296c0eF7b8F314973B82aD406a29f1B",
+        "pair_url": "https://dexscreener.com/base/0x4a79b0168296c0ef7b8f314973b82ad406a29f1b",
+        "price_usd": 94.26,
+        "price_change_pct_m5": 0.0,
+        "price_change_pct_h1": -0.71,
+        "price_change_pct_h24": -17.63,
+        "volume_m5": 0.54,
+        "volume_h1": 14541.25,
+        "volume_h24": 758642.39,
+        "liquidity_usd": 849393.61,
+        "txns_buys_m5": 2,
+        "txns_sells_m5": 1,
+        "txns_buys_h1": 55,
+        "txns_sells_h1": 23,
+        "buy_sell_imbalance": 1,
+        "buy_sell_ratio_m5": 2.0,
+        "buy_sell_ratio_h1": 2.39,
+        "volume_spike_score": 0.0,
+        "onchain_buy_score": 37.19,
+        "risk_flags": [
+          "thin_m5_txns"
+        ],
+        "stage": "观察池",
+        "reason_summary": "m5 买卖差 1，流动性 849394 USD",
+        "rank": 3
+      }
+    ]
+  },
+  "trend_monitor": {
+    "summary": {
+      "fetched_posts": 30,
+      "scored_posts": 30,
+      "square_coin_signals": 49,
+      "heat_symbols": 57,
+      "timing_symbols": 40,
+      "radar_candidates": 85
+    },
+    "strong_capital_buy_candidates": [],
+    "buy_candidates": [
+      {
+        "symbol": "INJUSDT",
+        "square_heat": {
+          "symbol": "INJUSDT",
+          "square_conviction_score": 95.12,
+          "square_avg_signal_score": 88.0,
+          "square_post_count": 1,
+          "square_unique_authors": 1,
+          "square_total_engagement": 885,
+          "square_bias": "long_watch",
+          "sample_post_ids": [
+            313379615703633
+          ]
+        },
+        "external_heat": {
+          "symbol": "INJ",
+          "square_mentions": 1,
+          "unique_authors": 1,
+          "square_engagement_score": 885,
+          "sample_posts": [
+            {
+              "content_id": 313379615703633,
+              "author": "Berserker_09",
+              "username": "Soban_Tariq",
+              "web_link": "https://www.binance.com/en/square/post/313379615703633",
+              "body_preview": "The market recently added $110 billion in just 15 hours. Total crypto market cap is now $2.54 trillion.  And the AI sector?   $TAO : $3.5B market cap, up 140% in six weeks   $FET :"
+            }
+          ],
+          "coingecko_trending_flag": false,
+          "coingecko_rank": null,
+          "coingecko_name": null,
+          "coingecko_score": 0,
+          "futures_movers_flag": false,
+          "futures_rank": null,
+          "futures_symbol": null,
+          "futures_change_pct_24h": null,
+          "futures_quote_volume": null,
+          "futures_score": 0,
+          "heat_score": 16.21,
+          "heat_rank": 14
+        },
+        "timing_signal": {
+          "symbol": "INJUSDT",
+          "oi_change_pct": 0.01,
+          "oi_value_change_pct": 0.17,
+          "price_change_pct_24h": -3.95,
+          "divergence_ratio": 0.0,
+          "timing_score": 24.31,
+          "direction_bias": "long",
+          "last_price": 3.206,
+          "quote_volume_24h": 14297080.0173,
+          "count_24h": 113389,
+          "momentum_vs_vwap_pct": -1.62,
+          "open_interest": 3586043.2,
+          "open_interest_value": 11489865.37272406,
+          "market_type": "binance_futures",
+          "venue": "binance_futures",
+          "timing_rank": 6
+        },
+        "spot_market_snapshot": {
+          "last_price": 3.211,
+          "price_change_pct_24h": -3.949,
+          "quote_volume_24h": 2534391.3857
+        },
+        "heat_score": 95.12,
+        "timing_score": 24.31,
+        "final_score": 74.17,
+        "market_type": "binance_futures",
+        "venue": "binance_futures",
+        "stage": "热度偏多",
+        "is_buy_candidate": true,
+        "strong_capital_confirmed": false,
+        "reason_summary": "广场提及 1 帖, 1 位作者，广场情绪偏多，OI 0.01% / 价格 -3.95%",
+        "priority_rank": 1
+      },
+      {
+        "symbol": "RENDERUSDT",
+        "square_heat": {
+          "symbol": "RENDERUSDT",
+          "square_conviction_score": 95.12,
+          "square_avg_signal_score": 88.0,
+          "square_post_count": 1,
+          "square_unique_authors": 1,
+          "square_total_engagement": 885,
+          "square_bias": "long_watch",
+          "sample_post_ids": [
+            313379615703633
+          ]
+        },
+        "external_heat": {
+          "symbol": "RENDER",
+          "square_mentions": 1,
+          "unique_authors": 1,
+          "square_engagement_score": 885,
+          "sample_posts": [
+            {
+              "content_id": 313379615703633,
+              "author": "Berserker_09",
+              "username": "Soban_Tariq",
+              "web_link": "https://www.binance.com/en/square/post/313379615703633",
+              "body_preview": "The market recently added $110 billion in just 15 hours. Total crypto market cap is now $2.54 trillion.  And the AI sector?   $TAO : $3.5B market cap, up 140% in six weeks   $FET :"
+            }
+          ],
+          "coingecko_trending_flag": false,
+          "coingecko_rank": null,
+          "coingecko_name": null,
+          "coingecko_score": 0,
+          "futures_movers_flag": false,
+          "futures_rank": null,
+          "futures_symbol": null,
+          "futures_change_pct_24h": null,
+          "futures_quote_volume": null,
+          "futures_score": 0,
+          "heat_score": 16.21,
+          "heat_rank": 13
+        },
+        "timing_signal": {
+          "symbol": "RENDERUSDT",
+          "oi_change_pct": 0.04,
+          "oi_value_change_pct": 0.61,
+          "price_change_pct_24h": -5.15,
+          "divergence_ratio": 0.01,
+          "timing_score": 19.07,
+          "direction_bias": "long",
+          "last_price": 1.767,
+          "quote_volume_24h": 27419608.9218,
+          "count_24h": 144071,
+          "momentum_vs_vwap_pct": -2.02,
+          "open_interest": 7321749.8,
+          "open_interest_value": 12967245.97346583,
+          "market_type": "binance_futures",
+          "venue": "binance_futures",
+          "timing_rank": 7
+        },
+        "spot_market_snapshot": {
+          "last_price": 1.769,
+          "price_change_pct_24h": -5.35,
+          "quote_volume_24h": 5803393.89095
+        },
+        "heat_score": 95.12,
+        "timing_score": 19.07,
+        "final_score": 71.29,
+        "market_type": "binance_futures",
+        "venue": "binance_futures",
+        "stage": "热度偏多",
+        "is_buy_candidate": true,
+        "strong_capital_confirmed": false,
+        "reason_summary": "广场提及 1 帖, 1 位作者，广场情绪偏多，OI 0.04% / 价格 -5.15%",
+        "priority_rank": 2
+      },
+      {
+        "symbol": "POWERUSDT",
+        "square_heat": {
+          "symbol": "POWERUSDT",
+          "square_conviction_score": 100.0,
+          "square_avg_signal_score": 92.82,
+          "square_post_count": 2,
+          "square_unique_authors": 2,
+          "square_total_engagement": 577,
+          "square_bias": "long_watch",
+          "sample_post_ids": [
+            313379604018961,
+            313379116982865
+          ]
+        },
+        "external_heat": {
+          "symbol": "POWER",
+          "square_mentions": 2,
+          "unique_authors": 2,
+          "square_engagement_score": 577,
+          "sample_posts": [
+            {
+              "content_id": 313379604018961,
+              "author": "Crypto Alpha",
+              "username": "CryptoExpertOne",
+              "web_link": "https://www.binance.com/en/square/post/313379604018961",
+              "body_preview": "Strong bullish structure with higher highs and continuation momentum building  Price has shown a clean trend reversal from the lows and is now forming higher highs and higher lows."
+            },
+            {
+              "content_id": 313379116982865,
+              "author": "CryptoGuru12",
+              "username": "cryptobysaqib",
+              "web_link": "https://www.binance.com/en/square/post/313379116982865",
+              "body_preview": "Market showing steady bullish continuation with higher highs forming  Entry $0.0990 $0.1005 SL $0.0960  TP1 $0.1040 TP2 $0.1080 TP3 $0.1120  Why this setup  Clear higher highs and "
+            }
+          ],
+          "coingecko_trending_flag": false,
+          "coingecko_rank": null,
+          "coingecko_name": null,
+          "coingecko_score": 0,
+          "futures_movers_flag": false,
+          "futures_rank": null,
+          "futures_symbol": null,
+          "futures_change_pct_24h": null,
+          "futures_quote_volume": null,
+          "futures_score": 0,
+          "heat_score": 29.44,
+          "heat_rank": 6
+        },
+        "timing_signal": {
+          "symbol": "POWERUSDT",
+          "oi_change_pct": 0.06,
+          "oi_value_change_pct": 0.29,
+          "price_change_pct_24h": -10.29,
+          "divergence_ratio": 0.01,
+          "timing_score": 10.61,
+          "direction_bias": "mixed",
+          "last_price": 0.08857,
+          "quote_volume_24h": 11525489.55668,
+          "count_24h": 336884,
+          "momentum_vs_vwap_pct": -3.2,
+          "open_interest": 64600239.0,
+          "open_interest_value": 5708723.12043,
+          "market_type": "binance_futures",
+          "venue": "binance_futures",
+          "timing_rank": 20
+        },
+        "spot_market_snapshot": null,
+        "heat_score": 100.0,
+        "timing_score": 10.61,
+        "final_score": 60.84,
+        "market_type": "binance_futures",
+        "venue": "binance_futures",
+        "stage": "热度偏多",
+        "is_buy_candidate": true,
+        "strong_capital_confirmed": false,
+        "reason_summary": "广场提及 2 帖, 2 位作者，广场情绪偏多，OI 0.06% / 价格 -10.29%",
+        "priority_rank": 3
+      },
+      {
+        "symbol": "FETUSDT",
+        "square_heat": {
+          "symbol": "FETUSDT",
+          "square_conviction_score": 95.12,
+          "square_avg_signal_score": 88.0,
+          "square_post_count": 1,
+          "square_unique_authors": 1,
+          "square_total_engagement": 885,
+          "square_bias": "long_watch",
+          "sample_post_ids": [
+            313379615703633
+          ]
+        },
+        "external_heat": {
+          "symbol": "FET",
+          "square_mentions": 1,
+          "unique_authors": 1,
+          "square_engagement_score": 885,
+          "sample_posts": [
+            {
+              "content_id": 313379615703633,
+              "author": "Berserker_09",
+              "username": "Soban_Tariq",
+              "web_link": "https://www.binance.com/en/square/post/313379615703633",
+              "body_preview": "The market recently added $110 billion in just 15 hours. Total crypto market cap is now $2.54 trillion.  And the AI sector?   $TAO : $3.5B market cap, up 140% in six weeks   $FET :"
+            }
+          ],
+          "coingecko_trending_flag": false,
+          "coingecko_rank": null,
+          "coingecko_name": null,
+          "coingecko_score": 0,
+          "futures_movers_flag": false,
+          "futures_rank": null,
+          "futures_symbol": null,
+          "futures_change_pct_24h": null,
+          "futures_quote_volume": null,
+          "futures_score": 0,
+          "heat_score": 16.21,
+          "heat_rank": 11
+        },
+        "timing_signal": {
+          "symbol": "FETUSDT",
+          "oi_change_pct": 0.12,
+          "oi_value_change_pct": -0.49,
+          "price_change_pct_24h": -6.91,
+          "divergence_ratio": 0.02,
+          "timing_score": 12.38,
+          "direction_bias": "mixed",
+          "last_price": 0.2142,
+          "quote_volume_24h": 48759678.4562,
+          "count_24h": 249395,
+          "momentum_vs_vwap_pct": -3.38,
+          "open_interest": 171465260.0,
+          "open_interest_value": 36727858.692,
+          "market_type": "binance_futures",
+          "venue": "binance_futures",
+          "timing_rank": 18
+        },
+        "spot_market_snapshot": {
+          "last_price": 0.2145,
+          "price_change_pct_24h": -7.022,
+          "quote_volume_24h": 12897292.28696
+        },
+        "heat_score": 95.12,
+        "timing_score": 12.38,
+        "final_score": 59.61,
+        "market_type": "binance_futures",
+        "venue": "binance_futures",
+        "stage": "热度偏多",
+        "is_buy_candidate": true,
+        "strong_capital_confirmed": false,
+        "reason_summary": "广场提及 1 帖, 1 位作者，广场情绪偏多，OI 0.12% / 价格 -6.91%",
+        "priority_rank": 4
+      },
+      {
+        "symbol": "BEATUSDT",
+        "square_heat": {
+          "symbol": "BEATUSDT",
+          "square_conviction_score": 96.96,
+          "square_avg_signal_score": 94.52,
+          "square_post_count": 1,
+          "square_unique_authors": 1,
+          "square_total_engagement": 661,
+          "square_bias": "long_watch",
+          "sample_post_ids": [
+            313379194875745
+          ]
+        },
+        "external_heat": {
+          "symbol": "BEAT",
+          "square_mentions": 1,
+          "unique_authors": 1,
+          "square_engagement_score": 661,
+          "sample_posts": [
+            {
+              "content_id": 313379194875745,
+              "author": "Berserker_09",
+              "username": "Soban_Tariq",
+              "web_link": "https://www.binance.com/en/square/post/313379194875745",
+              "body_preview": "$BEAT  is pushing into strength after a steady trend buildup.  Market structure shows a sequence of higher highs with controlled pullbacks, meaning buyers are absorbing supply and "
+            }
+          ],
+          "coingecko_trending_flag": false,
+          "coingecko_rank": null,
+          "coingecko_name": null,
+          "coingecko_score": 0,
+          "futures_movers_flag": false,
+          "futures_rank": null,
+          "futures_symbol": null,
+          "futures_change_pct_24h": null,
+          "futures_quote_volume": null,
+          "futures_score": 0,
+          "heat_score": 15.65,
+          "heat_rank": 16
+        },
+        "timing_signal": {
+          "symbol": "BEATUSDT",
+          "oi_change_pct": -0.04,
+          "oi_value_change_pct": 0.35,
+          "price_change_pct_24h": 0.06,
+          "divergence_ratio": -0.06,
+          "timing_score": 8.52,
+          "direction_bias": "mixed",
+          "last_price": 0.4926,
+          "quote_volume_24h": 33055163.5932,
+          "count_24h": 701289,
+          "momentum_vs_vwap_pct": -3.08,
+          "open_interest": 40433082.0,
+          "open_interest_value": 19899553.7237364,
+          "market_type": "binance_futures",
+          "venue": "binance_futures",
+          "timing_rank": 21
+        },
+        "spot_market_snapshot": null,
+        "heat_score": 96.96,
+        "timing_score": 8.52,
+        "final_score": 58.32,
+        "market_type": "binance_futures",
+        "venue": "binance_futures",
+        "stage": "热度偏多",
+        "is_buy_candidate": true,
+        "strong_capital_confirmed": false,
+        "reason_summary": "广场提及 1 帖, 1 位作者，广场情绪偏多",
+        "priority_rank": 5
+      },
+      {
+        "symbol": "TAOUSDT",
+        "square_heat": {
+          "symbol": "TAOUSDT",
+          "square_conviction_score": 95.12,
+          "square_avg_signal_score": 88.0,
+          "square_post_count": 1,
+          "square_unique_authors": 1,
+          "square_total_engagement": 885,
+          "square_bias": "long_watch",
+          "sample_post_ids": [
+            313379615703633
+          ]
+        },
+        "external_heat": {
+          "symbol": "TAO",
+          "square_mentions": 1,
+          "unique_authors": 1,
+          "square_engagement_score": 885,
+          "sample_posts": [
+            {
+              "content_id": 313379615703633,
+              "author": "Berserker_09",
+              "username": "Soban_Tariq",
+              "web_link": "https://www.binance.com/en/square/post/313379615703633",
+              "body_preview": "The market recently added $110 billion in just 15 hours. Total crypto market cap is now $2.54 trillion.  And the AI sector?   $TAO : $3.5B market cap, up 140% in six weeks   $FET :"
+            }
+          ],
+          "coingecko_trending_flag": false,
+          "coingecko_rank": null,
+          "coingecko_name": null,
+          "coingecko_score": 0,
+          "futures_movers_flag": false,
+          "futures_rank": null,
+          "futures_symbol": null,
+          "futures_change_pct_24h": null,
+          "futures_quote_volume": null,
+          "futures_score": 0,
+          "heat_score": 16.21,
+          "heat_rank": 12
+        },
+        "timing_signal": {
+          "symbol": "TAOUSDT",
+          "oi_change_pct": -0.3,
+          "oi_value_change_pct": -0.25,
+          "price_change_pct_24h": -4.75,
+          "divergence_ratio": -0.06,
+          "timing_score": 8.0,
+          "direction_bias": "mixed",
+          "last_price": 241.64,
+          "quote_volume_24h": 144268639.54,
+          "count_24h": 829933,
+          "momentum_vs_vwap_pct": -2.35,
+          "open_interest": 310493.255,
+          "open_interest_value": 75235620.61905,
+          "market_type": "binance_futures",
+          "venue": "binance_futures",
+          "timing_rank": 23
+        },
+        "spot_market_snapshot": {
+          "last_price": 241.8,
+          "price_change_pct_24h": -5.065,
+          "quote_volume_24h": 23157940.95469
+        },
+        "heat_score": 95.12,
+        "timing_score": 8.0,
+        "final_score": 57.2,
+        "market_type": "binance_futures",
+        "venue": "binance_futures",
+        "stage": "热度偏多",
+        "is_buy_candidate": true,
+        "strong_capital_confirmed": false,
+        "reason_summary": "广场提及 1 帖, 1 位作者，广场情绪偏多",
+        "priority_rank": 6
+      }
+    ],
+    "top_opportunities": [
+      {
+        "symbol": "INJUSDT",
+        "square_heat": {
+          "symbol": "INJUSDT",
+          "square_conviction_score": 95.12,
+          "square_avg_signal_score": 88.0,
+          "square_post_count": 1,
+          "square_unique_authors": 1,
+          "square_total_engagement": 885,
+          "square_bias": "long_watch",
+          "sample_post_ids": [
+            313379615703633
+          ]
+        },
+        "external_heat": {
+          "symbol": "INJ",
+          "square_mentions": 1,
+          "unique_authors": 1,
+          "square_engagement_score": 885,
+          "sample_posts": [
+            {
+              "content_id": 313379615703633,
+              "author": "Berserker_09",
+              "username": "Soban_Tariq",
+              "web_link": "https://www.binance.com/en/square/post/313379615703633",
+              "body_preview": "The market recently added $110 billion in just 15 hours. Total crypto market cap is now $2.54 trillion.  And the AI sector?   $TAO : $3.5B market cap, up 140% in six weeks   $FET :"
+            }
+          ],
+          "coingecko_trending_flag": false,
+          "coingecko_rank": null,
+          "coingecko_name": null,
+          "coingecko_score": 0,
+          "futures_movers_flag": false,
+          "futures_rank": null,
+          "futures_symbol": null,
+          "futures_change_pct_24h": null,
+          "futures_quote_volume": null,
+          "futures_score": 0,
+          "heat_score": 16.21,
+          "heat_rank": 14
+        },
+        "timing_signal": {
+          "symbol": "INJUSDT",
+          "oi_change_pct": 0.01,
+          "oi_value_change_pct": 0.17,
+          "price_change_pct_24h": -3.95,
+          "divergence_ratio": 0.0,
+          "timing_score": 24.31,
+          "direction_bias": "long",
+          "last_price": 3.206,
+          "quote_volume_24h": 14297080.0173,
+          "count_24h": 113389,
+          "momentum_vs_vwap_pct": -1.62,
+          "open_interest": 3586043.2,
+          "open_interest_value": 11489865.37272406,
+          "market_type": "binance_futures",
+          "venue": "binance_futures",
+          "timing_rank": 6
+        },
+        "spot_market_snapshot": {
+          "last_price": 3.211,
+          "price_change_pct_24h": -3.949,
+          "quote_volume_24h": 2534391.3857
+        },
+        "heat_score": 95.12,
+        "timing_score": 24.31,
+        "final_score": 74.17,
+        "market_type": "binance_futures",
+        "venue": "binance_futures",
+        "stage": "热度偏多",
+        "is_buy_candidate": true,
+        "strong_capital_confirmed": false,
+        "reason_summary": "广场提及 1 帖, 1 位作者，广场情绪偏多，OI 0.01% / 价格 -3.95%",
+        "priority_rank": 1
+      },
+      {
+        "symbol": "RENDERUSDT",
+        "square_heat": {
+          "symbol": "RENDERUSDT",
+          "square_conviction_score": 95.12,
+          "square_avg_signal_score": 88.0,
+          "square_post_count": 1,
+          "square_unique_authors": 1,
+          "square_total_engagement": 885,
+          "square_bias": "long_watch",
+          "sample_post_ids": [
+            313379615703633
+          ]
+        },
+        "external_heat": {
+          "symbol": "RENDER",
+          "square_mentions": 1,
+          "unique_authors": 1,
+          "square_engagement_score": 885,
+          "sample_posts": [
+            {
+              "content_id": 313379615703633,
+              "author": "Berserker_09",
+              "username": "Soban_Tariq",
+              "web_link": "https://www.binance.com/en/square/post/313379615703633",
+              "body_preview": "The market recently added $110 billion in just 15 hours. Total crypto market cap is now $2.54 trillion.  And the AI sector?   $TAO : $3.5B market cap, up 140% in six weeks   $FET :"
+            }
+          ],
+          "coingecko_trending_flag": false,
+          "coingecko_rank": null,
+          "coingecko_name": null,
+          "coingecko_score": 0,
+          "futures_movers_flag": false,
+          "futures_rank": null,
+          "futures_symbol": null,
+          "futures_change_pct_24h": null,
+          "futures_quote_volume": null,
+          "futures_score": 0,
+          "heat_score": 16.21,
+          "heat_rank": 13
+        },
+        "timing_signal": {
+          "symbol": "RENDERUSDT",
+          "oi_change_pct": 0.04,
+          "oi_value_change_pct": 0.61,
+          "price_change_pct_24h": -5.15,
+          "divergence_ratio": 0.01,
+          "timing_score": 19.07,
+          "direction_bias": "long",
+          "last_price": 1.767,
+          "quote_volume_24h": 27419608.9218,
+          "count_24h": 144071,
+          "momentum_vs_vwap_pct": -2.02,
+          "open_interest": 7321749.8,
+          "open_interest_value": 12967245.97346583,
+          "market_type": "binance_futures",
+          "venue": "binance_futures",
+          "timing_rank": 7
+        },
+        "spot_market_snapshot": {
+          "last_price": 1.769,
+          "price_change_pct_24h": -5.35,
+          "quote_volume_24h": 5803393.89095
+        },
+        "heat_score": 95.12,
+        "timing_score": 19.07,
+        "final_score": 71.29,
+        "market_type": "binance_futures",
+        "venue": "binance_futures",
+        "stage": "热度偏多",
+        "is_buy_candidate": true,
+        "strong_capital_confirmed": false,
+        "reason_summary": "广场提及 1 帖, 1 位作者，广场情绪偏多，OI 0.04% / 价格 -5.15%",
+        "priority_rank": 2
+      },
+      {
+        "symbol": "POWERUSDT",
+        "square_heat": {
+          "symbol": "POWERUSDT",
+          "square_conviction_score": 100.0,
+          "square_avg_signal_score": 92.82,
+          "square_post_count": 2,
+          "square_unique_authors": 2,
+          "square_total_engagement": 577,
+          "square_bias": "long_watch",
+          "sample_post_ids": [
+            313379604018961,
+            313379116982865
+          ]
+        },
+        "external_heat": {
+          "symbol": "POWER",
+          "square_mentions": 2,
+          "unique_authors": 2,
+          "square_engagement_score": 577,
+          "sample_posts": [
+            {
+              "content_id": 313379604018961,
+              "author": "Crypto Alpha",
+              "username": "CryptoExpertOne",
+              "web_link": "https://www.binance.com/en/square/post/313379604018961",
+              "body_preview": "Strong bullish structure with higher highs and continuation momentum building  Price has shown a clean trend reversal from the lows and is now forming higher highs and higher lows."
+            },
+            {
+              "content_id": 313379116982865,
+              "author": "CryptoGuru12",
+              "username": "cryptobysaqib",
+              "web_link": "https://www.binance.com/en/square/post/313379116982865",
+              "body_preview": "Market showing steady bullish continuation with higher highs forming  Entry $0.0990 $0.1005 SL $0.0960  TP1 $0.1040 TP2 $0.1080 TP3 $0.1120  Why this setup  Clear higher highs and "
+            }
+          ],
+          "coingecko_trending_flag": false,
+          "coingecko_rank": null,
+          "coingecko_name": null,
+          "coingecko_score": 0,
+          "futures_movers_flag": false,
+          "futures_rank": null,
+          "futures_symbol": null,
+          "futures_change_pct_24h": null,
+          "futures_quote_volume": null,
+          "futures_score": 0,
+          "heat_score": 29.44,
+          "heat_rank": 6
+        },
+        "timing_signal": {
+          "symbol": "POWERUSDT",
+          "oi_change_pct": 0.06,
+          "oi_value_change_pct": 0.29,
+          "price_change_pct_24h": -10.29,
+          "divergence_ratio": 0.01,
+          "timing_score": 10.61,
+          "direction_bias": "mixed",
+          "last_price": 0.08857,
+          "quote_volume_24h": 11525489.55668,
+          "count_24h": 336884,
+          "momentum_vs_vwap_pct": -3.2,
+          "open_interest": 64600239.0,
+          "open_interest_value": 5708723.12043,
+          "market_type": "binance_futures",
+          "venue": "binance_futures",
+          "timing_rank": 20
+        },
+        "spot_market_snapshot": null,
+        "heat_score": 100.0,
+        "timing_score": 10.61,
+        "final_score": 60.84,
+        "market_type": "binance_futures",
+        "venue": "binance_futures",
+        "stage": "热度偏多",
+        "is_buy_candidate": true,
+        "strong_capital_confirmed": false,
+        "reason_summary": "广场提及 2 帖, 2 位作者，广场情绪偏多，OI 0.06% / 价格 -10.29%",
+        "priority_rank": 3
+      },
+      {
+        "symbol": "FETUSDT",
+        "square_heat": {
+          "symbol": "FETUSDT",
+          "square_conviction_score": 95.12,
+          "square_avg_signal_score": 88.0,
+          "square_post_count": 1,
+          "square_unique_authors": 1,
+          "square_total_engagement": 885,
+          "square_bias": "long_watch",
+          "sample_post_ids": [
+            313379615703633
+          ]
+        },
+        "external_heat": {
+          "symbol": "FET",
+          "square_mentions": 1,
+          "unique_authors": 1,
+          "square_engagement_score": 885,
+          "sample_posts": [
+            {
+              "content_id": 313379615703633,
+              "author": "Berserker_09",
+              "username": "Soban_Tariq",
+              "web_link": "https://www.binance.com/en/square/post/313379615703633",
+              "body_preview": "The market recently added $110 billion in just 15 hours. Total crypto market cap is now $2.54 trillion.  And the AI sector?   $TAO : $3.5B market cap, up 140% in six weeks   $FET :"
+            }
+          ],
+          "coingecko_trending_flag": false,
+          "coingecko_rank": null,
+          "coingecko_name": null,
+          "coingecko_score": 0,
+          "futures_movers_flag": false,
+          "futures_rank": null,
+          "futures_symbol": null,
+          "futures_change_pct_24h": null,
+          "futures_quote_volume": null,
+          "futures_score": 0,
+          "heat_score": 16.21,
+          "heat_rank": 11
+        },
+        "timing_signal": {
+          "symbol": "FETUSDT",
+          "oi_change_pct": 0.12,
+          "oi_value_change_pct": -0.49,
+          "price_change_pct_24h": -6.91,
+          "divergence_ratio": 0.02,
+          "timing_score": 12.38,
+          "direction_bias": "mixed",
+          "last_price": 0.2142,
+          "quote_volume_24h": 48759678.4562,
+          "count_24h": 249395,
+          "momentum_vs_vwap_pct": -3.38,
+          "open_interest": 171465260.0,
+          "open_interest_value": 36727858.692,
+          "market_type": "binance_futures",
+          "venue": "binance_futures",
+          "timing_rank": 18
+        },
+        "spot_market_snapshot": {
+          "last_price": 0.2145,
+          "price_change_pct_24h": -7.022,
+          "quote_volume_24h": 12897292.28696
+        },
+        "heat_score": 95.12,
+        "timing_score": 12.38,
+        "final_score": 59.61,
+        "market_type": "binance_futures",
+        "venue": "binance_futures",
+        "stage": "热度偏多",
+        "is_buy_candidate": true,
+        "strong_capital_confirmed": false,
+        "reason_summary": "广场提及 1 帖, 1 位作者，广场情绪偏多，OI 0.12% / 价格 -6.91%",
+        "priority_rank": 4
+      },
+      {
+        "symbol": "BEATUSDT",
+        "square_heat": {
+          "symbol": "BEATUSDT",
+          "square_conviction_score": 96.96,
+          "square_avg_signal_score": 94.52,
+          "square_post_count": 1,
+          "square_unique_authors": 1,
+          "square_total_engagement": 661,
+          "square_bias": "long_watch",
+          "sample_post_ids": [
+            313379194875745
+          ]
+        },
+        "external_heat": {
+          "symbol": "BEAT",
+          "square_mentions": 1,
+          "unique_authors": 1,
+          "square_engagement_score": 661,
+          "sample_posts": [
+            {
+              "content_id": 313379194875745,
+              "author": "Berserker_09",
+              "username": "Soban_Tariq",
+              "web_link": "https://www.binance.com/en/square/post/313379194875745",
+              "body_preview": "$BEAT  is pushing into strength after a steady trend buildup.  Market structure shows a sequence of higher highs with controlled pullbacks, meaning buyers are absorbing supply and "
+            }
+          ],
+          "coingecko_trending_flag": false,
+          "coingecko_rank": null,
+          "coingecko_name": null,
+          "coingecko_score": 0,
+          "futures_movers_flag": false,
+          "futures_rank": null,
+          "futures_symbol": null,
+          "futures_change_pct_24h": null,
+          "futures_quote_volume": null,
+          "futures_score": 0,
+          "heat_score": 15.65,
+          "heat_rank": 16
+        },
+        "timing_signal": {
+          "symbol": "BEATUSDT",
+          "oi_change_pct": -0.04,
+          "oi_value_change_pct": 0.35,
+          "price_change_pct_24h": 0.06,
+          "divergence_ratio": -0.06,
+          "timing_score": 8.52,
+          "direction_bias": "mixed",
+          "last_price": 0.4926,
+          "quote_volume_24h": 33055163.5932,
+          "count_24h": 701289,
+          "momentum_vs_vwap_pct": -3.08,
+          "open_interest": 40433082.0,
+          "open_interest_value": 19899553.7237364,
+          "market_type": "binance_futures",
+          "venue": "binance_futures",
+          "timing_rank": 21
+        },
+        "spot_market_snapshot": null,
+        "heat_score": 96.96,
+        "timing_score": 8.52,
+        "final_score": 58.32,
+        "market_type": "binance_futures",
+        "venue": "binance_futures",
+        "stage": "热度偏多",
+        "is_buy_candidate": true,
+        "strong_capital_confirmed": false,
+        "reason_summary": "广场提及 1 帖, 1 位作者，广场情绪偏多",
+        "priority_rank": 5
+      },
+      {
+        "symbol": "TAOUSDT",
+        "square_heat": {
+          "symbol": "TAOUSDT",
+          "square_conviction_score": 95.12,
+          "square_avg_signal_score": 88.0,
+          "square_post_count": 1,
+          "square_unique_authors": 1,
+          "square_total_engagement": 885,
+          "square_bias": "long_watch",
+          "sample_post_ids": [
+            313379615703633
+          ]
+        },
+        "external_heat": {
+          "symbol": "TAO",
+          "square_mentions": 1,
+          "unique_authors": 1,
+          "square_engagement_score": 885,
+          "sample_posts": [
+            {
+              "content_id": 313379615703633,
+              "author": "Berserker_09",
+              "username": "Soban_Tariq",
+              "web_link": "https://www.binance.com/en/square/post/313379615703633",
+              "body_preview": "The market recently added $110 billion in just 15 hours. Total crypto market cap is now $2.54 trillion.  And the AI sector?   $TAO : $3.5B market cap, up 140% in six weeks   $FET :"
+            }
+          ],
+          "coingecko_trending_flag": false,
+          "coingecko_rank": null,
+          "coingecko_name": null,
+          "coingecko_score": 0,
+          "futures_movers_flag": false,
+          "futures_rank": null,
+          "futures_symbol": null,
+          "futures_change_pct_24h": null,
+          "futures_quote_volume": null,
+          "futures_score": 0,
+          "heat_score": 16.21,
+          "heat_rank": 12
+        },
+        "timing_signal": {
+          "symbol": "TAOUSDT",
+          "oi_change_pct": -0.3,
+          "oi_value_change_pct": -0.25,
+          "price_change_pct_24h": -4.75,
+          "divergence_ratio": -0.06,
+          "timing_score": 8.0,
+          "direction_bias": "mixed",
+          "last_price": 241.64,
+          "quote_volume_24h": 144268639.54,
+          "count_24h": 829933,
+          "momentum_vs_vwap_pct": -2.35,
+          "open_interest": 310493.255,
+          "open_interest_value": 75235620.61905,
+          "market_type": "binance_futures",
+          "venue": "binance_futures",
+          "timing_rank": 23
+        },
+        "spot_market_snapshot": {
+          "last_price": 241.8,
+          "price_change_pct_24h": -5.065,
+          "quote_volume_24h": 23157940.95469
+        },
+        "heat_score": 95.12,
+        "timing_score": 8.0,
+        "final_score": 57.2,
+        "market_type": "binance_futures",
+        "venue": "binance_futures",
+        "stage": "热度偏多",
+        "is_buy_candidate": true,
+        "strong_capital_confirmed": false,
+        "reason_summary": "广场提及 1 帖, 1 位作者，广场情绪偏多",
+        "priority_rank": 6
+      }
+    ],
+    "timing_ranking": [
+      {
+        "symbol": "GTCUSDT",
+        "oi_change_pct": 54.31,
+        "oi_value_change_pct": 91.73,
+        "price_change_pct_24h": 47.23,
+        "divergence_ratio": 1.15,
+        "timing_score": 55.2,
+        "direction_bias": "long",
+        "last_price": 0.14736,
+        "quote_volume_24h": 55301394.634492,
+        "count_24h": 1096718,
+        "momentum_vs_vwap_pct": 10.0,
+        "open_interest": 25312141.3,
+        "open_interest_value": 3744187.63462361,
+        "market_type": "binance_futures",
+        "venue": "binance_futures",
+        "timing_rank": 1
+      },
+      {
+        "symbol": "SIRENUSDT",
+        "oi_change_pct": 12.3,
+        "oi_value_change_pct": 2.33,
+        "price_change_pct_24h": -12.48,
+        "divergence_ratio": 0.99,
+        "timing_score": 45.98,
+        "direction_bias": "short_or_noise",
+        "last_price": 0.6191,
+        "quote_volume_24h": 239398622.62793,
+        "count_24h": 4008198,
+        "momentum_vs_vwap_pct": -15.84,
+        "open_interest": 19409022.0,
+        "open_interest_value": 12117863.14944894,
+        "market_type": "binance_futures",
+        "venue": "binance_futures",
+        "timing_rank": 2
+      },
+      {
+        "symbol": "RAVEUSDT",
+        "oi_change_pct": 26.05,
+        "oi_value_change_pct": 21.93,
+        "price_change_pct_24h": -95.84,
+        "divergence_ratio": 0.27,
+        "timing_score": 35.17,
+        "direction_bias": "short_or_noise",
+        "last_price": 1.08995,
+        "quote_volume_24h": 4519220969.91004,
+        "count_24h": 34364383,
+        "momentum_vs_vwap_pct": -75.86,
+        "open_interest": 25668591.0,
+        "open_interest_value": 28265225.66556,
+        "market_type": "binance_futures",
+        "venue": "binance_futures",
+        "timing_rank": 3
+      },
+      {
+        "symbol": "POLUSDT",
+        "oi_change_pct": 0.77,
+        "oi_value_change_pct": 0.6,
+        "price_change_pct_24h": -1.89,
+        "divergence_ratio": 0.41,
+        "timing_score": 29.7,
+        "direction_bias": "long",
+        "last_price": 0.08898,
+        "quote_volume_24h": 15500631.48361,
+        "count_24h": 183105,
+        "momentum_vs_vwap_pct": -0.71,
+        "open_interest": 199721248.0,
+        "open_interest_value": 17774216.43230976,
+        "market_type": "binance_futures",
+        "venue": "binance_futures",
+        "timing_rank": 4
+      },
+      {
+        "symbol": "XAUTUSDT",
+        "oi_change_pct": 0.17,
+        "oi_value_change_pct": 0.18,
+        "price_change_pct_24h": -0.67,
+        "divergence_ratio": 0.23,
+        "timing_score": 26.43,
+        "direction_bias": "long",
+        "last_price": 4775.47,
+        "quote_volume_24h": 14518985.51,
+        "count_24h": 58254,
+        "momentum_vs_vwap_pct": -0.19,
+        "open_interest": 2765.6,
+        "open_interest_value": 13208683.53129219,
+        "market_type": "binance_futures",
+        "venue": "binance_futures",
+        "timing_rank": 5
+      },
+      {
+        "symbol": "INJUSDT",
+        "oi_change_pct": 0.01,
+        "oi_value_change_pct": 0.17,
+        "price_change_pct_24h": -3.95,
+        "divergence_ratio": 0.0,
+        "timing_score": 24.31,
+        "direction_bias": "long",
+        "last_price": 3.206,
+        "quote_volume_24h": 14297080.0173,
+        "count_24h": 113389,
+        "momentum_vs_vwap_pct": -1.62,
+        "open_interest": 3586043.2,
+        "open_interest_value": 11489865.37272406,
+        "market_type": "binance_futures",
+        "venue": "binance_futures",
+        "timing_rank": 6
+      }
+    ]
+  },
+  "narrative_monitor": {
+    "summary": {
+      "fetched_posts": 30,
+      "tagged_posts": 17,
+      "narratives": 7,
+      "symbols": 28
+    },
+    "top_narratives": [
+      {
+        "narrative": "BSC",
+        "post_count": 5,
+        "unique_authors": 5,
+        "avg_signal_score": 86.78,
+        "total_engagement": 11697,
+        "narrative_heat_score": 140,
+        "dominant_sentiment": "偏多",
+        "dominant_stage": "中期扩散",
+        "funds_confirmation_mix": {
+          "待确认": 4,
+          "资金确认": 1
+        },
+        "top_symbols": [
+          "SIRENUSDT"
+        ],
+        "sample_posts": [
+          {
+            "content_id": 313380193156273,
+            "author": "Professor_JAXON",
+            "username": "professor_jaxon",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313380193156273",
+            "narrative": "BSC",
+            "narrative_score": 18,
+            "keyword_hits": 0,
+            "symbol_hits": 1,
+            "signal_score": 98.0,
+            "signal_label": "high_signal",
+            "engagement_total": 226,
+            "sentiment": "偏多",
+            "stage": "中期扩散",
+            "funds_confirmation": "待确认",
+            "symbols": [
+              "SIRENUSDT"
+            ],
+            "body_preview": "$SIREN USDT Pullback Holding Strong Above $2 — Next Leg Up Towards $2.30 Incoming 🚀 Trade Setup: Long Entry zone: $1.90 – $2.05 Tp1: $2.20 Tp2: $2.36 Tp3: $2.60 SL: $1.70 After a massive impulsive rally, price is consoli"
+          },
+          {
+            "content_id": 313379555331538,
+            "author": "MissBlockChain_01",
+            "username": "zoe_cryptoanalyst",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313379555331538",
+            "narrative": "BSC",
+            "narrative_score": 18,
+            "keyword_hits": 0,
+            "symbol_hits": 1,
+            "signal_score": 93.67,
+            "signal_label": "high_signal",
+            "engagement_total": 534,
+            "sentiment": "偏多",
+            "stage": "中期扩散",
+            "funds_confirmation": "资金确认",
+            "symbols": [
+              "SIRENUSDT"
+            ],
+            "body_preview": "$SIREN   Parabolic Move, High Volatility Continuation Setup 📈⚠️ Trade Setup: Long Entry Zone: $1.85 – $1.95 TP1: $2.20 TP2: $2.45 TP3: $2.70 SL: $1.60 SIREN has already printed a massive +130% move, showing strong bullis"
+          },
+          {
+            "content_id": 313380114805873,
+            "author": "Raja Boss official",
+            "username": "Raja_Boss_official",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313380114805873",
+            "narrative": "BSC",
+            "narrative_score": 18,
+            "keyword_hits": 0,
+            "symbol_hits": 1,
+            "signal_score": 83.21,
+            "signal_label": "high_signal",
+            "engagement_total": 121,
+            "sentiment": "偏空",
+            "stage": "早期发酵",
+            "funds_confirmation": "待确认",
+            "symbols": [
+              "SIRENUSDT"
+            ],
+            "body_preview": "WTF is this 😱😭  $SIREN just came back from the dead…  Look at that move…  a massive pump in just 3 candles absolutely insane 💀  And now I’m already seeing people jumping into shorts…  thinking “it’s over, dump coming”  B"
+          }
+        ],
+        "narrative_rank": 1
+      },
+      {
+        "narrative": "Meme",
+        "post_count": 5,
+        "unique_authors": 5,
+        "avg_signal_score": 56.14,
+        "total_engagement": 925,
+        "narrative_heat_score": 117.71,
+        "dominant_sentiment": "偏多",
+        "dominant_stage": "观察期",
+        "funds_confirmation_mix": {
+          "待确认": 4,
+          "资金确认": 1
+        },
+        "top_symbols": [
+          "DOGEUSDT",
+          "SHIBUSDT",
+          "PEPEUSDT",
+          "BANANAS31USDT",
+          "$BANANAS31 "
+        ],
+        "sample_posts": [
+          {
+            "content_id": 313380013198785,
+            "author": "sophia.bull",
+            "username": "0xHoward_Peng",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313380013198785",
+            "narrative": "Meme",
+            "narrative_score": 76,
+            "keyword_hits": 4,
+            "symbol_hits": 2,
+            "signal_score": 45.0,
+            "signal_label": "noise",
+            "engagement_total": 0,
+            "sentiment": "中性",
+            "stage": "早期发酵",
+            "funds_confirmation": "待确认",
+            "symbols": [
+              "DOGEUSDT",
+              "SHIBUSDT",
+              "PEPEUSDT"
+            ],
+            "body_preview": "Next wave hitting $DOGE $SHIB $PEPE?  Meme season rotation looking overdue. BTC dominance cooling off, alts bleeding for weeks. Classic setup for degen capital to flow back into the OG meme plays.  Watch for: - Volume sp"
+          },
+          {
+            "content_id": 313380039746625,
+            "author": "Berserker_09",
+            "username": "Soban_Tariq",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313380039746625",
+            "narrative": "Meme",
+            "narrative_score": 18,
+            "keyword_hits": 0,
+            "symbol_hits": 1,
+            "signal_score": 98.0,
+            "signal_label": "high_signal",
+            "engagement_total": 913,
+            "sentiment": "偏多",
+            "stage": "末端过热",
+            "funds_confirmation": "资金确认",
+            "symbols": [
+              "BANANAS31USDT",
+              "$BANANAS31 "
+            ],
+            "body_preview": "$BANANAS31 is quietly building momentum after a clean base formation.  Price swept liquidity from the lows and immediately reclaimed structure, now consolidating near local highs — a classic sign of strength and continua"
+          },
+          {
+            "content_id": 313379777512305,
+            "author": "Square-Creator-e49d54810",
+            "username": "Square-Creator-e49d54810",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313379777512305",
+            "narrative": "Meme",
+            "narrative_score": 10,
+            "keyword_hits": 1,
+            "symbol_hits": 0,
+            "signal_score": 54.94,
+            "signal_label": "noise",
+            "engagement_total": 11,
+            "sentiment": "偏多",
+            "stage": "观察期",
+            "funds_confirmation": "待确认",
+            "symbols": [
+              "1MBABYDOGEUSDT",
+              "$1MBABYDOGE ",
+              "59USDT"
+            ],
+            "body_preview": "1MBABYDOGE Surges 2.87% on Binance Amid 51% Token Burn, TON Network Integration, and Guinness World Record  1MBABYDOGEUSDT has experienced a 2.87% price increase over the past 24 hours, rising from a 24h open of $0.00042"
+          }
+        ],
+        "narrative_rank": 2
+      },
+      {
+        "narrative": "DeFi",
+        "post_count": 2,
+        "unique_authors": 2,
+        "avg_signal_score": 68.12,
+        "total_engagement": 457,
+        "narrative_heat_score": 47.81,
+        "dominant_sentiment": "中性",
+        "dominant_stage": "早期发酵",
+        "funds_confirmation_mix": {
+          "资金确认": 1,
+          "待确认": 1
+        },
+        "top_symbols": [
+          "PIXELUSDT",
+          "$PIXEL ",
+          "LDOUSDT",
+          "CFGUSDT"
+        ],
+        "sample_posts": [
+          {
+            "content_id": 313335838578802,
+            "author": "ZGOD OFFICIAL",
+            "username": "TaSaN007",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313335838578802",
+            "narrative": "DeFi",
+            "narrative_score": 20,
+            "keyword_hits": 2,
+            "symbol_hits": 0,
+            "signal_score": 73.0,
+            "signal_label": "watch",
+            "engagement_total": 83,
+            "sentiment": "中性",
+            "stage": "早期发酵",
+            "funds_confirmation": "资金确认",
+            "symbols": [
+              "PIXELUSDT",
+              "$PIXEL "
+            ],
+            "body_preview": "I've been watching Web3 gaming for years, and I've noticed a pattern. Most projects spend their entire lives screaming into a megaphone about blockchain. \"Look, you can own your sword!\" \"The economy is on-chain!\" \"Freedo"
+          },
+          {
+            "content_id": 313379006935377,
+            "author": "CryptorInsight",
+            "username": "CryptorInsight",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313379006935377",
+            "narrative": "DeFi",
+            "narrative_score": 18,
+            "keyword_hits": 0,
+            "symbol_hits": 1,
+            "signal_score": 63.24,
+            "signal_label": "watch",
+            "engagement_total": 374,
+            "sentiment": "偏空",
+            "stage": "观察期",
+            "funds_confirmation": "待确认",
+            "symbols": [
+              "LDOUSDT",
+              "CFGUSDT"
+            ],
+            "body_preview": "Alpha dogfight: Which one has better short-term potential? LDO or CFG ? Vote now and share your reasoning."
+          }
+        ],
+        "narrative_rank": 3
+      },
+      {
+        "narrative": "BTCFi",
+        "post_count": 2,
+        "unique_authors": 2,
+        "avg_signal_score": 92.59,
+        "total_engagement": 209,
+        "narrative_heat_score": 45.74,
+        "dominant_sentiment": "偏多",
+        "dominant_stage": "中期扩散",
+        "funds_confirmation_mix": {
+          "待确认": 2
+        },
+        "top_symbols": [
+          "ORDIUSDT",
+          "$ORDI ",
+          "11USDT",
+          "14USDT"
+        ],
+        "sample_posts": [
+          {
+            "content_id": 313379802889682,
+            "author": "Professor_JAXON",
+            "username": "professor_jaxon",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313379802889682",
+            "narrative": "BTCFi",
+            "narrative_score": 18,
+            "keyword_hits": 0,
+            "symbol_hits": 1,
+            "signal_score": 96.8,
+            "signal_label": "high_signal",
+            "engagement_total": 67,
+            "sentiment": "偏多",
+            "stage": "中期扩散",
+            "funds_confirmation": "待确认",
+            "symbols": [
+              "ORDIUSDT",
+              "$ORDI ",
+              "11USDT"
+            ],
+            "body_preview": "$ORDI USDT Bullish Pullback Before Explosive Continuation Toward $11+ Trade Setup: Long Entry zone: 8.20 - 8.60 Tp1: 9.50 Tp2: 10.30 Tp3: 11.00 SL: 7.60 Strong bullish momentum after massive 100% rally, with price now co"
+          },
+          {
+            "content_id": 313379225979330,
+            "author": "NovaNews",
+            "username": "ErinCrypto",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313379225979330",
+            "narrative": "BTCFi",
+            "narrative_score": 18,
+            "keyword_hits": 0,
+            "symbol_hits": 1,
+            "signal_score": 88.37,
+            "signal_label": "high_signal",
+            "engagement_total": 142,
+            "sentiment": "偏多",
+            "stage": "中期扩散",
+            "funds_confirmation": "待确认",
+            "symbols": [
+              "ORDIUSDT",
+              "$ORDI ",
+              "14USDT"
+            ],
+            "body_preview": "$ORDI /USDT LONG UPDATE 🚀  Entry: $2.99 Current Price: $6.90 📈 Unrealized P&L: +$14,462 USDT 💰 ROE: +2,617% 🔥 Leverage: 20X Cross ⚡  From $2.99 to $6.90 — this move is already running strong. Patience + conviction is wha"
+          }
+        ],
+        "narrative_rank": 4
+      },
+      {
+        "narrative": "Solana",
+        "post_count": 1,
+        "unique_authors": 1,
+        "avg_signal_score": 90.0,
+        "total_engagement": 1735,
+        "narrative_heat_score": 36.46,
+        "dominant_sentiment": "偏空",
+        "dominant_stage": "末端过热",
+        "funds_confirmation_mix": {
+          "热度确认": 1
+        },
+        "top_symbols": [
+          "SOLUSDT"
+        ],
+        "sample_posts": [
+          {
+            "content_id": 313379126527889,
+            "author": "Signalx Killer",
+            "username": "MarketInsights",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313379126527889",
+            "narrative": "Solana",
+            "narrative_score": 18,
+            "keyword_hits": 0,
+            "symbol_hits": 1,
+            "signal_score": 90.0,
+            "signal_label": "high_signal",
+            "engagement_total": 1735,
+            "sentiment": "偏空",
+            "stage": "末端过热",
+            "funds_confirmation": "热度确认",
+            "symbols": [
+              "SOLUSDT"
+            ],
+            "body_preview": "Setup short $SOL  entry : 89-93  sl : 95.2  TP 1 : 87.6  TP 2 : 84.3  TP3 : 79.7  Regulatory Uncertainty: The CLARITY Act's potential non-passage poses a significant regulatory risk, which could lead to substantial marke"
+          }
+        ],
+        "narrative_rank": 5
+      },
+      {
+        "narrative": "AI",
+        "post_count": 1,
+        "unique_authors": 1,
+        "avg_signal_score": 88.0,
+        "total_engagement": 885,
+        "narrative_heat_score": 29.38,
+        "dominant_sentiment": "偏多",
+        "dominant_stage": "中期扩散",
+        "funds_confirmation_mix": {
+          "热度确认": 1
+        },
+        "top_symbols": [
+          "INJUSDT",
+          "FETUSDT",
+          "TAOUSDT",
+          "$TAO ",
+          "$FET "
+        ],
+        "sample_posts": [
+          {
+            "content_id": 313379615703633,
+            "author": "Berserker_09",
+            "username": "Soban_Tariq",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313379615703633",
+            "narrative": "AI",
+            "narrative_score": 56,
+            "keyword_hits": 2,
+            "symbol_hits": 2,
+            "signal_score": 88.0,
+            "signal_label": "high_signal",
+            "engagement_total": 885,
+            "sentiment": "偏多",
+            "stage": "中期扩散",
+            "funds_confirmation": "热度确认",
+            "symbols": [
+              "INJUSDT",
+              "FETUSDT",
+              "TAOUSDT",
+              "$TAO ",
+              "$FET ",
+              "$INJ ",
+              "110USDT",
+              "RENDERUSDT"
+            ],
+            "body_preview": "The market recently added $110 billion in just 15 hours. Total crypto market cap is now $2.54 trillion.  And the AI sector?   $TAO : $3.5B market cap, up 140% in six weeks   $FET : $0.23, holding strong support at 50-day"
+          }
+        ],
+        "narrative_rank": 6
+      }
+    ],
+    "symbol_narrative_view": [
+      {
+        "symbol": "SIRENUSDT",
+        "narratives": [
+          "BSC"
+        ],
+        "post_count": 5,
+        "dominant_stage": "中期扩散",
+        "dominant_sentiment": "偏多",
+        "funds_confirmation_mix": {
+          "待确认": 4,
+          "资金确认": 1
+        },
+        "avg_signal_score": 86.78,
+        "total_engagement": 11697,
+        "sample_posts": [
+          {
+            "content_id": 313380193156273,
+            "author": "Professor_JAXON",
+            "username": "professor_jaxon",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313380193156273",
+            "narrative": "BSC",
+            "narrative_score": 18,
+            "keyword_hits": 0,
+            "symbol_hits": 1,
+            "signal_score": 98.0,
+            "signal_label": "high_signal",
+            "engagement_total": 226,
+            "sentiment": "偏多",
+            "stage": "中期扩散",
+            "funds_confirmation": "待确认",
+            "symbols": [
+              "SIRENUSDT"
+            ],
+            "body_preview": "$SIREN USDT Pullback Holding Strong Above $2 — Next Leg Up Towards $2.30 Incoming 🚀 Trade Setup: Long Entry zone: $1.90 – $2.05 Tp1: $2.20 Tp2: $2.36 Tp3: $2.60 SL: $1.70 After a massive impulsive rally, price is consoli"
+          },
+          {
+            "content_id": 313379555331538,
+            "author": "MissBlockChain_01",
+            "username": "zoe_cryptoanalyst",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313379555331538",
+            "narrative": "BSC",
+            "narrative_score": 18,
+            "keyword_hits": 0,
+            "symbol_hits": 1,
+            "signal_score": 93.67,
+            "signal_label": "high_signal",
+            "engagement_total": 534,
+            "sentiment": "偏多",
+            "stage": "中期扩散",
+            "funds_confirmation": "资金确认",
+            "symbols": [
+              "SIRENUSDT"
+            ],
+            "body_preview": "$SIREN   Parabolic Move, High Volatility Continuation Setup 📈⚠️ Trade Setup: Long Entry Zone: $1.85 – $1.95 TP1: $2.20 TP2: $2.45 TP3: $2.70 SL: $1.60 SIREN has already printed a massive +130% move, showing strong bullis"
+          }
+        ]
+      },
+      {
+        "symbol": "ORDIUSDT",
+        "narratives": [
+          "BTCFi"
+        ],
+        "post_count": 2,
+        "dominant_stage": "中期扩散",
+        "dominant_sentiment": "偏多",
+        "funds_confirmation_mix": {
+          "待确认": 2
+        },
+        "avg_signal_score": 92.59,
+        "total_engagement": 209,
+        "sample_posts": [
+          {
+            "content_id": 313379802889682,
+            "author": "Professor_JAXON",
+            "username": "professor_jaxon",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313379802889682",
+            "narrative": "BTCFi",
+            "narrative_score": 18,
+            "keyword_hits": 0,
+            "symbol_hits": 1,
+            "signal_score": 96.8,
+            "signal_label": "high_signal",
+            "engagement_total": 67,
+            "sentiment": "偏多",
+            "stage": "中期扩散",
+            "funds_confirmation": "待确认",
+            "symbols": [
+              "ORDIUSDT",
+              "$ORDI ",
+              "11USDT"
+            ],
+            "body_preview": "$ORDI USDT Bullish Pullback Before Explosive Continuation Toward $11+ Trade Setup: Long Entry zone: 8.20 - 8.60 Tp1: 9.50 Tp2: 10.30 Tp3: 11.00 SL: 7.60 Strong bullish momentum after massive 100% rally, with price now co"
+          },
+          {
+            "content_id": 313379225979330,
+            "author": "NovaNews",
+            "username": "ErinCrypto",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313379225979330",
+            "narrative": "BTCFi",
+            "narrative_score": 18,
+            "keyword_hits": 0,
+            "symbol_hits": 1,
+            "signal_score": 88.37,
+            "signal_label": "high_signal",
+            "engagement_total": 142,
+            "sentiment": "偏多",
+            "stage": "中期扩散",
+            "funds_confirmation": "待确认",
+            "symbols": [
+              "ORDIUSDT",
+              "$ORDI ",
+              "14USDT"
+            ],
+            "body_preview": "$ORDI /USDT LONG UPDATE 🚀  Entry: $2.99 Current Price: $6.90 📈 Unrealized P&L: +$14,462 USDT 💰 ROE: +2,617% 🔥 Leverage: 20X Cross ⚡  From $2.99 to $6.90 — this move is already running strong. Patience + conviction is wha"
+          }
+        ]
+      },
+      {
+        "symbol": "$ORDI ",
+        "narratives": [
+          "BTCFi"
+        ],
+        "post_count": 2,
+        "dominant_stage": "中期扩散",
+        "dominant_sentiment": "偏多",
+        "funds_confirmation_mix": {
+          "待确认": 2
+        },
+        "avg_signal_score": 92.59,
+        "total_engagement": 209,
+        "sample_posts": [
+          {
+            "content_id": 313379802889682,
+            "author": "Professor_JAXON",
+            "username": "professor_jaxon",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313379802889682",
+            "narrative": "BTCFi",
+            "narrative_score": 18,
+            "keyword_hits": 0,
+            "symbol_hits": 1,
+            "signal_score": 96.8,
+            "signal_label": "high_signal",
+            "engagement_total": 67,
+            "sentiment": "偏多",
+            "stage": "中期扩散",
+            "funds_confirmation": "待确认",
+            "symbols": [
+              "ORDIUSDT",
+              "$ORDI ",
+              "11USDT"
+            ],
+            "body_preview": "$ORDI USDT Bullish Pullback Before Explosive Continuation Toward $11+ Trade Setup: Long Entry zone: 8.20 - 8.60 Tp1: 9.50 Tp2: 10.30 Tp3: 11.00 SL: 7.60 Strong bullish momentum after massive 100% rally, with price now co"
+          },
+          {
+            "content_id": 313379225979330,
+            "author": "NovaNews",
+            "username": "ErinCrypto",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313379225979330",
+            "narrative": "BTCFi",
+            "narrative_score": 18,
+            "keyword_hits": 0,
+            "symbol_hits": 1,
+            "signal_score": 88.37,
+            "signal_label": "high_signal",
+            "engagement_total": 142,
+            "sentiment": "偏多",
+            "stage": "中期扩散",
+            "funds_confirmation": "待确认",
+            "symbols": [
+              "ORDIUSDT",
+              "$ORDI ",
+              "14USDT"
+            ],
+            "body_preview": "$ORDI /USDT LONG UPDATE 🚀  Entry: $2.99 Current Price: $6.90 📈 Unrealized P&L: +$14,462 USDT 💰 ROE: +2,617% 🔥 Leverage: 20X Cross ⚡  From $2.99 to $6.90 — this move is already running strong. Patience + conviction is wha"
+          }
+        ]
+      },
+      {
+        "symbol": "PIXELUSDT",
+        "narratives": [
+          "GameFi",
+          "DeFi"
+        ],
+        "post_count": 2,
+        "dominant_stage": "早期发酵",
+        "dominant_sentiment": "中性",
+        "funds_confirmation_mix": {
+          "资金确认": 2
+        },
+        "avg_signal_score": 73.0,
+        "total_engagement": 166,
+        "sample_posts": [
+          {
+            "content_id": 313335838578802,
+            "author": "ZGOD OFFICIAL",
+            "username": "TaSaN007",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313335838578802",
+            "narrative": "GameFi",
+            "narrative_score": 20,
+            "keyword_hits": 2,
+            "symbol_hits": 0,
+            "signal_score": 73.0,
+            "signal_label": "watch",
+            "engagement_total": 83,
+            "sentiment": "中性",
+            "stage": "早期发酵",
+            "funds_confirmation": "资金确认",
+            "symbols": [
+              "PIXELUSDT",
+              "$PIXEL "
+            ],
+            "body_preview": "I've been watching Web3 gaming for years, and I've noticed a pattern. Most projects spend their entire lives screaming into a megaphone about blockchain. \"Look, you can own your sword!\" \"The economy is on-chain!\" \"Freedo"
+          },
+          {
+            "content_id": 313335838578802,
+            "author": "ZGOD OFFICIAL",
+            "username": "TaSaN007",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313335838578802",
+            "narrative": "DeFi",
+            "narrative_score": 20,
+            "keyword_hits": 2,
+            "symbol_hits": 0,
+            "signal_score": 73.0,
+            "signal_label": "watch",
+            "engagement_total": 83,
+            "sentiment": "中性",
+            "stage": "早期发酵",
+            "funds_confirmation": "资金确认",
+            "symbols": [
+              "PIXELUSDT",
+              "$PIXEL "
+            ],
+            "body_preview": "I've been watching Web3 gaming for years, and I've noticed a pattern. Most projects spend their entire lives screaming into a megaphone about blockchain. \"Look, you can own your sword!\" \"The economy is on-chain!\" \"Freedo"
+          }
+        ]
+      },
+      {
+        "symbol": "$PIXEL ",
+        "narratives": [
+          "GameFi",
+          "DeFi"
+        ],
+        "post_count": 2,
+        "dominant_stage": "早期发酵",
+        "dominant_sentiment": "中性",
+        "funds_confirmation_mix": {
+          "资金确认": 2
+        },
+        "avg_signal_score": 73.0,
+        "total_engagement": 166,
+        "sample_posts": [
+          {
+            "content_id": 313335838578802,
+            "author": "ZGOD OFFICIAL",
+            "username": "TaSaN007",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313335838578802",
+            "narrative": "GameFi",
+            "narrative_score": 20,
+            "keyword_hits": 2,
+            "symbol_hits": 0,
+            "signal_score": 73.0,
+            "signal_label": "watch",
+            "engagement_total": 83,
+            "sentiment": "中性",
+            "stage": "早期发酵",
+            "funds_confirmation": "资金确认",
+            "symbols": [
+              "PIXELUSDT",
+              "$PIXEL "
+            ],
+            "body_preview": "I've been watching Web3 gaming for years, and I've noticed a pattern. Most projects spend their entire lives screaming into a megaphone about blockchain. \"Look, you can own your sword!\" \"The economy is on-chain!\" \"Freedo"
+          },
+          {
+            "content_id": 313335838578802,
+            "author": "ZGOD OFFICIAL",
+            "username": "TaSaN007",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313335838578802",
+            "narrative": "DeFi",
+            "narrative_score": 20,
+            "keyword_hits": 2,
+            "symbol_hits": 0,
+            "signal_score": 73.0,
+            "signal_label": "watch",
+            "engagement_total": 83,
+            "sentiment": "中性",
+            "stage": "早期发酵",
+            "funds_confirmation": "资金确认",
+            "symbols": [
+              "PIXELUSDT",
+              "$PIXEL "
+            ],
+            "body_preview": "I've been watching Web3 gaming for years, and I've noticed a pattern. Most projects spend their entire lives screaming into a megaphone about blockchain. \"Look, you can own your sword!\" \"The economy is on-chain!\" \"Freedo"
+          }
+        ]
+      },
+      {
+        "symbol": "BANANAS31USDT",
+        "narratives": [
+          "Meme"
+        ],
+        "post_count": 1,
+        "dominant_stage": "末端过热",
+        "dominant_sentiment": "偏多",
+        "funds_confirmation_mix": {
+          "资金确认": 1
+        },
+        "avg_signal_score": 98.0,
+        "total_engagement": 913,
+        "sample_posts": [
+          {
+            "content_id": 313380039746625,
+            "author": "Berserker_09",
+            "username": "Soban_Tariq",
+            "publish_time": "2026-04-17",
+            "web_link": "https://www.binance.com/en/square/post/313380039746625",
+            "narrative": "Meme",
+            "narrative_score": 18,
+            "keyword_hits": 0,
+            "symbol_hits": 1,
+            "signal_score": 98.0,
+            "signal_label": "high_signal",
+            "engagement_total": 913,
+            "sentiment": "偏多",
+            "stage": "末端过热",
+            "funds_confirmation": "资金确认",
+            "symbols": [
+              "BANANAS31USDT",
+              "$BANANAS31 "
+            ],
+            "body_preview": "$BANANAS31 is quietly building momentum after a clean base formation.  Price swept liquidity from the lows and immediately reclaimed structure, now consolidating near local highs — a classic sign of strength and continua"
+          }
+        ]
+      }
+    ]
+  },
+  "onchain_strong_buy_monitor": {
+    "generated_at": "2026-04-19T05:10:42.628325Z",
+    "scan_config": {
+      "mode": "onchain_strong_buy_monitor_v1",
+      "profile_limit": 12,
+      "top_n": 6
+    },
+    "summary": {
+      "profile_queries": 12,
+      "pairs_scanned": 12,
+      "strong_buy_candidates": 2,
+      "observation_candidates": 1
+    },
+    "strong_buy_candidates": [
+      {
+        "symbol": "SIREN",
+        "chain_id": "bsc",
+        "dex_id": "pancakeswap",
+        "pair_address": "0xb2AF49dBF526054FAf19602860A5E298a79F3D05",
+        "pair_url": "https://dexscreener.com/bsc/0xb2af49dbf526054faf19602860a5e298a79f3d05",
+        "price_usd": 0.6255,
+        "price_change_pct_m5": -0.48,
+        "price_change_pct_h1": -8.86,
+        "price_change_pct_h24": -12.39,
+        "volume_m5": 111393.52,
+        "volume_h1": 1290206.97,
+        "volume_h24": 6169670.4,
+        "liquidity_usd": 8430505.11,
+        "txns_buys_m5": 245,
+        "txns_sells_m5": 80,
+        "txns_buys_h1": 1231,
+        "txns_sells_h1": 1742,
+        "buy_sell_imbalance": 165,
+        "buy_sell_ratio_m5": 3.06,
+        "buy_sell_ratio_h1": 0.71,
+        "volume_spike_score": 1.04,
+        "onchain_buy_score": 58.36,
+        "risk_flags": [],
+        "stage": "强买盘候选",
+        "reason_summary": "m5 买卖差 165，流动性 8430505 USD",
+        "rank": 1
+      },
+      {
+        "symbol": "BANANAS31",
+        "chain_id": "bsc",
+        "dex_id": "pancakeswap",
+        "pair_address": "0x7F51BBf34156ba802dEB0E38B7671DC4fa32041d",
+        "pair_url": "https://dexscreener.com/bsc/0x7f51bbf34156ba802deb0e38b7671dc4fa32041d",
+        "price_usd": 0.009561,
+        "price_change_pct_m5": 0.19,
+        "price_change_pct_h1": 0.37,
+        "price_change_pct_h24": -5.44,
+        "volume_m5": 9434.74,
+        "volume_h1": 130686.2,
+        "volume_h24": 4519177.22,
+        "liquidity_usd": 4154404.47,
+        "txns_buys_m5": 28,
+        "txns_sells_m5": 16,
+        "txns_buys_h1": 256,
+        "txns_sells_h1": 264,
+        "buy_sell_imbalance": 12,
+        "buy_sell_ratio_m5": 1.75,
+        "buy_sell_ratio_h1": 0.97,
+        "volume_spike_score": 0.87,
+        "onchain_buy_score": 53.4,
+        "risk_flags": [],
+        "stage": "强买盘候选",
+        "reason_summary": "m5 买卖差 12，流动性 4154404 USD，1h 涨幅 0.37%",
+        "rank": 2
+      }
+    ],
+    "observation_candidates": [
+      {
+        "symbol": "AAVE",
+        "chain_id": "base",
+        "dex_id": "aerodrome",
+        "pair_address": "0x4a79B0168296c0eF7b8F314973B82aD406a29f1B",
+        "pair_url": "https://dexscreener.com/base/0x4a79b0168296c0ef7b8f314973b82ad406a29f1b",
+        "price_usd": 94.26,
+        "price_change_pct_m5": 0.0,
+        "price_change_pct_h1": -0.71,
+        "price_change_pct_h24": -17.63,
+        "volume_m5": 0.54,
+        "volume_h1": 14541.25,
+        "volume_h24": 758642.39,
+        "liquidity_usd": 849393.61,
+        "txns_buys_m5": 2,
+        "txns_sells_m5": 1,
+        "txns_buys_h1": 55,
+        "txns_sells_h1": 23,
+        "buy_sell_imbalance": 1,
+        "buy_sell_ratio_m5": 2.0,
+        "buy_sell_ratio_h1": 2.39,
+        "volume_spike_score": 0.0,
+        "onchain_buy_score": 37.19,
+        "risk_flags": [
+          "thin_m5_txns"
+        ],
+        "stage": "观察池",
+        "reason_summary": "m5 买卖差 1，流动性 849394 USD",
+        "rank": 3
+      }
+    ],
+    "all_candidates": [
+      {
+        "symbol": "SIREN",
+        "chain_id": "bsc",
+        "dex_id": "pancakeswap",
+        "pair_address": "0xb2AF49dBF526054FAf19602860A5E298a79F3D05",
+        "pair_url": "https://dexscreener.com/bsc/0xb2af49dbf526054faf19602860a5e298a79f3d05",
+        "price_usd": 0.6255,
+        "price_change_pct_m5": -0.48,
+        "price_change_pct_h1": -8.86,
+        "price_change_pct_h24": -12.39,
+        "volume_m5": 111393.52,
+        "volume_h1": 1290206.97,
+        "volume_h24": 6169670.4,
+        "liquidity_usd": 8430505.11,
+        "txns_buys_m5": 245,
+        "txns_sells_m5": 80,
+        "txns_buys_h1": 1231,
+        "txns_sells_h1": 1742,
+        "buy_sell_imbalance": 165,
+        "buy_sell_ratio_m5": 3.06,
+        "buy_sell_ratio_h1": 0.71,
+        "volume_spike_score": 1.04,
+        "onchain_buy_score": 58.36,
+        "risk_flags": [],
+        "stage": "强买盘候选",
+        "reason_summary": "m5 买卖差 165，流动性 8430505 USD",
+        "rank": 1
+      },
+      {
+        "symbol": "BANANAS31",
+        "chain_id": "bsc",
+        "dex_id": "pancakeswap",
+        "pair_address": "0x7F51BBf34156ba802dEB0E38B7671DC4fa32041d",
+        "pair_url": "https://dexscreener.com/bsc/0x7f51bbf34156ba802deb0e38b7671dc4fa32041d",
+        "price_usd": 0.009561,
+        "price_change_pct_m5": 0.19,
+        "price_change_pct_h1": 0.37,
+        "price_change_pct_h24": -5.44,
+        "volume_m5": 9434.74,
+        "volume_h1": 130686.2,
+        "volume_h24": 4519177.22,
+        "liquidity_usd": 4154404.47,
+        "txns_buys_m5": 28,
+        "txns_sells_m5": 16,
+        "txns_buys_h1": 256,
+        "txns_sells_h1": 264,
+        "buy_sell_imbalance": 12,
+        "buy_sell_ratio_m5": 1.75,
+        "buy_sell_ratio_h1": 0.97,
+        "volume_spike_score": 0.87,
+        "onchain_buy_score": 53.4,
+        "risk_flags": [],
+        "stage": "强买盘候选",
+        "reason_summary": "m5 买卖差 12，流动性 4154404 USD，1h 涨幅 0.37%",
+        "rank": 2
+      },
+      {
+        "symbol": "AAVE",
+        "chain_id": "base",
+        "dex_id": "aerodrome",
+        "pair_address": "0x4a79B0168296c0eF7b8F314973B82aD406a29f1B",
+        "pair_url": "https://dexscreener.com/base/0x4a79b0168296c0ef7b8f314973b82ad406a29f1b",
+        "price_usd": 94.26,
+        "price_change_pct_m5": 0.0,
+        "price_change_pct_h1": -0.71,
+        "price_change_pct_h24": -17.63,
+        "volume_m5": 0.54,
+        "volume_h1": 14541.25,
+        "volume_h24": 758642.39,
+        "liquidity_usd": 849393.61,
+        "txns_buys_m5": 2,
+        "txns_sells_m5": 1,
+        "txns_buys_h1": 55,
+        "txns_sells_h1": 23,
+        "buy_sell_imbalance": 1,
+        "buy_sell_ratio_m5": 2.0,
+        "buy_sell_ratio_h1": 2.39,
+        "volume_spike_score": 0.0,
+        "onchain_buy_score": 37.19,
+        "risk_flags": [
+          "thin_m5_txns"
+        ],
+        "stage": "观察池",
+        "reason_summary": "m5 买卖差 1，流动性 849394 USD",
+        "rank": 3
+      },
+      {
+        "symbol": "RAY",
+        "chain_id": "solana",
+        "dex_id": "raydium",
+        "pair_address": "2AXXcN6oN9bBT5owwmTH53C7QHUXvhLeu718Kqt8rvY2",
+        "pair_url": "https://dexscreener.com/solana/2axxcn6on9bbt5owwmth53c7qhuxvhleu718kqt8rvy2",
+        "price_usd": 0.6507,
+        "price_change_pct_m5": -0.15,
+        "price_change_pct_h1": -0.18,
+        "price_change_pct_h24": -6.7,
+        "volume_m5": 1955.11,
+        "volume_h1": 37089.57,
+        "volume_h24": 1767080.55,
+        "liquidity_usd": 1221149.43,
+        "txns_buys_m5": 36,
+        "txns_sells_m5": 49,
+        "txns_buys_h1": 404,
+        "txns_sells_h1": 446,
+        "buy_sell_imbalance": -13,
+        "buy_sell_ratio_m5": 0.73,
+        "buy_sell_ratio_h1": 0.91,
+        "volume_spike_score": 0.63,
+        "onchain_buy_score": 22.0,
+        "risk_flags": [],
+        "stage": "低质量噪音",
+        "reason_summary": "流动性 1221149 USD",
+        "rank": 4
+      },
+      {
+        "symbol": "DOGE",
+        "chain_id": "bsc",
+        "dex_id": "pancakeswap",
+        "pair_address": "0x353d328eFbEf48b79a570cBc2fdE20F40e9f2063",
+        "pair_url": "https://dexscreener.com/bsc/0x353d328efbef48b79a570cbc2fde20f40e9f2063",
+        "price_usd": 0.09486,
+        "price_change_pct_m5": 0.0,
+        "price_change_pct_h1": 0.1,
+        "price_change_pct_h24": -3.68,
+        "volume_m5": 0.0,
+        "volume_h1": 3505.22,
+        "volume_h24": 178362.47,
+        "liquidity_usd": 225761.67,
+        "txns_buys_m5": 0,
+        "txns_sells_m5": 0,
+        "txns_buys_h1": 30,
+        "txns_sells_h1": 17,
+        "buy_sell_imbalance": 0,
+        "buy_sell_ratio_m5": 0.0,
+        "buy_sell_ratio_h1": 1.76,
+        "volume_spike_score": 0.0,
+        "onchain_buy_score": 16.92,
+        "risk_flags": [
+          "thin_m5_txns"
+        ],
+        "stage": "低质量噪音",
+        "reason_summary": "流动性 225762 USD，1h 涨幅 0.10%",
+        "rank": 5
+      },
+      {
+        "symbol": "SOL",
+        "chain_id": "base",
+        "dex_id": "aerodrome",
+        "pair_address": "0x1131DB5977242a03eBeaD1aCD18F80A9A29e5922",
+        "pair_url": "https://dexscreener.com/base/0x1131db5977242a03ebead1acd18f80a9a29e5922",
+        "price_usd": 85.51,
+        "price_change_pct_m5": -0.01,
+        "price_change_pct_h1": -0.28,
+        "price_change_pct_h24": -3.48,
+        "volume_m5": 1072.12,
+        "volume_h1": 177617.19,
+        "volume_h24": 3453437.46,
+        "liquidity_usd": 309978.11,
+        "txns_buys_m5": 0,
+        "txns_sells_m5": 1,
+        "txns_buys_h1": 70,
+        "txns_sells_h1": 89,
+        "buy_sell_imbalance": -1,
+        "buy_sell_ratio_m5": 0.0,
+        "buy_sell_ratio_h1": 0.79,
+        "volume_spike_score": 0.07,
+        "onchain_buy_score": 12.0,
+        "risk_flags": [
+          "thin_m5_txns"
+        ],
+        "stage": "低质量噪音",
+        "reason_summary": "流动性 309978 USD",
+        "rank": 6
+      },
+      {
+        "symbol": "TAO",
+        "chain_id": "solana",
+        "dex_id": "raydium",
+        "pair_address": "y5YH5yE9izBQbaVPnTna8tsGovpYJUfj9F6grLkCMoK",
+        "pair_url": "https://dexscreener.com/solana/y5yh5ye9izbqbavpntna8tsgovpyjufj9f6grlkcmok",
+        "price_usd": 334.59,
+        "price_change_pct_m5": 0.0,
+        "price_change_pct_h1": 0.0,
+        "price_change_pct_h24": -0.07,
+        "volume_m5": 0.0,
+        "volume_h1": 0.0,
+        "volume_h24": 178121.98,
+        "liquidity_usd": 6591495.49,
+        "txns_buys_m5": 0,
+        "txns_sells_m5": 0,
+        "txns_buys_h1": 0,
+        "txns_sells_h1": 0,
+        "buy_sell_imbalance": 0,
+        "buy_sell_ratio_m5": 0.0,
+        "buy_sell_ratio_h1": 0.0,
+        "volume_spike_score": 0.0,
+        "onchain_buy_score": 11.78,
+        "risk_flags": [
+          "thin_m5_txns"
+        ],
+        "stage": "低质量噪音",
+        "reason_summary": "流动性 6591495 USD",
+        "rank": 7
+      },
+      {
+        "symbol": "FET",
+        "chain_id": "solana",
+        "dex_id": "raydium",
+        "pair_address": "5HNNW3BnLeaDrJvnmV2mmWW4SrSoYLfsuoERxtBuDB4h",
+        "pair_url": "https://dexscreener.com/solana/5hnnw3bnleadrjvnmv2mmww4srsoylfsuoerxtbudb4h",
+        "price_usd": 0.2379,
+        "price_change_pct_m5": 0.0,
+        "price_change_pct_h1": 0.0,
+        "price_change_pct_h24": -0.15,
+        "volume_m5": 0.0,
+        "volume_h1": 0.0,
+        "volume_h24": 178113.19,
+        "liquidity_usd": 2855051.55,
+        "txns_buys_m5": 0,
+        "txns_sells_m5": 0,
+        "txns_buys_h1": 0,
+        "txns_sells_h1": 0,
+        "buy_sell_imbalance": 0,
+        "buy_sell_ratio_m5": 0.0,
+        "buy_sell_ratio_h1": 0.0,
+        "volume_spike_score": 0.0,
+        "onchain_buy_score": 11.78,
+        "risk_flags": [
+          "thin_m5_txns"
+        ],
+        "stage": "低质量噪音",
+        "reason_summary": "流动性 2855052 USD",
+        "rank": 8
+      },
+      {
+        "symbol": "USDY",
+        "chain_id": "seiv2",
+        "dex_id": "dragonswap",
+        "pair_address": "0xC1b96FA8421807c5BaC89Ba699C75737c81FEEA5",
+        "pair_url": "https://dexscreener.com/seiv2/0xc1b96fa8421807c5bac89ba699c75737c81feea5",
+        "price_usd": 1.13,
+        "price_change_pct_m5": 0.0,
+        "price_change_pct_h1": 0.22,
+        "price_change_pct_h24": -0.09,
+        "volume_m5": 0.0,
+        "volume_h1": 21992.52,
+        "volume_h24": 156410.06,
+        "liquidity_usd": 997185.07,
+        "txns_buys_m5": 0,
+        "txns_sells_m5": 0,
+        "txns_buys_h1": 1,
+        "txns_sells_h1": 1,
+        "buy_sell_imbalance": 0,
+        "buy_sell_ratio_m5": 0.0,
+        "buy_sell_ratio_h1": 1.0,
+        "volume_spike_score": 0.0,
+        "onchain_buy_score": 11.56,
+        "risk_flags": [
+          "thin_m5_txns"
+        ],
+        "stage": "低质量噪音",
+        "reason_summary": "流动性 997185 USD，1h 涨幅 0.22%",
+        "rank": 9
+      },
+      {
+        "symbol": "PEPE",
+        "chain_id": "ethereum",
+        "dex_id": "uniswap",
+        "pair_address": "0xA43fe16908251ee70EF74718545e4FE6C5cCEc9f",
+        "pair_url": "https://dexscreener.com/ethereum/0xa43fe16908251ee70ef74718545e4fe6c5ccec9f",
+        "price_usd": 3.754e-06,
+        "price_change_pct_m5": 0.0,
+        "price_change_pct_h1": -0.44,
+        "price_change_pct_h24": -4.76,
+        "volume_m5": 0.0,
+        "volume_h1": 2.61,
+        "volume_h24": 561992.66,
+        "liquidity_usd": 26978841.44,
+        "txns_buys_m5": 0,
+        "txns_sells_m5": 0,
+        "txns_buys_h1": 1,
+        "txns_sells_h1": 0,
+        "buy_sell_imbalance": 0,
+        "buy_sell_ratio_m5": 0.0,
+        "buy_sell_ratio_h1": 1.0,
+        "volume_spike_score": 0.0,
+        "onchain_buy_score": 8.07,
+        "risk_flags": [
+          "thin_m5_txns"
+        ],
+        "stage": "低质量噪音",
+        "reason_summary": "流动性 26978841 USD",
+        "rank": 10
+      },
+      {
+        "symbol": "ORDI",
+        "chain_id": "solana",
+        "dex_id": "pumpswap",
+        "pair_address": "FsxsZcjRxtUyaT4XVvq5iey24V9zag9TTb6FPwGgeJge",
+        "pair_url": "https://dexscreener.com/solana/fsxszcjrxtuyat4xvvq5iey24v9zag9ttb6fpwggejge",
+        "price_usd": 0.001834,
+        "price_change_pct_m5": 0.0,
+        "price_change_pct_h1": 0.0,
+        "price_change_pct_h24": 1052.0,
+        "volume_m5": 0.0,
+        "volume_h1": 0.0,
+        "volume_h24": 224421.03,
+        "liquidity_usd": 0.0,
+        "txns_buys_m5": 0,
+        "txns_sells_m5": 0,
+        "txns_buys_h1": 0,
+        "txns_sells_h1": 0,
+        "buy_sell_imbalance": 0,
+        "buy_sell_ratio_m5": 0.0,
+        "buy_sell_ratio_h1": 0.0,
+        "volume_spike_score": 0.0,
+        "onchain_buy_score": 0.0,
+        "risk_flags": [
+          "low_liquidity",
+          "thin_m5_txns",
+          "overheated_24h"
+        ],
+        "stage": "末端过热",
+        "reason_summary": "买盘信号一般",
+        "rank": 11
+      },
+      {
+        "symbol": "INJ",
+        "chain_id": "injective",
+        "dex_id": "helix",
+        "pair_address": "0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0",
+        "pair_url": "https://dexscreener.com/injective/0xa508cb32923323679f29a032c70342c147c17d0145625922b0ef22e955c844c0",
+        "price_usd": 3.2,
+        "price_change_pct_m5": 0.0,
+        "price_change_pct_h1": -0.06,
+        "price_change_pct_h24": -4.1,
+        "volume_m5": 0.0,
+        "volume_h1": 2699.47,
+        "volume_h24": 253957.91,
+        "liquidity_usd": 0.0,
+        "txns_buys_m5": 0,
+        "txns_sells_m5": 0,
+        "txns_buys_h1": 1,
+        "txns_sells_h1": 17,
+        "buy_sell_imbalance": 0,
+        "buy_sell_ratio_m5": 0.0,
+        "buy_sell_ratio_h1": 0.06,
+        "volume_spike_score": 0.0,
+        "onchain_buy_score": 0.0,
+        "risk_flags": [
+          "low_liquidity",
+          "thin_m5_txns"
+        ],
+        "stage": "低质量噪音",
+        "reason_summary": "买盘信号一般",
+        "rank": 12
+      }
+    ]
+  }
+}
