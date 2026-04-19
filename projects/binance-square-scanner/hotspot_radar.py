@@ -124,13 +124,31 @@ def compute_timing_signal(symbol: str) -> Dict[str, Any]:
     divergence_ratio = oi_change_pct / max(abs(price_change_pct_24h), 0.75)
 
     timing_score = 0.0
-    timing_score += min(max(oi_change_pct, 0.0) * 2.4, 40)
-    timing_score += min(max(oi_value_change_pct, 0.0) * 1.8, 20)
-    timing_score += min(max(divergence_ratio, 0.0) * 8.0, 25)
-    timing_score += min(math.log1p(max(quote_volume, 0.0)) * 2.2, 10)
-    if price_change_pct_24h < 0:
-        timing_score += 5
+    timing_score += min(max(oi_change_pct, 0.0) * 2.0, 32)
+    timing_score += min(max(oi_value_change_pct, 0.0) * 1.5, 16)
+    timing_score += min(max(divergence_ratio, 0.0) * 8.0, 20)
+    timing_score += min(math.log1p(max(quote_volume, 0.0)) * 2.0, 10)
+    if -4.0 <= price_change_pct_24h <= 18.0:
+        timing_score += 8
+    elif -10.0 <= price_change_pct_24h < -4.0:
+        timing_score += 2
+    if -3.0 <= momentum_pct <= 12.0:
+        timing_score += 6
+    elif momentum_pct > 20.0:
+        timing_score -= 8
+    if price_change_pct_24h < -20.0:
+        timing_score -= 25
+    elif price_change_pct_24h > 45.0:
+        timing_score -= 18
+    if oi_change_pct < 0:
+        timing_score -= 10
     timing_score = clamp(timing_score)
+
+    direction_bias = 'long' if oi_change_pct > 0 and price_change_pct_24h > -6.0 else 'mixed'
+    if price_change_pct_24h < -12.0:
+        direction_bias = 'short_or_noise'
+    if price_change_pct_24h > 35.0 and momentum_pct > 20.0:
+        direction_bias = 'overheated'
 
     return {
         'symbol': symbol,
@@ -139,6 +157,7 @@ def compute_timing_signal(symbol: str) -> Dict[str, Any]:
         'price_change_pct_24h': round(price_change_pct_24h, 2),
         'divergence_ratio': round(divergence_ratio, 2),
         'timing_score': round(timing_score, 2),
+        'direction_bias': direction_bias,
         'last_price': last_price,
         'quote_volume_24h': quote_volume,
         'count_24h': int(count_24h),
@@ -154,12 +173,18 @@ def build_reason_summary(square: Optional[Dict[str, Any]], heat: Optional[Dict[s
     reasons: List[str] = []
     if square and square.get('square_post_count', 0) > 0:
         reasons.append(f"广场提及 {square.get('square_post_count')} 帖, {square.get('square_unique_authors')} 位作者")
+    if square and square.get('square_bias') == 'long_watch':
+        reasons.append('广场情绪偏多')
     if heat and heat.get('coingecko_trending_flag'):
         reasons.append(f"CoinGecko 热榜 #{heat.get('coingecko_rank')}")
     if heat and heat.get('futures_movers_flag'):
         reasons.append(f"Binance 合约异动榜 #{heat.get('futures_rank')}")
     if timing and timing.get('oi_change_pct', 0) > 0:
         reasons.append(f"OI {timing.get('oi_change_pct')}% / 价格 {timing.get('price_change_pct_24h')}%")
+    if timing and timing.get('direction_bias') == 'overheated':
+        reasons.append('短线过热, 谨慎追高')
+    if timing and timing.get('direction_bias') == 'short_or_noise':
+        reasons.append('更像下跌或噪音热度')
     return '，'.join(reasons) if reasons else '热度或资金信号不足'
 
 
@@ -217,13 +242,33 @@ def build_hotspot_payload(limit: int, start_page: int, max_pages: int, top_n: in
             market_type = timing.get('market_type') or market_type
             venue = timing.get('venue') or venue
 
-        final_score = round(clamp(heat_score * 0.55 + safe_float((timing or {}).get('timing_score')) * 0.45), 2)
-        if square and safe_float(square.get('square_conviction_score')) >= 70 and safe_float((timing or {}).get('timing_score')) >= 45:
-            stage = '热度+资金共振'
-        elif safe_float((timing or {}).get('timing_score')) >= 55:
-            stage = '资金异动优先'
-        elif heat_score >= 60:
-            stage = '热度优先'
+        square_bias = (square or {}).get('square_bias')
+        timing_score = safe_float((timing or {}).get('timing_score'))
+        direction_bias = (timing or {}).get('direction_bias')
+
+        buy_opportunity_score = heat_score * 0.45 + timing_score * 0.55
+        if square_bias == 'long_watch':
+            buy_opportunity_score += 10
+        elif square_bias == 'short_watch':
+            buy_opportunity_score -= 20
+        if direction_bias == 'overheated':
+            buy_opportunity_score -= 18
+        elif direction_bias == 'short_or_noise':
+            buy_opportunity_score -= 35
+        elif direction_bias == 'long':
+            buy_opportunity_score += 8
+        final_score = round(clamp(buy_opportunity_score), 2)
+
+        if square_bias == 'long_watch' and timing_score >= 40 and direction_bias == 'long':
+            stage = '可关注买入'
+        elif square_bias == 'long_watch' and heat_score >= 65:
+            stage = '热度偏多'
+        elif direction_bias == 'overheated':
+            stage = '过热观察'
+        elif direction_bias == 'short_or_noise' or square_bias == 'short_watch':
+            stage = '回避'
+        elif timing_score >= 45:
+            stage = '资金异动观察'
         else:
             stage = '观察'
 
@@ -239,15 +284,16 @@ def build_hotspot_payload(limit: int, start_page: int, max_pages: int, top_n: in
                 'quote_volume_24h': safe_float((spot_snapshot or {}).get('quoteVolume')),
             } if spot_snapshot else None,
             'heat_score': round(heat_score, 2),
-            'timing_score': round(safe_float((timing or {}).get('timing_score')), 2),
+            'timing_score': round(timing_score, 2),
             'final_score': final_score,
             'market_type': market_type,
             'venue': venue,
             'stage': stage,
+            'is_buy_candidate': stage in {'可关注买入', '热度偏多', '资金异动观察'},
             'reason_summary': build_reason_summary(square, heat, timing),
         })
 
-    radar_rows.sort(key=lambda x: (x['final_score'], x['timing_score'], x['heat_score']), reverse=True)
+    radar_rows.sort(key=lambda x: (x['is_buy_candidate'], x['final_score'], x['timing_score'], x['heat_score']), reverse=True)
     for idx, row in enumerate(radar_rows, start=1):
         row['priority_rank'] = idx
 
@@ -269,6 +315,7 @@ def build_hotspot_payload(limit: int, start_page: int, max_pages: int, top_n: in
             'radar_candidates': len(radar_rows),
         },
         'top_opportunities': radar_rows[:top_n],
+        'buy_candidates': [row for row in radar_rows if row.get('is_buy_candidate')][:top_n],
         'radar_candidates': radar_rows,
         'heat_ranking': heat_ranking[:top_n],
         'timing_ranking': timing_rows[:top_n],
@@ -285,9 +332,9 @@ def render_markdown(payload: Dict[str, Any]) -> str:
     lines.append(f"- timing_symbols: **{summary.get('timing_symbols', 0)}**")
     lines.append(f"- radar_candidates: **{summary.get('radar_candidates', 0)}**")
     lines.append('')
-    lines.append('## Top opportunities')
+    lines.append('## Buy candidates')
     lines.append('')
-    for row in payload.get('top_opportunities') or []:
+    for row in payload.get('buy_candidates') or []:
         timing = row.get('timing_signal') or {}
         lines.append(f"### {row.get('priority_rank')}. {row.get('symbol')} [{row.get('stage')}]")
         lines.append(f"- final_score: `{row.get('final_score')}`")
@@ -332,6 +379,7 @@ def main() -> None:
     print(out)
     print(json.dumps({
         'summary': payload['summary'],
+        'buy_candidates': payload['buy_candidates'][:5],
         'top_opportunities': payload['top_opportunities'][:5],
         'timing_ranking': payload['timing_ranking'][:5],
     }, ensure_ascii=False, indent=2))
