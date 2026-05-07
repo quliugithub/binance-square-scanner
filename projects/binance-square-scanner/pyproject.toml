@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bsc"
+version = "0.2.0"
+description = "Binance Square Scanner — 交易机会发现系统"
+requires-python = ">=3.10"
+dependencies = ["requests"]
+
+[project.scripts]
+bsc-hub = "monitoring_hub:main"

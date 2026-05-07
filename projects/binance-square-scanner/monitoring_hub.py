@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""Monitoring Hub — 统一监控总入口（薄包装层，核心逻辑在 bsc 包中）"""
 import argparse
 import json
 import sys
@@ -6,32 +7,37 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Dict
 
-CURRENT_DIR = Path(__file__).resolve().parent
-if str(CURRENT_DIR) not in sys.path:
-    sys.path.insert(0, str(CURRENT_DIR))
-
-import hotspot_radar
-import narrative_monitor
-import onchain_strong_buy_monitor
-import funding_rate_monitor
-import macro_calendar_monitor
-import announcement_monitor
-
-RESULTS_DIR = CURRENT_DIR / 'results'
-RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+from bsc.constants import RESULTS_DIR
+from bsc.monitors.hotspot import build_hotspot_payload
+from bsc.monitors.narrative import (
+    scrape_square, build_narrative_posts, aggregate_narratives, build_symbol_narrative_view,
+)
+from bsc.monitors.onchain import build_monitor_payload as build_onchain_payload
+from bsc.monitors.funding_rate import build_monitor_payload as build_futures_payload
+from bsc.monitors.macro import build_macro_payload
+from bsc.monitors.announcement import build_announcement_payload
 
 
 def utc_now_iso() -> str:
     return datetime.now(UTC).isoformat().replace('+00:00', 'Z')
 
 
-def build_hub_payload(limit: int, start_page: int, max_pages: int, top_n: int, onchain_limit: int, futures_symbols: list[str] | None = None) -> Dict[str, Any]:
-    hotspot = hotspot_radar.build_hotspot_payload(limit=limit, start_page=start_page, max_pages=max_pages, top_n=top_n)
+def build_hub_payload(
+    limit: int,
+    start_page: int,
+    max_pages: int,
+    top_n: int,
+    onchain_limit: int,
+    futures_symbols: list[str] | None = None,
+) -> Dict[str, Any]:
+    # ── 热点雷达 ──
+    hotspot = build_hotspot_payload(limit=limit, start_page=start_page, max_pages=max_pages, top_n=top_n)
 
-    raw_posts = narrative_monitor.scrape_square(limit=limit, start_page=start_page, max_pages=max_pages)
-    narrative_posts = narrative_monitor.build_narrative_posts(raw_posts)
-    narrative_rank = narrative_monitor.aggregate_narratives(narrative_posts)
-    symbol_narrative_view = narrative_monitor.build_symbol_narrative_view(narrative_posts)
+    # ── 叙事监控 ──
+    raw_posts = scrape_square(limit=limit, start_page=start_page, max_pages=max_pages)
+    narrative_posts = build_narrative_posts(raw_posts)
+    narrative_rank = aggregate_narratives(narrative_posts)
+    symbol_narrative_view = build_symbol_narrative_view(narrative_posts)
     narrative_payload = {
         'summary': {
             'fetched_posts': len(raw_posts),
@@ -43,14 +49,17 @@ def build_hub_payload(limit: int, start_page: int, max_pages: int, top_n: int, o
         'symbol_narrative_view': symbol_narrative_view[:top_n],
     }
 
-    onchain = onchain_strong_buy_monitor.build_monitor_payload(limit=onchain_limit, top_n=top_n)
+    # ── 链上强买盘 ──
+    onchain = build_onchain_payload(limit=onchain_limit, top_n=top_n)
 
     # ── 主流币合约监控 ──
-    futures_payload = funding_rate_monitor.build_monitor_payload(symbols=futures_symbols)
-    macro_payload = macro_calendar_monitor.build_macro_payload()
+    futures_payload = build_futures_payload(symbols=futures_symbols)
+
+    # ── 宏观日历 ──
+    macro_payload = build_macro_payload()
 
     # ── 币安公告监控 ──
-    announcement_payload = announcement_monitor.build_announcement_payload(
+    announcement_payload = build_announcement_payload(
         limit=limit, start_page=start_page, max_pages=max_pages,
     )
 
@@ -118,7 +127,6 @@ def render_markdown(payload: Dict[str, Any]) -> str:
     lines.append(f"- futures_symbols: **{summary.get('futures_symbols', 0)}**")
     lines.append(f"- upcoming_events: **{summary.get('upcoming_events', 0)}**")
     lines.append(f"- recent_news: **{summary.get('recent_news', 0)}**")
-    lines.append(f"- announcements: **{summary.get('announcement_total', 0)}** (high: {summary.get('announcement_high_impact', 0)})")
     lines.append('')
 
     # ── 公告 & 催化 ──
