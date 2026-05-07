@@ -13,6 +13,9 @@ if str(CURRENT_DIR) not in sys.path:
 import hotspot_radar
 import narrative_monitor
 import onchain_strong_buy_monitor
+import funding_rate_monitor
+import macro_calendar_monitor
+import announcement_monitor
 
 RESULTS_DIR = CURRENT_DIR / 'results'
 RESULTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -22,7 +25,7 @@ def utc_now_iso() -> str:
     return datetime.now(UTC).isoformat().replace('+00:00', 'Z')
 
 
-def build_hub_payload(limit: int, start_page: int, max_pages: int, top_n: int, onchain_limit: int) -> Dict[str, Any]:
+def build_hub_payload(limit: int, start_page: int, max_pages: int, top_n: int, onchain_limit: int, futures_symbols: list[str] | None = None) -> Dict[str, Any]:
     hotspot = hotspot_radar.build_hotspot_payload(limit=limit, start_page=start_page, max_pages=max_pages, top_n=top_n)
 
     raw_posts = narrative_monitor.scrape_square(limit=limit, start_page=start_page, max_pages=max_pages)
@@ -42,6 +45,15 @@ def build_hub_payload(limit: int, start_page: int, max_pages: int, top_n: int, o
 
     onchain = onchain_strong_buy_monitor.build_monitor_payload(limit=onchain_limit, top_n=top_n)
 
+    # ── 主流币合约监控 ──
+    futures_payload = funding_rate_monitor.build_monitor_payload(symbols=futures_symbols)
+    macro_payload = macro_calendar_monitor.build_macro_payload()
+
+    # ── 币安公告监控 ──
+    announcement_payload = announcement_monitor.build_announcement_payload(
+        limit=limit, start_page=start_page, max_pages=max_pages,
+    )
+
     system_summary = {
         'trend_candidates': len(hotspot.get('top_opportunities') or []),
         'buy_candidates': len(hotspot.get('buy_candidates') or []),
@@ -49,6 +61,11 @@ def build_hub_payload(limit: int, start_page: int, max_pages: int, top_n: int, o
         'top_narratives': len(narrative_payload.get('top_narratives') or []),
         'onchain_strong_buy_candidates': len(onchain.get('strong_buy_candidates') or []),
         'onchain_observation_candidates': len(onchain.get('observation_candidates') or []),
+        'futures_symbols': len(futures_payload.get('results') or []),
+        'upcoming_events': len(macro_payload.get('upcoming_events') or []),
+        'recent_news': len(macro_payload.get('recent_news') or []),
+        'announcement_total': (announcement_payload.get('summary') or {}).get('total_announcements', 0),
+        'announcement_high_impact': (announcement_payload.get('summary') or {}).get('high_impact', 0),
     }
 
     focus_board = {
@@ -57,6 +74,7 @@ def build_hub_payload(limit: int, start_page: int, max_pages: int, top_n: int, o
         'top_narratives': narrative_payload.get('top_narratives') or [],
         'onchain_strong_buy_candidates': onchain.get('strong_buy_candidates') or [],
         'onchain_observation_candidates': onchain.get('observation_candidates') or [],
+        'high_impact_announcements': announcement_payload.get('high_impact_announcements') or [],
     }
 
     return {
@@ -80,6 +98,9 @@ def build_hub_payload(limit: int, start_page: int, max_pages: int, top_n: int, o
         },
         'narrative_monitor': narrative_payload,
         'onchain_strong_buy_monitor': onchain,
+        'major_coin_futures_monitor': futures_payload,
+        'macro_calendar_monitor': macro_payload,
+        'announcement_monitor': announcement_payload,
     }
 
 
@@ -93,7 +114,71 @@ def render_markdown(payload: Dict[str, Any]) -> str:
     lines.append(f"- strong_capital_buy_candidates: **{summary.get('strong_capital_buy_candidates', 0)}**")
     lines.append(f"- top_narratives: **{summary.get('top_narratives', 0)}**")
     lines.append(f"- onchain_strong_buy_candidates: **{summary.get('onchain_strong_buy_candidates', 0)}**")
+    lines.append(f"- announcements: **{summary.get('announcement_total', 0)}** (high: {summary.get('announcement_high_impact', 0)})")
+    lines.append(f"- futures_symbols: **{summary.get('futures_symbols', 0)}**")
+    lines.append(f"- upcoming_events: **{summary.get('upcoming_events', 0)}**")
+    lines.append(f"- recent_news: **{summary.get('recent_news', 0)}**")
+    lines.append(f"- announcements: **{summary.get('announcement_total', 0)}** (high: {summary.get('announcement_high_impact', 0)})")
     lines.append('')
+
+    # ── 公告 & 催化 ──
+    ann = payload.get('announcement_monitor') or {}
+    if ann.get('announcements'):
+        lines.append('## Announcements & Catalysts')
+        lines.append('')
+        IMPACT_EMOJI = {'high': '🔴', 'medium': '🟡', 'low': '🟢'}
+        for a in ann['announcements'][:8]:
+            emoji = IMPACT_EMOJI.get(a.get('impact'), '⚪')
+            sym_str = ', '.join(a.get('symbols') or [])
+            header = f"### {emoji} {a.get('title', '')}"
+            if sym_str:
+                header += f" ({sym_str})"
+            lines.append(header)
+            lines.append(f"- type: `{a.get('type')}` | impact: `{a.get('impact')}`")
+            if a.get('web_link'):
+                lines.append(f"- link: {a['web_link']}")
+            lines.append('')
+
+    # ── 主流币合约资金面 ──
+    futures = payload.get('major_coin_futures_monitor') or {}
+    if futures.get('results'):
+        lines.append('## Major Coin Futures')
+        lines.append('')
+        for r in futures['results']:
+            if 'error' in r:
+                lines.append(f"### {r['symbol']} ❌ {r['error']}")
+                continue
+            comp = r.get('composite', {})
+            score = comp.get('capital_flow_score', 50)
+            bias = comp.get('capital_flow_bias', 'neutral')
+            emoji = '🟢' if bias == 'bullish' else ('🔴' if bias == 'bearish' else '⚪')
+            f = r.get('funding', {})
+            oi = r.get('oi_5m', {})
+            lines.append(f"### {emoji} {r['symbol']} — Score {score}/100 ({bias})")
+            lines.append(f"- funding: {f.get('funding_rate_pct')} (z={f.get('z_score')}) → `{f.get('signal')}`")
+            lines.append(f"- oi: {oi.get('oi')} | 1h change: {oi.get('oi_change_pct_1h')}% → `{oi.get('signal')}`")
+            if comp.get('key_drivers'):
+                lines.append(f"- drivers: {'; '.join(comp['key_drivers'])}")
+            if comp.get('risk_factors'):
+                lines.append(f"- risks: {'; '.join(comp['risk_factors'])}")
+            lines.append(f"- suggestion: {comp.get('action_suggestion')}")
+            lines.append('')
+
+    # ── 宏观 & 新闻 ──
+    macro = payload.get('macro_calendar_monitor') or {}
+    catalyst = macro.get('catalyst', {})
+    if macro.get('upcoming_events') or macro.get('recent_news'):
+        lines.append('## Macro & News')
+        lines.append('')
+        lines.append(f"🎯 Catalyst score: {catalyst.get('news_catalyst_score')} ({catalyst.get('news_catalyst_direction')})")
+        lines.append('')
+        for e in (macro.get('upcoming_events') or [])[:5]:
+            emoji = '🔴' if e.get('impact_level') == 'high' else '🟡'
+            lines.append(f"- {emoji} {e['event_name']} ({e['days_until']}天后)")
+        for n in (macro.get('recent_news') or [])[:5]:
+            s = '🟢' if n.get('sentiment') == 'positive' else ('🔴' if n.get('sentiment') == 'negative' else '⚪')
+            lines.append(f"- {s} [{n.get('source')}] {n.get('title', '')[:60]}")
+        lines.append('')
 
     lines.append('## Strong capital buy candidates')
     lines.append('')
@@ -148,6 +233,7 @@ def main() -> None:
     parser.add_argument('--max-pages', type=int, default=4)
     parser.add_argument('--top-n', type=int, default=8)
     parser.add_argument('--onchain-limit', type=int, default=15)
+    parser.add_argument('--futures-symbols', nargs='+', default=None)
     parser.add_argument('--output')
     args = parser.parse_args()
 
@@ -157,6 +243,7 @@ def main() -> None:
         max_pages=args.max_pages,
         top_n=args.top_n,
         onchain_limit=args.onchain_limit,
+        futures_symbols=args.futures_symbols,
     )
     out = save_payload(payload, args.output)
     print(out)

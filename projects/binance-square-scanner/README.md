@@ -12,6 +12,7 @@
 monitoring_hub.py          ← 统一监控总入口
 ├── hotspot_radar.py       ← 热点雷达：趋势候选 & 买入候选
 ├── narrative_monitor.py   ← 叙事监控：板块叙事阶段 & 情绪
+├── announcement_monitor.py       ← 币安公告监控：官方公告分类 & 催化信号
 ├── onchain_strong_buy_monitor.py  ← 链上强买盘发现
 ├── funding_rate_monitor.py        ← 主流币合约资金面
 ├── macro_calendar_monitor.py      ← 宏观事件 & 新闻催化
@@ -29,6 +30,7 @@ monitoring_hub.py          ← 统一监控总入口
 |---|---|---|
 | **Hotspot Radar** | Square 帖子 + Binance 行情 + OI | 趋势候选、买入候选、强资金买入候选 |
 | **Narrative Monitor** | Square 帖子 | 叙事排名（阶段、情绪、关联币种） |
+| **Announcement Monitor** | Square 官方账号帖子 | 公告分类（上币/合约/Launchpool/下架等）+ 催化强度 |
 | **On-chain Strong Buy** | DexScreener API | 链上强买盘候选 + 观察池 |
 | **Funding Rate Monitor** | Binance Futures API | 资金费率 z-score、OI 变化、综合评分 |
 | **Macro Calendar** | CoinDesk / The Block + 宏观日历 | 催化评分、近期新闻、重大事件 |
@@ -77,6 +79,9 @@ python funding_rate_monitor.py --symbols BTCUSDT ETHUSDT
 
 # 宏观日历
 python macro_calendar_monitor.py
+
+# 币安公告监控
+python announcement_monitor.py --limit 80 --max-pages 6
 ```
 
 ## 命令行参数（monitoring_hub.py）
@@ -91,6 +96,15 @@ python macro_calendar_monitor.py
 | `--futures-symbols` | BTCUSDT, ETHUSDT | 监控的合约交易对 |
 | `--output` | 自动生成 | 自定义输出路径 |
 
+### announcement_monitor.py 参数
+
+| 参数 | 默认值 | 说明 |
+|---|---|---|
+| `--limit` | 80 | Square 帖子抓取量 |
+| `--start-page` | 1 | 起始页 |
+| `--max-pages` | 6 | 最大翻页数 |
+| `--output` | 自动生成 | 自定义输出路径 |
+
 ## 输出结构
 
 ```
@@ -102,11 +116,12 @@ results/
 ### Markdown 报告包含
 
 1. **系统摘要** — 各维度候选数量一览
-2. **主流币合约资金面** — BTC/ETH 资金费率、OI、综合评分与操作建议
-3. **宏观 & 新闻** — 催化评分、近期事件、重要新闻
-4. **强资金买入候选** — 综合评分排名
-5. **Top 叙事** — 当前市场主要叙事板块
-6. **链上强买盘 / 观察池** — 链上资金异动标的
+2. **公告 & 催化** — 币安官方公告（上币/合约/Launchpool/下架等），按催化强度排序
+3. **主流币合约资金面** — BTC/ETH 资金费率、OI、综合评分与操作建议
+4. **宏观 & 新闻** — 催化评分、近期事件、重要新闻
+5. **强资金买入候选** — 综合评分排名
+6. **Top 叙事** — 当前市场主要叙事板块
+7. **链上强买盘 / 观察池** — 链上资金异动标的
 
 ## 设计原则
 
