@@ -11,6 +11,12 @@ import requests
 
 from bsc.constants import RESULTS_DIR
 
+try:
+    from bsc.data.defillama import fetch_protocols, detect_tvl_changes
+    HAS_DEFILLAMA = True
+except ImportError:
+    HAS_DEFILLAMA = False
+
 DEX_SEARCH_API = 'https://api.dexscreener.com/latest/dex/search'
 DEX_TRENDING_SEARCH_QUERIES = ['SIREN', 'ORDI', 'BANANAS31', 'INJ', 'SOL', 'DOGE', 'PEPE', 'TAO', 'FET', 'RAY', 'ONDO', 'AAVE', 'ETHFI', 'CAKE', 'WIF']
 
@@ -160,8 +166,73 @@ def compute_pair_signal(pair: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
+# Symbol → DefiLlama protocol name mapping
+_SYMBOL_TO_PROTOCOL = {
+    'AAVE': ['aave'], 'UNI': ['uniswap'], 'LDO': ['lido'], 'MKR': ['maker', 'spark'],
+    'CAKE': ['pancakeswap'], 'SOL': ['solana', 'marinade', 'jito', 'jupiter', 'raydium', 'orca', 'meteora'],
+    'OP': ['optimism', 'velodrome'], 'ARB': ['arbitrum', 'gmx', 'camelot'],
+    'DOGE': ['dogecoin'], 'PEPE': [], 'WIF': [], 'BONK': [],
+    'RENDER': [], 'FET': ['fetch.ai'], 'TAO': [],
+    'ONDO': ['ondo'], 'OM': ['mantra'], 'HNT': ['helium'], 'AKT': ['akash'],
+    'GALA': [], 'IMX': ['immutable'], 'STRK': ['starknet'],
+    'ETHFI': ['ether.fi'], 'JUP': ['jupiter'], 'RAY': ['raydium'],
+    'BNB': ['venus', 'pancakeswap'], 'ORDI': [],
+    'SUI': ['sui'], 'APT': ['aptos'], 'INJ': ['injective'],
+    'LINK': ['chainlink'], 'DOT': ['polkadot'],
+    'SIREN': ['siren'], 'BMX': ['bmx'], 'TIA': [],
+    'RUNE': ['thorchain'], 'SEI': ['sei'],
+}
+
+
+def _build_tvl_index() -> Dict[str, Dict[str, Any]]:
+    """Fetch DefiLlama TVL changes and build a protocol_name→tvl_info lookup."""
+    if not HAS_DEFILLAMA:
+        return {}
+    try:
+        protocols = fetch_protocols()
+        changes = detect_tvl_changes(protocols, change_threshold_pct=5.0, min_tvl_usd=3_000_000, top_n=100)
+        index: Dict[str, Dict[str, Any]] = {}
+        for item in changes:
+            name = (item.get('name') or '').lower()
+            symbol = (item.get('symbol') or '').upper()
+            if name:
+                index[name] = item
+            if symbol and symbol != '-':
+                index[symbol.lower()] = item
+        return index
+    except Exception:
+        return {}
+
+
+def _match_tvl_signal(symbol: str, tvl_index: Dict[str, Dict[str, Any]]) -> Optional[Dict[str, Any]]:
+    """Find TVL data for a given token symbol via protocol mapping."""
+    sym_upper = symbol.upper() if symbol else ''
+    # Get protocol names for this symbol
+    protocol_names = _SYMBOL_TO_PROTOCOL.get(sym_upper, [])
+    if not protocol_names:
+        # Fallback: try symbol.lower() directly
+        sym_lower = sym_upper.lower()
+        if sym_lower in tvl_index:
+            return tvl_index[sym_lower]
+        return None
+    # Try each protocol name
+    for pname in protocol_names:
+        if pname in tvl_index:
+            return tvl_index[pname]
+    # Fuzzy match: check if any index key contains the protocol name
+    for key, item in tvl_index.items():
+        for pname in protocol_names:
+            if pname in key:
+                return item
+    return None
+
+
 def build_monitor_payload(limit: int, top_n: int) -> Dict[str, Any]:
     unique_queries = DEX_TRENDING_SEARCH_QUERIES[:limit]
+
+    # Fetch DefiLlama TVL data
+    tvl_index = _build_tvl_index()
+    tvl_inflow_symbols = {sym for sym, info in tvl_index.items() if info.get('change_1d_pct', 0) > 0}
 
     rows: List[Dict[str, Any]] = []
     for query in unique_queries:
@@ -175,6 +246,48 @@ def build_monitor_payload(limit: int, top_n: int) -> Dict[str, Any]:
         candidate_pairs = filtered_pairs or pairs
         best_pair = max(candidate_pairs, key=pair_quality_score)
         row = compute_pair_signal(best_pair)
+
+        # ── DefiLlama TVL 联动 ──
+        symbol = row.get('symbol') or ''
+        tvl_match = _match_tvl_signal(symbol, tvl_index)
+        if tvl_match:
+            tvl_change_1d = tvl_match.get('change_1d_pct', 0) or 0
+            tvl_change_7d = tvl_match.get('change_7d_pct', 0) or 0
+            tvl_usd = tvl_match.get('tvl', 0) or 0
+            row['tvl_usd'] = round(tvl_usd, 2)
+            row['tvl_change_1d_pct'] = round(tvl_change_1d, 2)
+            row['tvl_change_7d_pct'] = round(tvl_change_7d, 2) if tvl_change_7d else None
+            row['tvl_category'] = tvl_match.get('category', '')
+            row['tvl_chains'] = tvl_match.get('chains', [])[:3]
+
+            # Boost buy score based on TVL inflow
+            tvl_boost = 0
+            if tvl_change_1d > 20:
+                tvl_boost = 15
+            elif tvl_change_1d > 10:
+                tvl_boost = 10
+            elif tvl_change_1d > 5:
+                tvl_boost = 5
+            elif tvl_change_1d < -20:
+                tvl_boost = -12  # Large outflow = risk
+            elif tvl_change_1d < -10:
+                tvl_boost = -6
+
+            if tvl_boost != 0:
+                row['onchain_buy_score'] = clamp(row['onchain_buy_score'] + tvl_boost)
+                row['tvl_boost'] = tvl_boost
+                if tvl_boost > 0:
+                    row['reason_summary'] += f'，TVL 流入 {tvl_change_1d:.1f}%'
+                else:
+                    row['reason_summary'] += f'，⚠️ TVL 流出 {tvl_change_1d:.1f}%'
+
+            # Update stage based on TVL
+            if tvl_change_1d > 15 and row['onchain_buy_score'] >= 45:
+                row['stage'] = '强买盘候选'
+        else:
+            row['tvl_usd'] = None
+            row['tvl_change_1d_pct'] = None
+
         rows.append(row)
 
     rows.sort(key=lambda x: (x['stage'] == '强买盘候选', x['onchain_buy_score'], x['volume_spike_score'], x['liquidity_usd']), reverse=True)
@@ -187,13 +300,14 @@ def build_monitor_payload(limit: int, top_n: int) -> Dict[str, Any]:
     return {
         'generated_at': utc_now_iso(),
         'scan_config': {
-            'mode': 'onchain_strong_buy_monitor_v1',
+            'mode': 'onchain_strong_buy_monitor_v2_with_tvl',
             'profile_limit': limit,
             'top_n': top_n,
         },
         'summary': {
             'profile_queries': len(unique_queries),
             'pairs_scanned': len(rows),
+            'tvl_protocols_matched': sum(1 for r in rows if r.get('tvl_usd') is not None),
             'strong_buy_candidates': len(strong),
             'observation_candidates': len(observed),
         },
@@ -222,6 +336,9 @@ def render_markdown(payload: Dict[str, Any]) -> str:
         lines.append(f"- volume spike: `{row.get('volume_spike_score')}`")
         lines.append(f"- liquidity: `{row.get('liquidity_usd')}`")
         lines.append(f"- reason: {row.get('reason_summary')}")
+        if row.get('tvl_usd') is not None:
+            tvl_b = row['tvl_usd'] / 1e9
+            lines.append(f"- TVL: ${tvl_b:.3f}B | 24h: `{row.get('tvl_change_1d_pct', '?')}%` | 7d: `{row.get('tvl_change_7d_pct', '?')}%`")
         if row.get('risk_flags'):
             lines.append(f"- risk_flags: `{', '.join(row.get('risk_flags') or [])}`")
         if row.get('pair_url'):
