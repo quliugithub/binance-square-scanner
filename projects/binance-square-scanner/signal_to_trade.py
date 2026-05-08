@@ -113,10 +113,11 @@ def _run_monitoring_hub() -> Dict[str, Any]:
 
 
 def _compute_symbol_score(symbol: str, signals: Dict[str, Any]) -> Dict[str, Any]:
-    """计算单个币种的综合评分和建议。"""
+    """计算单个币种的综合评分和建议，含详细评分拆解。"""
     score = 50  # baseline
     reasons: List[str] = []
     risks: List[str] = []
+    breakdown: Dict[str, Dict[str, Any]] = {}  # 维度 → {points, detail}
 
     sym_pair = symbol.upper() if symbol.endswith('USDT') else f"{symbol.upper()}USDT"
     sym_base = symbol.upper().replace('USDT', '')
@@ -129,17 +130,30 @@ def _compute_symbol_score(symbol: str, signals: Dict[str, Any]) -> Dict[str, Any
         post_count = sv.get('post_count', 0)
         narratives = sv.get('narratives', [])
         stage = sv.get('dominant_stage', '')
+        narr_pts = 0
+        narr_detail = ''
         if post_count >= 10:
-            score += 15
+            narr_pts = 15
+            narr_detail = f'{post_count}帖讨论, 涉及 {"/".join(narratives[:2])} 赛道'
             reasons.append(f'叙事热度高 ({post_count}帖, {",".join(narratives[:2])})')
         elif post_count >= 5:
-            score += 8
+            narr_pts = 8
+            narr_detail = f'{post_count}帖讨论'
             reasons.append(f'叙事活跃 ({post_count}帖)')
+        else:
+            narr_detail = f'仅{post_count}帖, 热度不足'
         if stage == '中期扩散':
-            score += 5
+            narr_pts += 5
+            narr_detail += f', 处于{stage}阶段'
         elif stage == '末端过热':
-            score -= 15
+            narr_pts -= 15
+            narr_detail += ', ⚠️ 末端过热风险'
             risks.append('叙事末端过热')
+        if narr_pts != 0:
+            breakdown['📡 叙事热度'] = {'points': narr_pts, 'detail': narr_detail}
+        score += narr_pts
+    else:
+        breakdown['📡 叙事热度'] = {'points': 0, 'detail': '未出现在叙事监控中'}
 
     # ── 合约资金面 ──
     futures = signals.get('futures', {})
@@ -150,22 +164,42 @@ def _compute_symbol_score(symbol: str, signals: Dict[str, Any]) -> Dict[str, Any
         funding_rate = funding.get('funding_rate', 0)
         f_bias = comp.get('capital_flow_bias', 'neutral')
         f_score = comp.get('capital_flow_score', 50)
+        oi = ft.get('oi_5m', {})
+        oi_change = oi.get('oi_change_pct_1h', 0) or 0
+        fut_pts = 0
+        fut_detail = f'资金面 {f_bias}, 评分{f_score}/100'
 
         if f_bias == 'bullish':
-            score += 10
+            fut_pts += 10
             reasons.append(f'资金面偏多 (score={f_score})')
         elif f_bias == 'bearish':
-            score -= 10
+            fut_pts -= 10
+            fut_detail += ', 偏空'
             risks.append(f'资金面偏空 (score={f_score})')
 
-        if funding_rate and funding_rate < -0.0003:
-            score += 5
-            reasons.append(f'负费率={funding.get("funding_rate_pct", "?")}（多头占优）')
-        elif funding_rate and funding_rate > 0.001:
-            score -= 5
-            risks.append(f'正费率偏高={funding.get("funding_rate_pct", "?")}')
+        if funding_rate is not None:
+            fr_pct = funding.get('funding_rate_pct', '?')
+            if funding_rate < -0.0003:
+                fut_pts += 5
+                fut_detail += f', 负费率{fr_pct}(多头占优)'
+                reasons.append(f'负费率={fr_pct}（空头付费给多头）')
+            elif funding_rate > 0.001:
+                fut_pts -= 5
+                fut_detail += f', 正费率偏高{fr_pct}'
+                risks.append(f'正费率偏高={fr_pct}')
 
-    # ── 链上强买盘 ──
+        if oi_change > 2:
+            fut_detail += f', OI 1h +{oi_change}% (资金流入)'
+        elif oi_change < -2:
+            fut_detail += f', OI 1h {oi_change}% (资金流出)'
+
+        if fut_pts != 0:
+            breakdown['💰 合约资金面'] = {'points': fut_pts, 'detail': fut_detail}
+        score += fut_pts
+    else:
+        breakdown['💰 合约资金面'] = {'points': 0, 'detail': '无合约数据'}
+
+    # ── 链上强买盘 (DEX 买卖比) ──
     onchain = signals.get('onchain', {})
     all_candidates = (onchain.get('strong_buy_candidates', []) +
                       onchain.get('observation_candidates', []) +
@@ -173,21 +207,43 @@ def _compute_symbol_score(symbol: str, signals: Dict[str, Any]) -> Dict[str, Any
     oc = next((c for c in all_candidates if (c.get('symbol') or '').upper() == sym_base), None)
     if oc:
         buy_score = oc.get('onchain_buy_score', 0)
+        oc_pts = 0
+        oc_detail = f'DEX评分 {buy_score}/100'
+
         if buy_score >= 60:
-            score += 12
+            oc_pts = 12
+            oc_detail += ', 买盘强劲'
             reasons.append(f'链上强买盘 (score={buy_score})')
         elif buy_score >= 40:
-            score += 5
+            oc_pts = 5
+            oc_detail += ', 买盘活跃'
             reasons.append(f'链上买盘活跃 (score={buy_score})')
-        if oc.get('tvl_change_1d_pct') and oc['tvl_change_1d_pct'] > 10:
-            score += 5
-            reasons.append(f'TVL流入 {oc["tvl_change_1d_pct"]:.1f}%')
-        if oc.get('whale_net_usd') and oc['whale_net_usd'] > 10_000_000:
-            score += 5
-            reasons.append(f'巨鲸净提币 ${oc["whale_net_usd"]/1e6:.0f}M')
 
-    # ── 宏观催化 ──
-    # (simplified: skip per-symbol macro for now)
+        # TVL
+        tvl_change = oc.get('tvl_change_1d_pct')
+        if tvl_change and tvl_change > 10:
+            oc_pts += 5
+            oc_detail += f', TVL 24h +{tvl_change:.1f}%'
+            reasons.append(f'TVL流入 {tvl_change:.1f}%')
+        elif tvl_change and tvl_change < -10:
+            oc_pts -= 5
+            oc_detail += f', TVL 24h {tvl_change:.1f}%'
+
+        # Whale
+        whale_net = oc.get('whale_net_usd', 0)
+        if whale_net and whale_net > 10_000_000:
+            oc_pts += 5
+            oc_detail += f', 巨鲸净提币 ${whale_net/1e6:.0f}M'
+            reasons.append(f'巨鲸净提币 ${whale_net/1e6:.0f}M')
+        elif whale_net and whale_net < -10_000_000:
+            oc_pts -= 5
+            oc_detail += f', 巨鲸净充币 ${abs(whale_net)/1e6:.0f}M'
+
+        if oc_pts != 0:
+            breakdown['⛓️ 链上信号'] = {'points': oc_pts, 'detail': oc_detail}
+        score += oc_pts
+    else:
+        breakdown['⛓️ 链上信号'] = {'points': 0, 'detail': '未检测到 DEX 交易对'}
 
     score = max(0, min(100, score))
 
@@ -213,6 +269,7 @@ def _compute_symbol_score(symbol: str, signals: Dict[str, Any]) -> Dict[str, Any
         'confidence': confidence,
         'reasons': reasons,
         'risks': risks,
+        'score_breakdown': breakdown,
     }
 
 

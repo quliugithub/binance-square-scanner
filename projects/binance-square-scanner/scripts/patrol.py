@@ -78,7 +78,7 @@ def patrol(threshold: int = 60, force: bool = False) -> dict:
 
 
 def format_alert(result: dict) -> str:
-    """Format patrol result as a user-facing message."""
+    """Format patrol result as a detailed user-facing message."""
     recs = result.get('recommendations', [])
     new_syms = result.get('new_symbols', [])
 
@@ -90,17 +90,40 @@ def format_alert(result: dict) -> str:
     for i, r in enumerate(recs[:5], 1):
         emoji = '🟢' if r['suggestion'] == '做多' else '🔴' if r['suggestion'] == '做空' else '⚪'
         new_tag = ' 🆕' if r['symbol'] in new_syms else ''
-        lines.append(f"{i}. {emoji} **{r['symbol']}** — {r['suggestion']} ({r['score']}分){new_tag}")
-        for reason in r.get('reasons', [])[:2]:
-            lines.append(f"   ✅ {reason}")
-        if r.get('risks'):
-            for risk in r['risks'][:1]:
-                lines.append(f"   ⚠️ {risk}")
+        score = r.get('score', 0)
+        breakdown = r.get('score_breakdown', {})
 
-    lines.append("")
+        # Header
+        lines.append(f"━━━ {i}. {emoji} **{r['symbol']}** — {r['suggestion']} ({score}分){new_tag} ━━━")
+        lines.append("")
+
+        # Score breakdown
+        if breakdown:
+            lines.append(f"📊 评分拆解（基准50 + 各维度加分）:")
+            for dim, info in breakdown.items():
+                pts = info.get('points', 0)
+                detail = info.get('detail', '')
+                sign = '+' if pts > 0 else ''
+                lines.append(f"  · {dim}: {sign}{pts}分 — {detail}")
+            lines.append("")
+
+        # Reasons
+        if r.get('reasons'):
+            lines.append("✅ 看多理由:")
+            for reason in r['reasons']:
+                lines.append(f"  · {reason}")
+
+        # Risks
+        if r.get('risks'):
+            lines.append("⚠️ 风险提示:")
+            for risk in r['risks']:
+                lines.append(f"  · {risk}")
+
+        lines.append("")
+
     if new_syms:
-        lines.append(f"🆕 新发现: {', '.join(new_syms)}")
-    lines.append("")
+        lines.append(f"🆕 新出现: {', '.join(new_syms)}")
+        lines.append("")
     lines.append("回复 **确认开仓 [序号]** 执行，或 **全部开仓** 一键执行。")
 
     return '\n'.join(lines)
