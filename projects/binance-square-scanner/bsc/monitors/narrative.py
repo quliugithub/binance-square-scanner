@@ -12,6 +12,9 @@ from typing import Any, Dict, List, Tuple
 
 from bsc.data.strategy import score_post
 from bsc.data.tool import scrape_square
+from bsc.data.blockbeats import fetch_blockbeats_news, to_narrative_format as bb_to_narrative
+from bsc.data.defillama import fetch_protocols, detect_tvl_changes, to_narrative_format as dl_to_narrative
+from bsc.data.twitter_kol import fetch_kol_tweets, to_narrative_format as tw_to_narrative
 
 from bsc.constants import RESULTS_DIR
 
@@ -140,7 +143,11 @@ def build_narrative_posts(raw_posts: List[Dict[str, Any]]) -> List[Dict[str, Any
     for post in raw_posts:
         if post.get('error'):
             continue
-        scored = score_post(post)
+        # Pre-formatted posts (from BlockBeats/DefiLlama/Twitter KOL) already have signal_score
+        if post.get('_source') and 'signal_score' in post:
+            scored = post
+        else:
+            scored = score_post(post)
         matches = score_narratives(scored)
         if not matches:
             continue
@@ -164,6 +171,7 @@ def build_narrative_posts(raw_posts: List[Dict[str, Any]]) -> List[Dict[str, Any
                 'funds_confirmation': detect_funds_confirmation(body, scored, float(scored.get('signal_score') or 0)),
                 'symbols': scored.get('symbol_candidates') or [],
                 'body_preview': body.replace('\n', ' ')[:220],
+                'source': scored.get('_source', 'binance_square'),
             })
     rows.sort(key=lambda x: (x['narrative_score'], x['signal_score'], x['engagement_total']), reverse=True)
     return rows
@@ -255,7 +263,8 @@ def render_markdown(payload: Dict[str, Any]) -> str:
         lines.append(f"- posts/authors: `{row.get('post_count')}` / `{row.get('unique_authors')}`")
         lines.append(f"- top_symbols: `{', '.join(row.get('top_symbols') or [])}`")
         for post in row.get('sample_posts') or []:
-            lines.append(f"- sample: <{post.get('web_link')}> {post.get('body_preview')}")
+            src = post.get('source', 'binance_square')
+            lines.append(f"- sample [{src}]: <{post.get('web_link')}> {post.get('body_preview')}")
         lines.append('')
     return '\n'.join(lines).rstrip() + '\n'
 
@@ -272,34 +281,166 @@ def save_payload(payload: Dict[str, Any], output: str | None) -> str:
     return str(path)
 
 
+def extract_symbols_from_text(text: str) -> List[str]:
+    """Extract potential token symbols from Chinese/English news text."""
+    # Common crypto token names (Chinese and English)
+    TOKEN_NAMES = {
+        'bitcoin': 'BTCUSDT', 'btc': 'BTCUSDT', '比特币': 'BTCUSDT',
+        'ethereum': 'ETHUSDT', 'eth': 'ETHUSDT', '以太坊': 'ETHUSDT',
+        'solana': 'SOLUSDT', 'sol': 'SOLUSDT',
+        'bnb': 'BNBUSDT', '币安币': 'BNBUSDT',
+        'xrp': 'XRPUSDT', '瑞波': 'XRPUSDT',
+        'ada': 'ADAUSDT', 'cardano': 'ADAUSDT',
+        'doge': 'DOGEUSDT', 'dogecoin': 'DOGEUSDT', '狗狗币': 'DOGEUSDT',
+        'dot': 'DOTUSDT', 'polkadot': 'DOTUSDT',
+        'avax': 'AVAXUSDT', 'avalanche': 'AVAXUSDT',
+        'matic': 'MATICUSDT', 'polygon': 'MATICUSDT',
+        'link': 'LINKUSDT', 'chainlink': 'LINKUSDT',
+        'uni': 'UNIUSDT', 'uniswap': 'UNIUSDT',
+        'aave': 'AAVEUSDT',
+        'ldo': 'LDOUSDT', 'lido': 'LDOUSDT',
+        'pepe': 'PEPEUSDT',
+        'wif': 'WIFUSDT',
+        'bonk': 'BONKUSDT',
+        'hype': 'HYPEUSDT',
+        'jto': 'JTOUSDT', 'jito': 'JTOUSDT',
+        'render': 'RENDERUSDT', 'rndr': 'RENDERUSDT',
+        'tao': 'TAOUSDT', 'bittensor': 'TAOUSDT',
+        'fet': 'FETUSDT', 'fetch.ai': 'FETUSDT',
+        'ondo': 'ONDOUSDT',
+        'om': 'OMUSDT', 'mantra': 'OMUSDT',
+        'arb': 'ARBUSDT', 'arbitrum': 'ARBUSDT',
+        'op': 'OPUSDT', 'optimism': 'OPUSDT',
+        'sui': 'SUIUSDT',
+        'apt': 'APTUSDT', 'aptos': 'APTUSDT',
+        'near': 'NEARUSDT',
+        'atom': 'ATOMUSDT', 'cosmos': 'ATOMUSDT',
+        'inj': 'INJUSDT', 'injective': 'INJUSDT',
+        'rune': 'RUNEUSDT', 'thorchain': 'RUNEUSDT',
+        'sei': 'SEIUSDT',
+        'tia': 'TIAUSDT', 'celestia': 'TIAUSDT',
+        'jup': 'JUPUSDT', 'jupiter': 'JUPUSDT',
+        'ray': 'RAYUSDT', 'raydium': 'RAYUSDT',
+        'ordi': 'ORDIUSDT',
+        'strk': 'STRKUSDT', 'starknet': 'STRKUSDT',
+        'imx': 'IMXUSDT', 'immutable': 'IMXUSDT',
+        'gala': 'GALAUSDT',
+        'cake': 'CAKEUSDT', 'pancakeswap': 'CAKEUSDT',
+        'hnt': 'HNTUSDT', 'helium': 'HNTUSDT',
+        'akt': 'AKTUSDT', 'akash': 'AKTUSDT',
+        'ethfi': 'ETHFIUSDT', 'ether.fi': 'ETHFIUSDT',
+        'mkr': 'MKRUSDT', 'maker': 'MKRUSDT',
+        'floki': 'FLOKIUSDT',
+        'shib': 'SHIBUSDT', 'shiba': 'SHIBUSDT',
+        'trump': 'TRUMPUSDT',
+    }
+    text_lower = text.lower()
+    symbols = set()
+    for name, pair in TOKEN_NAMES.items():
+        # Word boundary check for English tokens
+        if re.search(r'\b' + re.escape(name) + r'\b', text_lower):
+            symbols.add(pair)
+        elif name in text_lower:
+            symbols.add(pair)
+    return list(symbols)
+
+
+def enrich_post_symbols(posts: List[Dict[str, Any]]) -> None:
+    """Extract symbols from post body text and merge with existing symbol_candidates."""
+    for post in posts:
+        body = post.get('body', '')
+        extracted = extract_symbols_from_text(body)
+        existing = set(post.get('symbol_candidates') or [])
+        existing.update(extracted)
+        existing.update(post.get('trading_pairs') or [])
+        post['symbol_candidates'] = list(existing)
+        post['trading_pairs'] = list(existing)
+
+
 def main() -> None:
-    parser = argparse.ArgumentParser(description='叙事监控引擎 V1')
+    parser = argparse.ArgumentParser(description='叙事监控引擎 V2（多数据源）')
     parser.add_argument('--limit', type=int, default=80)
     parser.add_argument('--start-page', type=int, default=1)
     parser.add_argument('--max-pages', type=int, default=6)
     parser.add_argument('--top-n', type=int, default=10)
     parser.add_argument('--output')
+    # Data source toggles
+    parser.add_argument('--no-binance', action='store_true', help='禁用 Binance Square 数据源')
+    parser.add_argument('--no-blockbeats', action='store_true', help='禁用 BlockBeats 数据源')
+    parser.add_argument('--no-defillama', action='store_true', help='禁用 DefiLlama 数据源')
+    parser.add_argument('--no-twitter', action='store_true', help='禁用 Twitter KOL 数据源')
+    parser.add_argument('--tvl-threshold', type=float, default=15.0, help='TVL 变化阈值 (%%)')
+    parser.add_argument('--kol-count', type=int, default=6, help='Twitter KOL 监控数量')
     args = parser.parse_args()
 
-    raw_posts = scrape_square(limit=args.limit, start_page=args.start_page, max_pages=args.max_pages)
-    narrative_posts = build_narrative_posts(raw_posts)
+    all_raw_posts: List[Dict[str, Any]] = []
+    source_stats: Dict[str, int] = {}
+
+    # 1. Binance Square (original data source)
+    if not args.no_binance:
+        try:
+            bs_posts = scrape_square(limit=args.limit, start_page=args.start_page, max_pages=args.max_pages)
+            source_stats['binance_square'] = len(bs_posts)
+            all_raw_posts.extend(bs_posts)
+        except Exception as exc:
+            source_stats['binance_square_error'] = str(exc)
+
+    # 2. BlockBeats (区块律动快讯)
+    if not args.no_blockbeats:
+        try:
+            bb_raw = fetch_blockbeats_news(limit=25)
+            bb_posts = bb_to_narrative(bb_raw)
+            enrich_post_symbols(bb_posts)
+            source_stats['blockbeats'] = len(bb_posts)
+            all_raw_posts.extend(bb_posts)
+        except Exception as exc:
+            source_stats['blockbeats_error'] = str(exc)
+
+    # 3. DefiLlama TVL 异动
+    if not args.no_defillama:
+        try:
+            protocols = fetch_protocols()
+            tvl_changes = detect_tvl_changes(protocols, change_threshold_pct=args.tvl_threshold)
+            dl_posts = dl_to_narrative(tvl_changes)
+            source_stats['defillama'] = len(dl_posts)
+            source_stats['defillama_protocols_scanned'] = len(protocols)
+            all_raw_posts.extend(dl_posts)
+        except Exception as exc:
+            source_stats['defillama_error'] = str(exc)
+
+    # 4. Twitter KOL
+    if not args.no_twitter:
+        try:
+            tw_raw = fetch_kol_tweets(max_profiles=args.kol_count)
+            tw_posts = tw_to_narrative(tw_raw)
+            enrich_post_symbols(tw_posts)
+            source_stats['twitter_kol'] = len(tw_posts)
+            all_raw_posts.extend(tw_posts)
+        except Exception as exc:
+            source_stats['twitter_kol_error'] = str(exc)
+
+    narrative_posts = build_narrative_posts(all_raw_posts)
     narrative_rank = aggregate_narratives(narrative_posts)
     symbol_view = build_symbol_narrative_view(narrative_posts)
 
     payload = {
         'generated_at': utc_now_iso(),
         'scan_config': {
-            'mode': 'narrative_monitor_v1',
+            'mode': 'narrative_monitor_v2_multi_source',
             'limit': args.limit,
             'start_page': args.start_page,
             'max_pages': args.max_pages,
             'top_n': args.top_n,
+            'tvl_threshold': args.tvl_threshold,
+            'kol_count': args.kol_count,
         },
+        'source_stats': source_stats,
         'summary': {
-            'fetched_posts': len(raw_posts),
+            'fetched_posts': len(all_raw_posts),
             'tagged_posts': len(narrative_posts),
             'narratives': len(narrative_rank),
             'symbols': len(symbol_view),
+            'data_sources': [k for k in source_stats if not k.endswith('_error')],
         },
         'top_narratives': narrative_rank[:args.top_n],
         'narrative_rank': narrative_rank,
@@ -309,6 +450,7 @@ def main() -> None:
     out = save_payload(payload, args.output)
     print(out)
     print(json.dumps({
+        'source_stats': source_stats,
         'summary': payload['summary'],
         'top_narratives': payload['top_narratives'][:5],
         'symbol_narrative_view': payload['symbol_narrative_view'][:5],
