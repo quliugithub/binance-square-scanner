@@ -10,8 +10,12 @@ from typing import Any, Dict
 from bsc.constants import RESULTS_DIR
 from bsc.monitors.hotspot import build_hotspot_payload
 from bsc.monitors.narrative import (
-    scrape_square, build_narrative_posts, aggregate_narratives, build_symbol_narrative_view,
+    build_narrative_posts, aggregate_narratives, build_symbol_narrative_view, enrich_post_symbols,
 )
+from bsc.data.tool import scrape_square
+from bsc.data.blockbeats import fetch_blockbeats_news, to_narrative_format as bb_to_narrative
+from bsc.data.defillama import fetch_protocols, detect_tvl_changes, to_narrative_format as dl_to_narrative
+from bsc.data.twitter_kol import fetch_all_news as fetch_crypto_news, to_narrative_format as news_to_narrative
 from bsc.monitors.onchain import build_monitor_payload as build_onchain_payload
 from bsc.monitors.funding_rate import build_monitor_payload as build_futures_payload
 from bsc.monitors.macro import build_macro_payload
@@ -33,14 +37,56 @@ def build_hub_payload(
     # ── 热点雷达 ──
     hotspot = build_hotspot_payload(limit=limit, start_page=start_page, max_pages=max_pages, top_n=top_n)
 
-    # ── 叙事监控 ──
-    raw_posts = scrape_square(limit=limit, start_page=start_page, max_pages=max_pages)
-    narrative_posts = build_narrative_posts(raw_posts)
+    # ── 叙事监控（多数据源 v2）──
+    narrative_raw = []
+    narrative_source_stats = {}
+
+    # Binance Square
+    try:
+        bs_posts = scrape_square(limit=limit, start_page=start_page, max_pages=max_pages)
+        narrative_raw.extend(bs_posts)
+        narrative_source_stats['binance_square'] = len(bs_posts)
+    except Exception as exc:
+        narrative_source_stats['binance_square_error'] = str(exc)
+
+    # BlockBeats
+    try:
+        bb_raw = fetch_blockbeats_news(25)
+        bb_posts = bb_to_narrative(bb_raw)
+        enrich_post_symbols(bb_posts)
+        narrative_raw.extend(bb_posts)
+        narrative_source_stats['blockbeats'] = len(bb_posts)
+    except Exception as exc:
+        narrative_source_stats['blockbeats_error'] = str(exc)
+
+    # DefiLlama TVL 异动
+    try:
+        protocols = fetch_protocols()
+        tvl_changes = detect_tvl_changes(protocols, change_threshold_pct=15.0)
+        dl_posts = dl_to_narrative(tvl_changes)
+        narrative_raw.extend(dl_posts)
+        narrative_source_stats['defillama'] = len(dl_posts)
+        narrative_source_stats['defillama_protocols'] = len(protocols)
+    except Exception as exc:
+        narrative_source_stats['defillama_error'] = str(exc)
+
+    # Crypto News (CoinTelegraph / The Block RSS)
+    try:
+        news_raw = fetch_crypto_news()
+        news_posts = news_to_narrative(news_raw)
+        enrich_post_symbols(news_posts)
+        narrative_raw.extend(news_posts)
+        narrative_source_stats['crypto_news'] = len(news_posts)
+    except Exception as exc:
+        narrative_source_stats['crypto_news_error'] = str(exc)
+
+    narrative_posts = build_narrative_posts(narrative_raw)
     narrative_rank = aggregate_narratives(narrative_posts)
     symbol_narrative_view = build_symbol_narrative_view(narrative_posts)
     narrative_payload = {
+        'source_stats': narrative_source_stats,
         'summary': {
-            'fetched_posts': len(raw_posts),
+            'fetched_posts': len(narrative_raw),
             'tagged_posts': len(narrative_posts),
             'narratives': len(narrative_rank),
             'symbols': len(symbol_narrative_view),
