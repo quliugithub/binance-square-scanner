@@ -16,6 +16,12 @@ from bsc.data.tool import scrape_square
 from bsc.data.blockbeats import fetch_blockbeats_news, to_narrative_format as bb_to_narrative
 from bsc.data.defillama import fetch_protocols, detect_tvl_changes, to_narrative_format as dl_to_narrative
 from bsc.data.twitter_kol import fetch_all_news as fetch_crypto_news, to_narrative_format as news_to_narrative
+
+try:
+    from bsc.data.twitter_6551 import fetch_kol_tweets as fetch_tw6551_kol, fetch_crypto_search as fetch_tw6551_search, to_narrative_format as tw6551_to_narrative
+    HAS_TWITTER_6551 = True
+except ImportError:
+    HAS_TWITTER_6551 = False
 from bsc.monitors.onchain import build_monitor_payload as build_onchain_payload
 from bsc.monitors.funding_rate import build_monitor_payload as build_futures_payload
 from bsc.monitors.macro import build_macro_payload
@@ -79,6 +85,19 @@ def build_hub_payload(
         narrative_source_stats['crypto_news'] = len(news_posts)
     except Exception as exc:
         narrative_source_stats['crypto_news_error'] = str(exc)
+
+    # Twitter 6551 (KOL tweets + search)
+    if HAS_TWITTER_6551:
+        try:
+            tw6551_kol = fetch_tw6551_kol(max_profiles=6, tweets_per_profile=8)
+            tw6551_search = fetch_tw6551_search(min_likes=20, max_results=10)
+            tw6551_all = tw6551_kol + tw6551_search
+            tw6551_posts = tw6551_to_narrative(tw6551_all)
+            enrich_post_symbols(tw6551_posts)
+            narrative_raw.extend(tw6551_posts)
+            narrative_source_stats['twitter_6551'] = len(tw6551_posts)
+        except Exception as exc:
+            narrative_source_stats['twitter_6551_error'] = str(exc)
 
     narrative_posts = build_narrative_posts(narrative_raw)
     narrative_rank = aggregate_narratives(narrative_posts)
