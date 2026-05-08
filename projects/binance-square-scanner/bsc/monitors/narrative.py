@@ -14,7 +14,7 @@ from bsc.data.strategy import score_post
 from bsc.data.tool import scrape_square
 from bsc.data.blockbeats import fetch_blockbeats_news, to_narrative_format as bb_to_narrative
 from bsc.data.defillama import fetch_protocols, detect_tvl_changes, to_narrative_format as dl_to_narrative
-from bsc.data.twitter_kol import fetch_kol_tweets, to_narrative_format as tw_to_narrative
+from bsc.data.twitter_kol import fetch_all_news as fetch_crypto_news, to_narrative_format as tw_to_narrative
 
 from bsc.constants import RESULTS_DIR
 
@@ -408,16 +408,16 @@ def main() -> None:
         except Exception as exc:
             source_stats['defillama_error'] = str(exc)
 
-    # 4. Twitter KOL
+    # 4. Crypto News Aggregator (replaces Twitter KOL)
     if not args.no_twitter:
         try:
-            tw_raw = fetch_kol_tweets(max_profiles=args.kol_count)
+            tw_raw = fetch_crypto_news()
             tw_posts = tw_to_narrative(tw_raw)
             enrich_post_symbols(tw_posts)
-            source_stats['twitter_kol'] = len(tw_posts)
+            source_stats['crypto_news'] = len(tw_posts)
             all_raw_posts.extend(tw_posts)
         except Exception as exc:
-            source_stats['twitter_kol_error'] = str(exc)
+            source_stats['crypto_news_error'] = str(exc)
 
     narrative_posts = build_narrative_posts(all_raw_posts)
     narrative_rank = aggregate_narratives(narrative_posts)
