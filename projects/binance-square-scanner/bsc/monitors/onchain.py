@@ -17,6 +17,12 @@ try:
 except ImportError:
     HAS_DEFILLAMA = False
 
+try:
+    from bsc.data.whale_alert import fetch_whale_alerts as fetch_whales
+    HAS_WHALE_ALERT = True
+except ImportError:
+    HAS_WHALE_ALERT = False
+
 DEX_SEARCH_API = 'https://api.dexscreener.com/latest/dex/search'
 DEX_TRENDING_SEARCH_QUERIES = ['SIREN', 'ORDI', 'BANANAS31', 'INJ', 'SOL', 'DOGE', 'PEPE', 'TAO', 'FET', 'RAY', 'ONDO', 'AAVE', 'ETHFI', 'CAKE', 'WIF']
 
@@ -184,6 +190,47 @@ _SYMBOL_TO_PROTOCOL = {
 }
 
 
+def _build_whale_index() -> Dict[str, Dict[str, Any]]:
+    """Fetch Whale Alert data and build token→aggregate_signal lookup."""
+    if not HAS_WHALE_ALERT:
+        return {}
+    try:
+        alerts = fetch_whales(max_results=20, min_usd=5_000_000)
+        index: Dict[str, Dict[str, Any]] = {}
+        for alert in alerts:
+            if alert.get('error'):
+                continue
+            token = (alert.get('token') or '').upper()
+            if not token:
+                continue
+            if token not in index:
+                index[token] = {
+                    'bullish_usd': 0, 'bearish_usd': 0, 'neutral_usd': 0,
+                    'bullish_count': 0, 'bearish_count': 0,
+                    'alerts': [],
+                }
+            usd = alert.get('usd_value', 0)
+            signal = alert.get('signal', 'neutral')
+            if signal == 'bullish':
+                index[token]['bullish_usd'] += usd
+                index[token]['bullish_count'] += 1
+            elif signal == 'bearish':
+                index[token]['bearish_usd'] += usd
+                index[token]['bearish_count'] += 1
+            else:
+                index[token]['neutral_usd'] += usd
+            index[token]['alerts'].append(alert)
+        return index
+    except Exception:
+        return {}
+
+
+def _match_whale_signal(symbol: str, whale_index: Dict[str, Dict[str, Any]]) -> Optional[Dict[str, Any]]:
+    """Find whale signal data for a given token symbol."""
+    sym = symbol.upper().replace('USDT', '').replace('BUSD', '')
+    return whale_index.get(sym)
+
+
 def _build_tvl_index() -> Dict[str, Dict[str, Any]]:
     """Fetch DefiLlama TVL changes and build a protocol_name→tvl_info lookup."""
     if not HAS_DEFILLAMA:
@@ -233,6 +280,9 @@ def build_monitor_payload(limit: int, top_n: int) -> Dict[str, Any]:
     # Fetch DefiLlama TVL data
     tvl_index = _build_tvl_index()
     tvl_inflow_symbols = {sym for sym, info in tvl_index.items() if info.get('change_1d_pct', 0) > 0}
+
+    # Fetch Whale Alert data
+    whale_index = _build_whale_index()
 
     rows: List[Dict[str, Any]] = []
     for query in unique_queries:
@@ -287,6 +337,43 @@ def build_monitor_payload(limit: int, top_n: int) -> Dict[str, Any]:
         else:
             row['tvl_usd'] = None
             row['tvl_change_1d_pct'] = None
+
+        # Whale Alert 联动
+        whale_match = _match_whale_signal(symbol, whale_index)
+        if whale_match:
+            bullish_usd = whale_match['bullish_usd']
+            bearish_usd = whale_match['bearish_usd']
+            net_usd = bullish_usd - bearish_usd
+            row['whale_bullish_usd'] = round(bullish_usd, 2)
+            row['whale_bearish_usd'] = round(bearish_usd, 2)
+            row['whale_net_usd'] = round(net_usd, 2)
+            row['whale_alerts_count'] = len(whale_match['alerts'])
+
+            whale_boost = 0
+            if net_usd > 50_000_000:
+                whale_boost = 12
+            elif net_usd > 20_000_000:
+                whale_boost = 8
+            elif net_usd > 5_000_000:
+                whale_boost = 4
+            elif net_usd < -50_000_000:
+                whale_boost = -12
+            elif net_usd < -20_000_000:
+                whale_boost = -8
+            elif net_usd < -5_000_000:
+                whale_boost = -4
+
+            if whale_boost != 0:
+                row['onchain_buy_score'] = clamp(row['onchain_buy_score'] + whale_boost)
+                row['whale_boost'] = whale_boost
+                net_m = net_usd / 1e6
+                if whale_boost > 0:
+                    row['reason_summary'] += f'，巨鲸净提币 ${net_m:.0f}M'
+                else:
+                    row['reason_summary'] += f'，巨鲸净充币 ${abs(net_m):.0f}M'
+
+            if net_usd > 30_000_000 and row['onchain_buy_score'] >= 48:
+                row['stage'] = '强买盘候选'
 
         rows.append(row)
 
