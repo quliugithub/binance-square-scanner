@@ -41,14 +41,26 @@ def _save_state(state: dict) -> None:
     STATE_FILE.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding='utf-8')
 
 
+MAJOR_COINS = ['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'BNBUSDT', 'XRPUSDT']
+
+
 def patrol(threshold: int = 60, force: bool = False) -> dict:
-    """Run a patrol scan and detect new opportunities."""
+    """Run a patrol scan — 5 major + 5 minor coins with detailed scoring."""
     state = _load_state()
     last_symbols = set(state.get('last_alert_symbols', []))
 
     # Run analysis
     signals = _run_monitoring_hub()
-    recs = generate_recommendations(signals, min_score=threshold, top_n=8)
+
+    # Score ALL candidates (low threshold to get pool)
+    all_recs = generate_recommendations(signals, min_score=0, top_n=100)
+
+    # Split into major and minor
+    major_recs = [r for r in all_recs if r['symbol'] in MAJOR_COINS]
+    minor_recs = [r for r in all_recs if r['symbol'] not in MAJOR_COINS]
+
+    # Take top 5 from each, then combine
+    recs = major_recs[:5]
 
     current_symbols = {r['symbol'] for r in recs}
     new_symbols = list(current_symbols - last_symbols)
@@ -87,25 +99,72 @@ def format_alert(result: dict) -> str:
 
     lines = ["🔔 **信号巡检报告**", ""]
 
-    for i, r in enumerate(recs[:5], 1):
+    # ── 汇总表格 ──
+    lines.append("📋 **汇总一览**:")
+    for i, r in enumerate(recs[:10], 1):
         emoji = '🟢' if r['suggestion'] == '做多' else '🔴' if r['suggestion'] == '做空' else '⚪'
         new_tag = ' 🆕' if r['symbol'] in new_syms else ''
+        s = r.get('score', 0)
+        bd = r.get('score_breakdown', {})
+        fut = bd.get('💰 合约资金面', {}).get('points', 0)
+        nar = bd.get('📡 叙事热度', {}).get('points', 0)
+        chn = bd.get('⛓️ 链上信号', {}).get('points', 0)
+        tch = bd.get('📈 技术指标', {}).get('points', 0)
+        cvg = r.get('data_coverage', '?')
+        def _fmt(v):
+            return f'+{v}' if v > 0 else str(v)
+        lines.append(f"  {i}. {emoji} {r['symbol']:10s} | 合约{_fmt(fut):>4s} | 叙事{_fmt(nar):>4s} | 链上{_fmt(chn):>4s} | 技术{_fmt(tch):>4s} | **{s}分** | {cvg}/4{new_tag}")
+    lines.append("")
+    lines.append("—" * 40)
+    lines.append("")
+
+    # ── 详细拆解（只展开做多/做空） ──
+    action_recs = [r for r in recs[:5] if r['suggestion'] in ('做多', '做空')]
+    if action_recs:
+        lines.append("""━━━ 详细拆解 ━━━""")
+        lines.append("")
+    for i, r in enumerate(action_recs, 1):
+        emoji = '🟢' if r['suggestion'] == '做多' else '🔴' if r['suggestion'] == '做空' else '⚪'
+        # 找到在原列表中的序号
+        orig_idx = recs.index(r) + 1
+        new_tag = ' 🆕' if r['symbol'] in new_syms else ''
         score = r.get('score', 0)
+        confidence = r.get('confidence', '?')
+        coverage = r.get('data_coverage', '?')
         breakdown = r.get('score_breakdown', {})
 
         # Header
-        lines.append(f"━━━ {i}. {emoji} **{r['symbol']}** — {r['suggestion']} ({score}分){new_tag} ━━━")
+        lines.append(f"━━━ {orig_idx}. **{r['symbol']}** — {r['suggestion']} ({score}分) 置信度:{confidence} 覆盖:{coverage}/4{new_tag} ━━━")
         lines.append("")
 
-        # Score breakdown
-        if breakdown:
-            lines.append(f"📊 评分拆解（基准50 + 各维度加分）:")
-            for dim, info in breakdown.items():
+        # Score breakdown - all dimensions with sub_items
+        lines.append(f"📊 评分拆解（基准50分 + 各维度）:")
+        dim_order = ['💰 合约资金面', '📡 叙事热度', '⛓️ 链上信号', '📈 技术指标', '数据覆盖']
+        for dim in dim_order:
+            if dim in breakdown:
+                info = breakdown[dim]
                 pts = info.get('points', 0)
-                detail = info.get('detail', '')
+                sign = '+' if pts > 0 else ('' if pts <= 0 else '')
+                lines.append(f"  · {dim}: {sign}{pts}分")
+                sub_items = info.get('sub_items', [])
+                if sub_items:
+                    for item in sub_items:
+                        lines.append(f"    - {item}")
+                else:
+                    detail = info.get('detail', '')
+                    if detail:
+                        lines.append(f"    - {detail}")
+        # 其他维度
+        for dim, info in breakdown.items():
+            if dim not in dim_order:
+                pts = info.get('points', 0)
                 sign = '+' if pts > 0 else ''
-                lines.append(f"  · {dim}: {sign}{pts}分 — {detail}")
-            lines.append("")
+                lines.append(f"  · {dim}: {sign}{pts}分")
+                sub_items = info.get('sub_items', [])
+                for item in sub_items:
+                    lines.append(f"    - {item}")
+        lines.append(f"  ➤ 总分: {score}分")
+        lines.append("")
 
         # Reasons
         if r.get('reasons'):

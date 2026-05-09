@@ -48,6 +48,8 @@ def _run_monitoring_hub() -> Dict[str, Any]:
     )
     from bsc.monitors.funding_rate import build_monitor_payload as build_futures_payload
     from bsc.monitors.onchain import build_monitor_payload as build_onchain_payload
+    from bsc.data.hyperliquid import fetch_futures_signals as fetch_hyperliquid
+    from bsc.data.technical import compute_technical_signals
 
     signals: Dict[str, Any] = {}
 
@@ -95,12 +97,18 @@ def _run_monitoring_hub() -> Dict[str, Any]:
         'total_posts': len(all_raw),
     }
 
-    # 2. Futures
+    # 2. Futures (Binance)
     try:
         futures = build_futures_payload(symbols=['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'BNBUSDT', 'OPUSDT'])
         signals['futures'] = {r['symbol']: r for r in futures.get('results', []) if not r.get('error')}
     except Exception:
         signals['futures'] = {}
+
+    # 2b. Hyperliquid DEX futures (free, 230+ pairs, fallback for missing Binance data)
+    try:
+        signals['hyperliquid'] = fetch_hyperliquid()  # dict of {symbolUSDT: signal}
+    except Exception:
+        signals['hyperliquid'] = {}
 
     # 3. On-chain
     try:
@@ -109,56 +117,57 @@ def _run_monitoring_hub() -> Dict[str, Any]:
     except Exception:
         signals['onchain'] = {}
 
+    # 4. Technical indicators (RSI/MA/MACD/ATR from Binance)
+    # 获取叙事和合约涉及的币种列表，逐个计算📈 技术指标
+    tech_symbols = set()
+    for sv in signals.get('narrative', {}).get('symbol_view', []):
+        sym = sv.get('symbol', '').replace('USDT', '')
+        if sym:
+            tech_symbols.add(sym)
+    tech_symbols.update(['BTC', 'ETH', 'SOL', 'BNB', 'XRP', 'DOGE', 'ADA', 'AVAX', 'LINK', 'DOT', 'MATIC', 'ARB', 'OP', 'SUI', 'APT', 'TAO', 'AAVE', 'SOL', 'ONDO', 'FET', 'ORDI', 'RENDER', 'INJ', 'WIF', 'PEPE', 'FLOKI', 'BONK', 'SEI', 'STRK', 'PENDLE', 'JUP', 'PYTH', 'JTO'])  # 确保主流币始终有数据
+    signals['technical'] = {}
+    for sym in tech_symbols:
+        try:
+            sig = compute_technical_signals(sym)
+            if 'error' not in sig:
+                signals['technical'][f'{sym}USDT'] = sig
+        except Exception:
+            pass
+
     return signals
 
 
 def _compute_symbol_score(symbol: str, signals: Dict[str, Any]) -> Dict[str, Any]:
-    """计算单个币种的综合评分和建议，含详细评分拆解。"""
-    score = 50  # baseline
+    """计算单个币种的综合评分和建议，含详细评分拆解。
+
+    评分体系 (v3):
+    - 基础分 50
+    - 💰 合约资金面: 最高 ±20 (核心维度)
+    - 📡 叙事热度: 最高 +12 (辅助维度，权重降低)
+    - ⛓️ 链上信号: 最高 ±15
+    - 📈 技术指标: 最高 ±12
+    - ⚠️ 数据覆盖惩罚: -5 / -10
+    - 每个维度含 sub_items 子项明细
+    """
+    score = 50
     reasons: List[str] = []
     risks: List[str] = []
-    breakdown: Dict[str, Dict[str, Any]] = {}  # 维度 → {points, detail}
+    breakdown: Dict[str, Dict[str, Any]] = {}
+    data_dimensions_found = 0
 
     sym_pair = symbol.upper() if symbol.endswith('USDT') else f"{symbol.upper()}USDT"
     sym_base = symbol.upper().replace('USDT', '')
 
-    # ── 叙事热度 ──
-    narrative = signals.get('narrative', {})
-    symbol_view = narrative.get('symbol_view', [])
-    sv = next((s for s in symbol_view if s.get('symbol') == sym_pair), None)
-    if sv:
-        post_count = sv.get('post_count', 0)
-        narratives = sv.get('narratives', [])
-        stage = sv.get('dominant_stage', '')
-        narr_pts = 0
-        narr_detail = ''
-        if post_count >= 10:
-            narr_pts = 15
-            narr_detail = f'{post_count}帖讨论, 涉及 {"/".join(narratives[:2])} 赛道'
-            reasons.append(f'叙事热度高 ({post_count}帖, {",".join(narratives[:2])})')
-        elif post_count >= 5:
-            narr_pts = 8
-            narr_detail = f'{post_count}帖讨论'
-            reasons.append(f'叙事活跃 ({post_count}帖)')
-        else:
-            narr_detail = f'仅{post_count}帖, 热度不足'
-        if stage == '中期扩散':
-            narr_pts += 5
-            narr_detail += f', 处于{stage}阶段'
-        elif stage == '末端过热':
-            narr_pts -= 15
-            narr_detail += ', ⚠️ 末端过热风险'
-            risks.append('叙事末端过热')
-        if narr_pts != 0:
-            breakdown['📡 叙事热度'] = {'points': narr_pts, 'detail': narr_detail}
-        score += narr_pts
-    else:
-        breakdown['📡 叙事热度'] = {'points': 0, 'detail': '未出现在叙事监控中'}
-
-    # ── 合约资金面 ──
+    # ── 1. 💰 合约资金面 ──
     futures = signals.get('futures', {})
     ft = futures.get(sym_pair, {})
+    hl = signals.get('hyperliquid', {})
+    hl_ft = hl.get(sym_pair, {})
+    has_futures_data = False
+    fut_items = []
+
     if ft and not ft.get('error'):
+        has_futures_data = True
         comp = ft.get('composite', {})
         funding = ft.get('funding', {})
         funding_rate = funding.get('funding_rate', 0)
@@ -166,88 +175,297 @@ def _compute_symbol_score(symbol: str, signals: Dict[str, Any]) -> Dict[str, Any
         f_score = comp.get('capital_flow_score', 50)
         oi = ft.get('oi_5m', {})
         oi_change = oi.get('oi_change_pct_1h', 0) or 0
+        fr_pct = funding.get('funding_rate_pct', '?')
         fut_pts = 0
-        fut_detail = f'资金面 {f_bias}, 评分{f_score}/100'
 
+        fut_items.append(f"Binance 资金面: {f_bias} (评分{f_score}/100)")
         if f_bias == 'bullish':
             fut_pts += 10
+            fut_items.append(f"  ↳ 资金面偏多: +10")
             reasons.append(f'资金面偏多 (score={f_score})')
         elif f_bias == 'bearish':
             fut_pts -= 10
-            fut_detail += ', 偏空'
+            fut_items.append(f"  ↳ 资金面偏空: -10")
             risks.append(f'资金面偏空 (score={f_score})')
 
         if funding_rate is not None:
-            fr_pct = funding.get('funding_rate_pct', '?')
             if funding_rate < -0.0003:
                 fut_pts += 5
-                fut_detail += f', 负费率{fr_pct}(多头占优)'
-                reasons.append(f'负费率={fr_pct}（空头付费给多头）')
+                fut_items.append(f"  ↳ 负费率 {fr_pct}（空头付费给多头）: +5")
+                reasons.append(f'负费率={fr_pct}')
             elif funding_rate > 0.001:
                 fut_pts -= 5
-                fut_detail += f', 正费率偏高{fr_pct}'
+                fut_items.append(f"  ↳ 正费率偏高 {fr_pct}: -5")
                 risks.append(f'正费率偏高={fr_pct}')
 
         if oi_change > 2:
-            fut_detail += f', OI 1h +{oi_change}% (资金流入)'
+            fut_items.append(f"  ↳ OI 1h +{oi_change}%（资金流入）")
         elif oi_change < -2:
-            fut_detail += f', OI 1h {oi_change}% (资金流出)'
+            fut_items.append(f"  ↳ OI 1h {oi_change}%（资金流出）")
 
-        if fut_pts != 0:
-            breakdown['💰 合约资金面'] = {'points': fut_pts, 'detail': fut_detail}
+        if fut_pts == 0:
+            fut_items.append("  ↳ 资金面中性: 0")
+
+        breakdown['💰 合约资金面'] = {'points': fut_pts, 'detail': ' | '.join(fut_items), 'sub_items': fut_items}
+        score += fut_pts
+
+    elif hl_ft:
+        has_futures_data = True
+        hl_funding = hl_ft.get('funding_rate', 0)
+        hl_bias = hl_ft.get('bias', 'neutral')
+        hl_premium = hl_ft.get('premium', 0)
+        hl_vol = hl_ft.get('day_volume_usd', 0)
+        hl_fund_sig = hl_ft.get('funding_signal', 'neutral')
+        fut_pts = 0
+        vol_m = hl_vol / 1e6
+
+        fut_items.append(f"Hyperliquid funding={hl_ft.get('funding_rate_pct','?')}, 24h_vol=${vol_m:.0f}M")
+
+        if hl_fund_sig == 'high_negative':
+            fut_pts += 10
+            fut_items.append(f"  ↳ 负费率（空头付费，多头占优）: +10")
+            reasons.append(f'负费率 {hl_ft.get("funding_rate_pct")}')
+        elif hl_fund_sig == 'negative':
+            fut_pts += 5
+            fut_items.append(f"  ↳ 负费率: +5")
+        elif hl_fund_sig == 'high_positive':
+            fut_pts -= 8
+            fut_items.append(f"  ↳ 正费率过高（多头拥挤）: -8")
+            risks.append(f'正费率过高={hl_ft.get("funding_rate_pct")}')
+
+        if hl_premium < -0.005:
+            fut_pts += 5
+            fut_items.append(f"  ↳ 永续折价 {hl_premium*100:.2f}%（可能超卖）: +5")
+        elif hl_premium > 0.005:
+            fut_pts -= 3
+            fut_items.append(f"  ↳ 永续溢价 {hl_premium*100:.2f}%: -3")
+
+        if hl_vol > 500_000_000:
+            fut_pts += 3
+            fut_items.append(f"  ↳ 高流动性 ($500M+): +3")
+        elif hl_vol < 5_000_000:
+            fut_pts -= 2
+            fut_items.append(f"  ↳ 低流动性 (<$5M): -2")
+            risks.append('流动性不足')
+
+        if hl_bias == 'bullish':
+            fut_pts += 2
+            fut_items.append(f"  ↳ DEX合约偏多: +2")
+        elif hl_bias == 'bearish':
+            fut_pts -= 2
+            fut_items.append(f"  ↳ DEX合约偏空: -2")
+
+        if fut_pts == 0:
+            fut_items.append("  ↳ 合约面中性: 0")
+
+        fut_pts = max(-15, min(20, fut_pts))
+        breakdown['💰 合约资金面'] = {'points': fut_pts, 'detail': ' | '.join(fut_items), 'sub_items': fut_items}
         score += fut_pts
     else:
-        breakdown['💰 合约资金面'] = {'points': 0, 'detail': '无合约数据'}
+        breakdown['💰 合约资金面'] = {'points': -5, 'detail': '❌ 无合约数据（Binance+Hyperliquid均缺失）', 'sub_items': ['Binance: 无数据', 'Hyperliquid: 无数据', '  ↳ 数据缺失惩罚: -5']}
+        score -= 5
+        risks.append('合约数据缺失')
 
-    # ── 链上强买盘 (DEX 买卖比) ──
+    if has_futures_data:
+        data_dimensions_found += 1
+
+    # ── 2. 📡 叙事热度 ──
+    narrative = signals.get('narrative', {})
+    symbol_view = narrative.get('symbol_view', [])
+    sv = next((s for s in symbol_view if s.get('symbol') == sym_pair), None)
+    narr_items = []
+
+    if sv:
+        data_dimensions_found += 1
+        post_count = sv.get('post_count', 0)
+        narratives = sv.get('narratives', [])
+        stage = sv.get('dominant_stage', '')
+        narr_pts = 0
+
+        narr_items.append(f"帖子数量: {post_count}")
+        if post_count >= 10:
+            narr_pts += 8
+            narr_items.append(f"  ↳ ≥10帖热度高: +10")
+            reasons.append(f'📡 叙事热度高 ({post_count}帖, {",".join(narratives[:2])})')
+        elif post_count >= 5:
+            narr_pts += 4
+            narr_items.append(f"  ↳ 5-9帖活跃: +5")
+            reasons.append(f'叙事活跃 ({post_count}帖)')
+        else:
+            narr_items.append(f"  ↳ <5帖热度不足: 0")
+
+        if narratives:
+            narr_items.append(f"赛道: {', '.join(narratives[:2])}")
+
+        narr_items.append(f"扩散阶段: {stage or '未知'}")
+        if stage == '中期扩散':
+            narr_pts += 2
+            narr_items.append(f"  ↳ 中期扩散（有机会）: +2")
+        elif stage == '末端过热':
+            narr_pts -= 8
+            narr_items.append(f"  ↳ 末端过热（危险）: -10")
+            risks.append('叙事末端过热')
+
+        breakdown['📡 叙事热度'] = {'points': narr_pts, 'detail': ' | '.join(narr_items), 'sub_items': narr_items}
+        score += narr_pts
+    else:
+        breakdown['📡 叙事热度'] = {'points': 0, 'detail': '未出现在叙事监控中', 'sub_items': ['帖子数量: 0', '  ↳ <5帖热度不足: 0', '赛道: 无', '扩散阶段: 无']}
+
+    # ── 3. 链上强买盘 ──
     onchain = signals.get('onchain', {})
     all_candidates = (onchain.get('strong_buy_candidates', []) +
                       onchain.get('observation_candidates', []) +
                       onchain.get('all_candidates', []))
     oc = next((c for c in all_candidates if (c.get('symbol') or '').upper() == sym_base), None)
+    oc_items = []
+
     if oc:
+        data_dimensions_found += 1
         buy_score = oc.get('onchain_buy_score', 0)
         oc_pts = 0
-        oc_detail = f'DEX评分 {buy_score}/100'
 
+        oc_items.append(f"DEX买卖评分: {buy_score}/100")
         if buy_score >= 60:
-            oc_pts = 12
-            oc_detail += ', 买盘强劲'
+            oc_pts += 12
+            oc_items.append(f"  ↳ ≥60 买盘强劲: +12")
             reasons.append(f'链上强买盘 (score={buy_score})')
         elif buy_score >= 40:
-            oc_pts = 5
-            oc_detail += ', 买盘活跃'
+            oc_pts += 5
+            oc_items.append(f"  ↳ 40-59 买盘活跃: +5")
             reasons.append(f'链上买盘活跃 (score={buy_score})')
+        else:
+            oc_items.append(f"  ↳ <40 买盘不足: 0")
 
-        # TVL
         tvl_change = oc.get('tvl_change_1d_pct')
-        if tvl_change and tvl_change > 10:
-            oc_pts += 5
-            oc_detail += f', TVL 24h +{tvl_change:.1f}%'
-            reasons.append(f'TVL流入 {tvl_change:.1f}%')
-        elif tvl_change and tvl_change < -10:
-            oc_pts -= 5
-            oc_detail += f', TVL 24h {tvl_change:.1f}%'
+        if tvl_change is not None:
+            oc_items.append(f"TVL 24h变化: {tvl_change:+.1f}%")
+            if tvl_change > 10:
+                oc_pts += 5
+                oc_items.append(f"  ↳ TVL大幅流入: +5")
+                reasons.append(f'TVL流入 {tvl_change:.1f}%')
+            elif tvl_change < -10:
+                oc_pts -= 5
+                oc_items.append(f"  ↳ TVL大幅流出: -5")
 
-        # Whale
         whale_net = oc.get('whale_net_usd', 0)
-        if whale_net and whale_net > 10_000_000:
-            oc_pts += 5
-            oc_detail += f', 巨鲸净提币 ${whale_net/1e6:.0f}M'
-            reasons.append(f'巨鲸净提币 ${whale_net/1e6:.0f}M')
-        elif whale_net and whale_net < -10_000_000:
-            oc_pts -= 5
-            oc_detail += f', 巨鲸净充币 ${abs(whale_net)/1e6:.0f}M'
+        if whale_net and abs(whale_net) > 1_000_000:
+            whale_m = whale_net / 1e6
+            oc_items.append(f"巨鲸净流向: ${whale_m:+.0f}M")
+            if whale_net > 10_000_000:
+                oc_pts += 5
+                oc_items.append(f"  ↳ 巨鲸净提币 >$10M: +5")
+                reasons.append(f'巨鲸净提币 ${whale_m:.0f}M')
+            elif whale_net < -10_000_000:
+                oc_pts -= 5
+                oc_items.append(f"  ↳ 巨鲸净充币 >$10M: -5")
 
-        if oc_pts != 0:
-            breakdown['⛓️ 链上信号'] = {'points': oc_pts, 'detail': oc_detail}
+        breakdown['⛓️ 链上信号'] = {'points': oc_pts, 'detail': ' | '.join(oc_items), 'sub_items': oc_items}
         score += oc_pts
     else:
-        breakdown['⛓️ 链上信号'] = {'points': 0, 'detail': '未检测到 DEX 交易对'}
+        breakdown['⛓️ 链上信号'] = {'points': 0, 'detail': f'{sym_base}为主网币，DEX上无原生交易对', 'sub_items': [f'{sym_base}: DEX上无原生交易对（非DeFi代币）', '  ↳ 链上买盘评分: 无数据', '  ↳ TVL变化: 无数据', '  ↳ 巨鲸流向: 无数据']}
+
+    # ── 4. 📈 技术指标 ──
+    tech = signals.get('technical', {})
+    tech_data = tech.get(sym_pair, {})
+    tech_items = []
+
+    if tech_data and not tech_data.get('error'):
+        data_dimensions_found += 1
+        indicators = tech_data.get('indicators', {})
+        bullish = tech_data.get('bullish_pts', 0)
+        bearish = tech_data.get('bearish_pts', 0)
+        tech_bias = tech_data.get('bias', 'neutral')
+        tech_pts = 0
+
+        # RSI
+        rsi = indicators.get('rsi_1h')
+        if rsi is not None:
+            if rsi < 30:
+                tech_pts += 3
+                tech_items.append(f"RSI={rsi:.1f} 超卖: +3")
+                reasons.append(f'RSI超卖={rsi:.0f}')
+            elif rsi < 40:
+                tech_pts += 1
+                tech_items.append(f"RSI={rsi:.1f} 偏弱: +1")
+            elif rsi > 70:
+                tech_pts -= 3
+                tech_items.append(f"RSI={rsi:.1f} 超买: -3")
+                risks.append(f'RSI超买={rsi:.0f}')
+            elif rsi > 60:
+                tech_pts -= 1
+                tech_items.append(f"RSI={rsi:.1f} 偏强: -1")
+            else:
+                tech_items.append(f"RSI={rsi:.1f} 中性: 0")
+
+        # MA
+        ma7 = indicators.get('ma7')
+        ma25 = indicators.get('ma25')
+        ma99 = indicators.get('ma99')
+        if ma7 and ma25:
+            if ma7 > ma25:
+                tech_pts += 2
+                tech_items.append(f"MA7({ma7:.0f})>MA25({ma25:.0f}) 短期多头排列: +2")
+            else:
+                tech_pts -= 2
+                tech_items.append(f"MA7({ma7:.0f})<MA25({ma25:.0f}) 短期空头排列: -2")
+        if ma25 and ma99:
+            if ma25 > ma99:
+                tech_pts += 2
+                tech_items.append(f"MA25>MA99 中期多头: +2")
+            else:
+                tech_pts -= 2
+                tech_items.append(f"MA25<MA99 中期空头: -2")
+
+        # MACD
+        macd_h = indicators.get('macd_histogram')
+        macd_val = indicators.get('macd')
+        macd_sig = indicators.get('macd_signal')
+        if macd_h is not None and macd_val is not None and macd_sig is not None:
+            if macd_h > 0 and macd_val > macd_sig:
+                tech_pts += 2
+                tech_items.append(f"MACD金叉 (hist={macd_h:.1f}): +2")
+            elif macd_h < 0 and macd_val < macd_sig:
+                tech_pts -= 2
+                tech_items.append(f"MACD死叉 (hist={macd_h:.1f}): -2")
+            else:
+                tech_items.append(f"MACD中性 (hist={macd_h:.1f}): 0")
+
+        # ATR
+        atr_pct = indicators.get('atr_pct')
+        if atr_pct is not None:
+            if atr_pct > 3:
+                tech_items.append(f"ATR={atr_pct:.1f}% 高波动⚠️")
+            elif atr_pct < 0.5:
+                tech_items.append(f"ATR={atr_pct:.1f}% 低波动")
+            else:
+                tech_items.append(f"ATR={atr_pct:.1f}% 正常波动")
+
+        tech_pts = max(-15, min(15, tech_pts))
+
+        if tech_bias == 'bullish' and tech_pts > 0:
+            reasons.append(f'技术面偏多 ({tech_pts}分)')
+        elif tech_bias == 'bearish':
+            risks.append('技术面偏空')
+
+        breakdown['📈 技术指标'] = {'points': tech_pts, 'detail': ' | '.join(tech_items), 'sub_items': tech_items}
+        score += tech_pts
+    else:
+        breakdown['📈 技术指标'] = {'points': 0, 'detail': '未计算📈 技术指标', 'sub_items': ['无技术数据']}
+
+    # ── 5. ⚠️ 数据覆盖度惩罚 ──
+    if data_dimensions_found == 0:
+        penalty = -10
+        breakdown['⚠️ 数据覆盖'] = {'points': penalty, 'detail': '四个维度全部缺失', 'sub_items': ['0/4维度有数据: -10']}
+        score += penalty
+        risks.append('⚠️ 数据覆盖不足')
+    elif data_dimensions_found == 1:
+        penalty = -5
+        breakdown['⚠️ 数据覆盖'] = {'points': penalty, 'detail': f'仅{data_dimensions_found}/4维度有数据', 'sub_items': [f'{data_dimensions_found}/4维度有数据: -5']}
+        score += penalty
+        risks.append('数据维度单一')
 
     score = max(0, min(100, score))
 
-    # 生成建议
     if score >= 75:
         suggestion = '做多'
         confidence = '高'
@@ -261,6 +479,11 @@ def _compute_symbol_score(symbol: str, signals: Dict[str, Any]) -> Dict[str, Any
         suggestion = '观望/做空'
         confidence = '低'
 
+    if data_dimensions_found <= 1 and confidence == '高':
+        confidence = '中'
+    if data_dimensions_found == 0 and confidence == '中':
+        confidence = '低'
+
     return {
         'symbol': sym_pair,
         'symbol_base': sym_base,
@@ -270,13 +493,14 @@ def _compute_symbol_score(symbol: str, signals: Dict[str, Any]) -> Dict[str, Any
         'reasons': reasons,
         'risks': risks,
         'score_breakdown': breakdown,
+        'data_coverage': data_dimensions_found,
     }
 
 
 def generate_recommendations(
     signals: Optional[Dict[str, Any]] = None,
     min_score: int = MIN_SCORE_TO_SUGGEST,
-    top_n: int = 5,
+    top_n: int = 10,
 ) -> List[Dict[str, Any]]:
     """生成交易建议列表。"""
     if signals is None:
