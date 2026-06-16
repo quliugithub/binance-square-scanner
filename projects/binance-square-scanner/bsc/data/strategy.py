@@ -17,6 +17,7 @@ from bsc.constants import RESULTS_DIR
 from bsc.data.tool import scrape_square
 
 KLINE_API = 'https://api.binance.com/api/v3/klines'
+FUTURES_KLINE_API = 'https://fapi.binance.com/fapi/v1/klines'
 DEFAULT_INTERVAL = '5m'
 DEFAULT_WINDOWS = [3, 12, 48]  # 15m, 1h, 4h on 5m bars
 TEXT_BULLISH = {
@@ -215,9 +216,17 @@ def aggregate_coin_signals(posts: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
 
 def fetch_klines(symbol: str, interval: str, limit: int = 500) -> List[List[Any]]:
     params = {'symbol': symbol, 'interval': interval, 'limit': limit}
-    resp = requests.get(KLINE_API, params=params, timeout=30)
-    resp.raise_for_status()
-    return resp.json()
+    try:
+        resp = requests.get(KLINE_API, params=params, timeout=30)
+        resp.raise_for_status()
+        return resp.json()
+    except Exception as spot_exc:
+        futures_resp = requests.get(FUTURES_KLINE_API, params=params, timeout=30)
+        try:
+            futures_resp.raise_for_status()
+        except Exception as futures_exc:
+            raise RuntimeError(f'spot_error={spot_exc}; usdt_futures_error={futures_exc}') from futures_exc
+        return futures_resp.json()
 
 
 def price_event_study(symbol: str, event_time: Optional[datetime], interval: str, windows: List[int]) -> PriceEventResult:

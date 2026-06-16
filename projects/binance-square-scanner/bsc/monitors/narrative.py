@@ -287,6 +287,37 @@ def save_payload(payload: Dict[str, Any], output: str | None) -> str:
     return str(path)
 
 
+def _is_ascii_alias(value: str) -> bool:
+    try:
+        value.encode('ascii')
+        return True
+    except UnicodeEncodeError:
+        return False
+
+
+def _has_explicit_ticker(text: str, alias: str, pair: str) -> bool:
+    base = pair[:-4] if pair.endswith('USDT') else pair
+    patterns = [
+        rf'(?<![A-Za-z0-9])\${re.escape(base)}(?![A-Za-z0-9])',
+        rf'(?<![A-Za-z0-9]){re.escape(base)}USDT(?![A-Za-z0-9])',
+        rf'(?<![A-Za-z0-9]){re.escape(base)}/USDT(?![A-Za-z0-9])',
+        rf'(?<![A-Za-z0-9]){re.escape(base)}-USDT(?![A-Za-z0-9])',
+    ]
+    if len(alias) <= 2:
+        patterns.append(rf'(?<![A-Za-z0-9]){re.escape(base)}(?![A-Za-z0-9])')
+    return any(re.search(pattern, text, flags=re.IGNORECASE) for pattern in patterns)
+
+
+def _alias_matches(text: str, text_lower: str, alias: str, pair: str) -> bool:
+    if _is_ascii_alias(alias):
+        if _has_explicit_ticker(text, alias, pair):
+            return True
+        if len(alias) <= 2:
+            return False
+        return bool(re.search(r'(?<![a-z0-9])' + re.escape(alias.lower()) + r'(?![a-z0-9])', text_lower))
+    return alias in text_lower
+
+
 def extract_symbols_from_text(text: str) -> List[str]:
     """Extract potential token symbols from Chinese/English news text."""
     # Common crypto token names (Chinese and English)
@@ -343,10 +374,7 @@ def extract_symbols_from_text(text: str) -> List[str]:
     text_lower = text.lower()
     symbols = set()
     for name, pair in TOKEN_NAMES.items():
-        # Word boundary check for English tokens
-        if re.search(r'\b' + re.escape(name) + r'\b', text_lower):
-            symbols.add(pair)
-        elif name in text_lower:
+        if _alias_matches(text, text_lower, name, pair):
             symbols.add(pair)
     return list(symbols)
 

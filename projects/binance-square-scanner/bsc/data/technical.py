@@ -12,15 +12,30 @@ import urllib.request
 from typing import Any, Dict, List, Optional
 
 
-def fetch_klines(symbol: str, interval: str = "1h", limit: int = 100) -> List[Dict[str, Any]]:
+SPOT_KLINE_URL = "https://api.binance.com/api/v3/klines"
+FUTURES_KLINE_URL = "https://fapi.binance.com/fapi/v1/klines"
+
+
+def normalize_symbol(symbol: str) -> str:
+    sym = symbol.upper().replace("/", "").replace(":USDT", "")
+    if not sym.endswith("USDT"):
+        sym += "USDT"
+    return sym
+
+
+def fetch_klines(
+    symbol: str,
+    interval: str = "1h",
+    limit: int = 100,
+    market: str = "spot",
+) -> List[Dict[str, Any]]:
     """从 Binance 拉取 K 线数据。
 
     返回: [{open_time, open, high, low, close, volume, close_time}, ...]
     """
-    sym = symbol.upper().replace("/", "").replace(":USDT", "")
-    if not sym.endswith("USDT"):
-        sym += "USDT"
-    url = f"https://api.binance.com/api/v3/klines?symbol={sym}&interval={interval}&limit={limit}"
+    sym = normalize_symbol(symbol)
+    base_url = FUTURES_KLINE_URL if market == "usdt_futures" else SPOT_KLINE_URL
+    url = f"{base_url}?symbol={sym}&interval={interval}&limit={limit}"
     req = urllib.request.Request(url, method="GET")
     with urllib.request.urlopen(req, timeout=15) as resp:
         raw = json.loads(resp.read())
@@ -37,6 +52,24 @@ def fetch_klines(symbol: str, interval: str = "1h", limit: int = 100) -> List[Di
             "close_time": k[6],
         })
     return klines
+
+
+def fetch_klines_with_fallback(
+    symbol: str,
+    interval: str = "1h",
+    limit: int = 100,
+) -> tuple[List[Dict[str, Any]], str, Dict[str, str]]:
+    errors: Dict[str, str] = {}
+    try:
+        return fetch_klines(symbol, interval, limit, market="spot"), "spot", errors
+    except Exception as exc:
+        errors["spot_error"] = str(exc)
+
+    try:
+        return fetch_klines(symbol, interval, limit, market="usdt_futures"), "usdt_futures", errors
+    except Exception as exc:
+        errors["usdt_futures_error"] = str(exc)
+        raise RuntimeError("; ".join(f"{key}={value}" for key, value in errors.items()))
 
 
 def calc_sma(closes: List[float], period: int) -> Optional[float]:
@@ -166,38 +199,33 @@ def calc_volume_trend(volumes: List[float], period: int = 20) -> Optional[Dict[s
     }
 
 
-def compute_technical_signals(symbol: str) -> Dict[str, Any]:
-    """计算币种的完整技术指标。"""
-    result = {
-        "symbol": symbol.upper(),
-        "source": "binance_technical",
-        "indicators": {},
-        "signals": [],
-        "bias": "neutral",
-    }
+def bias_from_points(bullish_pts: int, bearish_pts: int) -> str:
+    if bullish_pts > bearish_pts + 2:
+        return "bullish"
+    if bearish_pts > bullish_pts + 2:
+        return "bearish"
+    return "neutral"
 
-    # 1h K线 (主要分析)
-    try:
-        klines_1h = fetch_klines(symbol, "1h", 100)
-    except Exception as e:
-        result["error"] = str(e)
-        return result
 
-    closes = [k["close"] for k in klines_1h]
-    highs = [k["high"] for k in klines_1h]
-    lows = [k["low"] for k in klines_1h]
-    volumes = [k["volume"] for k in klines_1h]
+def analyze_klines(klines: List[Dict[str, Any]], interval: str) -> Dict[str, Any]:
+    if not klines:
+        raise ValueError(f"empty klines for {interval}")
+
+    closes = [k["close"] for k in klines]
+    highs = [k["high"] for k in klines]
+    lows = [k["low"] for k in klines]
+    volumes = [k["volume"] for k in klines]
     current_price = closes[-1]
 
-    indicators = result["indicators"]
-    signals = result["signals"]
+    indicators: Dict[str, Any] = {}
+    signals: List[str] = []
     bullish_pts = 0
     bearish_pts = 0
 
     # RSI
     rsi = calc_rsi(closes, 14)
     if rsi is not None:
-        indicators["rsi_1h"] = round(rsi, 1)
+        indicators["rsi"] = round(rsi, 1)
         if rsi < 30:
             signals.append(f"RSI={rsi:.0f} 超卖")
             bullish_pts += 3
@@ -266,7 +294,7 @@ def compute_technical_signals(symbol: str) -> Dict[str, Any]:
     atr = calc_atr(highs, lows, closes, 14)
     if atr and current_price:
         atr_pct = atr / current_price * 100
-        indicators["atr_1h"] = round(atr, 4)
+        indicators["atr"] = round(atr, 4)
         indicators["atr_pct"] = round(atr_pct, 2)
         if atr_pct > 3:
             signals.append(f"ATR={atr_pct:.1f}% 高波动⚠️")
@@ -297,16 +325,138 @@ def compute_technical_signals(symbol: str) -> Dict[str, Any]:
         if vol_trend["trend"] in ("异常放量", "温和放量"):
             signals.append(f"成交量{vol_trend['trend']}（x{vol_trend['ratio']}）")
 
-    # 综合 bias
-    if bullish_pts > bearish_pts + 2:
-        result["bias"] = "bullish"
-    elif bearish_pts > bullish_pts + 2:
-        result["bias"] = "bearish"
-    else:
-        result["bias"] = "neutral"
+    return {
+        "interval": interval,
+        "indicators": indicators,
+        "signals": signals,
+        "bias": bias_from_points(bullish_pts, bearish_pts),
+        "bullish_pts": bullish_pts,
+        "bearish_pts": bearish_pts,
+    }
 
-    result["bullish_pts"] = bullish_pts
-    result["bearish_pts"] = bearish_pts
+
+def flatten_primary_indicators(primary: Dict[str, Any]) -> Dict[str, Any]:
+    src = primary.get("indicators") or {}
+    result = dict(src)
+    if "rsi" in src:
+        result["rsi_1h"] = src["rsi"]
+    if "atr" in src:
+        result["atr_1h"] = src["atr"]
+    result.pop("rsi", None)
+    result.pop("atr", None)
+    return result
+
+
+def build_multi_timeframe_summary(timeframes: Dict[str, Dict[str, Any]]) -> Dict[str, Any]:
+    weights = {"15m": 0.7, "1h": 1.0, "4h": 1.3}
+    weighted_score = 0.0
+    weighted_bullish = 0.0
+    weighted_bearish = 0.0
+    valid: List[str] = []
+    biases: Dict[str, str] = {}
+
+    for interval, weight in weights.items():
+        row = timeframes.get(interval) or {}
+        if row.get("error"):
+            continue
+        bullish = float(row.get("bullish_pts") or 0)
+        bearish = float(row.get("bearish_pts") or 0)
+        weighted_bullish += bullish * weight
+        weighted_bearish += bearish * weight
+        weighted_score += (bullish - bearish) * weight
+        valid.append(interval)
+        biases[interval] = str(row.get("bias") or "neutral")
+
+    if weighted_score >= 3:
+        composite_bias = "bullish"
+    elif weighted_score <= -3:
+        composite_bias = "bearish"
+    else:
+        composite_bias = "neutral"
+
+    direction_votes = {
+        "bullish": sum(1 for bias in biases.values() if bias == "bullish"),
+        "bearish": sum(1 for bias in biases.values() if bias == "bearish"),
+        "neutral": sum(1 for bias in biases.values() if bias == "neutral"),
+    }
+    if biases.get("1h") == biases.get("4h") and biases.get("1h") in {"bullish", "bearish"}:
+        alignment = f"{biases['1h']}_1h_4h_aligned"
+    elif direction_votes["bullish"] and direction_votes["bearish"]:
+        alignment = "mixed"
+    else:
+        alignment = "weak_or_neutral"
+
+    if abs(weighted_score) >= 6 and alignment.endswith("_aligned"):
+        confidence = "high"
+    elif abs(weighted_score) >= 3:
+        confidence = "medium"
+    else:
+        confidence = "low"
+
+    return {
+        "valid_timeframes": valid,
+        "timeframe_biases": biases,
+        "direction_votes": direction_votes,
+        "weighted_score": round(weighted_score, 2),
+        "weighted_bullish_pts": round(weighted_bullish, 2),
+        "weighted_bearish_pts": round(weighted_bearish, 2),
+        "composite_bias": composite_bias,
+        "alignment": alignment,
+        "confidence": confidence,
+    }
+
+
+def compute_technical_signals(symbol: str) -> Dict[str, Any]:
+    """计算币种的完整技术指标。"""
+    symbol_pair = normalize_symbol(symbol)
+    result = {
+        "symbol": symbol.upper(),
+        "symbol_pair": symbol_pair,
+        "source": "binance_technical",
+        "kline_market": "unknown",
+        "indicators": {},
+        "signals": [],
+        "bias": "neutral",
+    }
+
+    timeframes: Dict[str, Dict[str, Any]] = {}
+    for interval in ("15m", "1h", "4h"):
+        try:
+            klines, kline_market, fallback_errors = fetch_klines_with_fallback(symbol_pair, interval, 120)
+            row = analyze_klines(klines, interval)
+            row["kline_market"] = kline_market
+            if fallback_errors:
+                row["fallback_errors"] = fallback_errors
+            timeframes[interval] = row
+        except Exception as exc:
+            timeframes[interval] = {
+                "interval": interval,
+                "error": str(exc),
+                "bias": "unknown",
+                "bullish_pts": 0,
+                "bearish_pts": 0,
+            }
+
+    primary = timeframes.get("1h") or {}
+    if primary.get("error"):
+        primary = next((row for row in timeframes.values() if not row.get("error")), primary)
+    if primary.get("error"):
+        result["error"] = primary.get("error")
+        result["timeframes"] = timeframes
+        return result
+
+    result["kline_market"] = primary.get("kline_market", "unknown")
+    result["indicators"] = flatten_primary_indicators(primary)
+    result["signals"] = primary.get("signals") or []
+    result["bias"] = primary.get("bias", "neutral")
+    result["bullish_pts"] = primary.get("bullish_pts", 0)
+    result["bearish_pts"] = primary.get("bearish_pts", 0)
+    result["timeframes"] = timeframes
+    result["multi_timeframe"] = build_multi_timeframe_summary(timeframes)
+
+    if result["multi_timeframe"]["composite_bias"] != "neutral":
+        result["bias"] = result["multi_timeframe"]["composite_bias"]
+
     return result
 
 
