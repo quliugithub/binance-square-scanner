@@ -1,0 +1,43 @@
+{
+  "last_alert_symbols": [
+    "BTCUSDT",
+    "CAKEUSDT",
+    "MNTUSDT",
+    "AAVEUSDT",
+    "TAOUSDT",
+    "RAYUSDT"
+  ],
+  "last_run": "2026-06-24T23:03:33.536843+00:00",
+  "last_recommendations": [
+    {
+      "symbol": "BTCUSDT",
+      "score": 50,
+      "suggestion": "观望"
+    },
+    {
+      "symbol": "CAKEUSDT",
+      "score": 53,
+      "suggestion": "观望"
+    },
+    {
+      "symbol": "RAYUSDT",
+      "score": 52,
+      "suggestion": "观望"
+    },
+    {
+      "symbol": "AAVEUSDT",
+      "score": 51,
+      "suggestion": "观望"
+    },
+    {
+      "symbol": "MNTUSDT",
+      "score": 50,
+      "suggestion": "观望"
+    },
+    {
+      "symbol": "TAOUSDT",
+      "score": 50,
+      "suggestion": "观望"
+    }
+  ]
+}

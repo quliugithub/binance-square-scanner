@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 \"/d/SelfSourceCode/binance-square-scanner/projects/binance-square-scanner/signal_to_trade.py\" --top-n 3)",
+      "Bash(py -3 --version)",
+      "Bash(py -3 \"/d/SelfSourceCode/binance-square-scanner/projects/binance-square-scanner/signal_to_trade.py\" --top-n 3)",
+      "Bash(PYTHONIOENCODING=utf-8 py -3 \"/d/SelfSourceCode/binance-square-scanner/projects/binance-square-scanner/signal_to_trade.py\" --top-n 3)",
+      "Bash(PYTHONIOENCODING=utf-8 py -3 \"/d/SelfSourceCode/binance-square-scanner/projects/binance-square-scanner/scripts/patrol.py\" --threshold 50)",
+      "Bash(PYTHONIOENCODING=utf-8 py -3 -c \"import sys; sys.path.insert\\(0, '/d/SelfSourceCode/binance-square-scanner/projects/binance-square-scanner'\\); from scripts.patrol import format_alert; sample={'recommendations':[{'symbol':'TESTUSDT','suggestion':'做多','score':61,'confidence':'中','data_coverage':1,'reasons':[],'risks':[],'score_breakdown':{'数据覆盖':{'points':-5,'sub_items':['1/4维度有数据: -5']},'💰 合约资金面':{'points':10,'sub_items':['ok']}}}],'new_symbols':[],'source_status_summary':{}}; print\\(format_alert\\(sample\\)\\)\")",
+      "Bash(PYTHONIOENCODING=utf-8 py -3 -c \"import sys; sys.path.insert\\(0, '/d/SelfSourceCode/binance-square-scanner/projects/binance-square-scanner/scripts'\\); sys.path.insert\\(0, '/d/SelfSourceCode/binance-square-scanner/projects/binance-square-scanner'\\); import patrol; sample={'recommendations':[{'symbol':'TESTUSDT','suggestion':'做多','score':61,'confidence':'中','data_coverage':1,'reasons':[],'risks':[],'score_breakdown':{'数据覆盖':{'points':-5,'sub_items':['1/4维度有数据: -5']},'💰 合约资金面':{'points':10,'sub_items':['ok']}}}],'new_symbols':[],'source_status_summary':{}}; print\\(patrol.format_alert\\(sample\\)\\)\")",
+      "Bash(PYTHONIOENCODING=utf-8 py -3 -c \"import sys; sys.path.insert\\(0, 'D:/SelfSourceCode/binance-square-scanner/projects/binance-square-scanner/scripts'\\); sys.path.insert\\(0, 'D:/SelfSourceCode/binance-square-scanner/projects/binance-square-scanner'\\); import patrol; sample={'recommendations':[{'symbol':'TESTUSDT','suggestion':'做多','score':61,'confidence':'中','data_coverage':1,'reasons':[],'risks':[],'score_breakdown':{'数据覆盖':{'points':-5,'sub_items':['1/4维度有数据: -5']},'💰 合约资金面':{'points':10,'sub_items':['ok']}}}],'new_symbols':[],'source_status_summary':{}}; print\\(patrol.format_alert\\(sample\\)\\)\")",
+      "Bash(py -3 -m py_compile \"D:/SelfSourceCode/binance-square-scanner/projects/binance-square-scanner/signal_to_trade.py\" \"D:/SelfSourceCode/binance-square-scanner/projects/binance-square-scanner/scripts/patrol.py\")",
+      "Bash(py -3 -m py_compile \"D:/SelfSourceCode/binance-square-scanner/projects/binance-square-scanner/signal_to_trade.py\" \"D:/SelfSourceCode/binance-square-scanner/projects/binance-square-scanner/bsc/data/technical.py\")",
+      "Bash(PYTHONPATH=\"D:/SelfSourceCode/binance-square-scanner/projects/binance-square-scanner\" PYTHONIOENCODING=utf-8 py -3 -c \"from bsc.data.technical import compute_technical_signals; import json; print\\(json.dumps\\(compute_technical_signals\\('BTC'\\), ensure_ascii=False, indent=2\\)[:1000]\\)\")",
+      "Bash(PYTHONPATH=\"D:/SelfSourceCode/binance-square-scanner/projects/binance-square-scanner\" PYTHONIOENCODING=utf-8 py -3 -c \"from bsc.data.technical import compute_technical_signals; import json; print\\(json.dumps\\(compute_technical_signals\\('MNT'\\), ensure_ascii=False, indent=2\\)\\)\")",
+      "Bash(PYTHONPATH=\"D:/SelfSourceCode/binance-square-scanner/projects/binance-square-scanner\" PYTHONIOENCODING=utf-8 py -3 -c \"from signal_to_trade import _run_monitoring_hub; import json; s=_run_monitoring_hub\\(\\); print\\(json.dumps\\(s.get\\('_source_status', {}\\).get\\('technical', {}\\), ensure_ascii=False, indent=2\\)\\)\")"
+    ]
+  }
+}

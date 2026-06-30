@@ -9,11 +9,16 @@ from __future__ import annotations
 import json
 import math
 import urllib.request
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Set, Tuple
 
 
 SPOT_KLINE_URL = "https://api.binance.com/api/v3/klines"
 FUTURES_KLINE_URL = "https://fapi.binance.com/fapi/v1/klines"
+SPOT_EXCHANGE_INFO_URL = "https://api.binance.com/api/v3/exchangeInfo"
+FUTURES_EXCHANGE_INFO_URL = "https://fapi.binance.com/fapi/v1/exchangeInfo"
+
+_EXCHANGE_SYMBOL_CACHE: Optional[Dict[str, Set[str]]] = None
+_EXCHANGE_SYMBOL_CACHE_ERROR: Optional[str] = None
 
 
 def normalize_symbol(symbol: str) -> str:
@@ -21,6 +26,49 @@ def normalize_symbol(symbol: str) -> str:
     if not sym.endswith("USDT"):
         sym += "USDT"
     return sym
+
+
+def _fetch_exchange_symbols() -> Tuple[Dict[str, Set[str]], Optional[str]]:
+    global _EXCHANGE_SYMBOL_CACHE, _EXCHANGE_SYMBOL_CACHE_ERROR
+    if _EXCHANGE_SYMBOL_CACHE is not None:
+        return _EXCHANGE_SYMBOL_CACHE, _EXCHANGE_SYMBOL_CACHE_ERROR
+
+    supported: Dict[str, Set[str]] = {"spot": set(), "usdt_futures": set()}
+    errors: Dict[str, str] = {}
+
+    for market, url in (("spot", SPOT_EXCHANGE_INFO_URL), ("usdt_futures", FUTURES_EXCHANGE_INFO_URL)):
+        try:
+            req = urllib.request.Request(url, method="GET")
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                raw = json.loads(resp.read())
+            supported[market] = {
+                str(item.get("symbol", "")).upper()
+                for item in raw.get("symbols", [])
+                if item.get("status") == "TRADING" and item.get("symbol")
+            }
+        except Exception as exc:
+            errors[f"{market}_exchange_info_error"] = str(exc)
+
+    _EXCHANGE_SYMBOL_CACHE = supported
+    _EXCHANGE_SYMBOL_CACHE_ERROR = "; ".join(f"{key}={value}" for key, value in errors.items()) or None
+    return supported, _EXCHANGE_SYMBOL_CACHE_ERROR
+
+
+def _get_supported_markets(symbol_pair: str) -> Tuple[Optional[List[str]], Optional[str]]:
+    supported, precheck_error = _fetch_exchange_symbols()
+    markets = [market for market, symbols in supported.items() if symbol_pair in symbols]
+    if markets:
+        return markets, precheck_error
+    if precheck_error:
+        return None, precheck_error
+    return [], None
+
+
+def is_symbol_supported(symbol_pair: str) -> Optional[bool]:
+    markets, precheck_error = _get_supported_markets(normalize_symbol(symbol_pair))
+    if markets is None and precheck_error:
+        return None
+    return bool(markets)
 
 
 def fetch_klines(
@@ -418,6 +466,19 @@ def compute_technical_signals(symbol: str) -> Dict[str, Any]:
         "signals": [],
         "bias": "neutral",
     }
+
+    supported_markets, support_precheck_error = _get_supported_markets(symbol_pair)
+    if supported_markets == []:
+        result.update({
+            "error": f"unsupported_symbol: {symbol_pair} not found in Binance spot or USDT futures exchangeInfo",
+            "error_type": "unsupported_symbol",
+            "supported_markets": [],
+        })
+        return result
+    if supported_markets:
+        result["supported_markets"] = supported_markets
+    if support_precheck_error:
+        result["support_precheck_error"] = support_precheck_error
 
     timeframes: Dict[str, Dict[str, Any]] = {}
     for interval in ("15m", "1h", "4h"):

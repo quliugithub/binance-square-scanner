@@ -1,0 +1,168 @@
+{
+  "generated_at": "2026-06-24T22:57:38.701992+00:00",
+  "config": {
+    "stake": 50.0,
+    "leverage": 2,
+    "min_score": 0.0
+  },
+  "recommendations": [
+    {
+      "symbol": "SOLUSDT",
+      "symbol_base": "SOL",
+      "score": 57,
+      "suggestion": "观望",
+      "confidence": "低",
+      "reasons": [
+        "链上强买盘 (score=62.2)",
+        "TVL流入 23.8%"
+      ],
+      "risks": [
+        "叙事末端过热"
+      ],
+      "score_breakdown": {
+        "💰 合约资金面": {
+          "points": 0,
+          "detail": "Binance 资金面: neutral (评分47.0/100) |   ↳ 资金面中性: 0",
+          "sub_items": [
+            "Binance 资金面: neutral (评分47.0/100)",
+            "  ↳ 资金面中性: 0"
+          ]
+        },
+        "📡 叙事热度": {
+          "points": -8,
+          "detail": "帖子数量: 1 |   ↳ <5帖热度不足: 0 | 赛道: Solana | 扩散阶段: 末端过热 |   ↳ 末端过热（危险）: -10",
+          "sub_items": [
+            "帖子数量: 1",
+            "  ↳ <5帖热度不足: 0",
+            "赛道: Solana",
+            "扩散阶段: 末端过热",
+            "  ↳ 末端过热（危险）: -10"
+          ]
+        },
+        "⛓️ 链上信号": {
+          "points": 17,
+          "detail": "DEX买卖评分: 62.2/100 |   ↳ ≥60 买盘强劲: +12 | TVL 24h变化: +23.8% |   ↳ TVL大幅流入: +5",
+          "sub_items": [
+            "DEX买卖评分: 62.2/100",
+            "  ↳ ≥60 买盘强劲: +12",
+            "TVL 24h变化: +23.8%",
+            "  ↳ TVL大幅流入: +5"
+          ]
+        },
+        "📈 技术指标": {
+          "points": -2,
+          "detail": "RSI=45.9 中性: 0 | MA7(67)<MA25(69) 短期空头排列: -2 | MA25<MA99 中期空头: -2 | MACD金叉 (hist=0.0): +2 | ATR=1.8% 正常波动",
+          "sub_items": [
+            "RSI=45.9 中性: 0",
+            "MA7(67)<MA25(69) 短期空头排列: -2",
+            "MA25<MA99 中期空头: -2",
+            "MACD金叉 (hist=0.0): +2",
+            "ATR=1.8% 正常波动"
+          ]
+        }
+      },
+      "data_coverage": 4
+    },
+    {
+      "symbol": "AAVEUSDT",
+      "symbol_base": "AAVE",
+      "score": 56,
+      "suggestion": "观望",
+      "confidence": "低",
+      "reasons": [
+        "链上买盘活跃 (score=41.18)"
+      ],
+      "risks": [],
+      "score_breakdown": {
+        "💰 合约资金面": {
+          "points": 0,
+          "detail": "Hyperliquid funding=0.0013%, 24h_vol=$40M |   ↳ 合约面中性: 0",
+          "sub_items": [
+            "Hyperliquid funding=0.0013%, 24h_vol=$40M",
+            "  ↳ 合约面中性: 0"
+          ]
+        },
+        "📡 叙事热度": {
+          "points": 0,
+          "detail": "帖子数量: 2 |   ↳ <5帖热度不足: 0 | 赛道: DeFi | 扩散阶段: 观察期",
+          "sub_items": [
+            "帖子数量: 2",
+            "  ↳ <5帖热度不足: 0",
+            "赛道: DeFi",
+            "扩散阶段: 观察期"
+          ]
+        },
+        "⛓️ 链上信号": {
+          "points": 5,
+          "detail": "DEX买卖评分: 41.18/100 |   ↳ 40-59 买盘活跃: +5",
+          "sub_items": [
+            "DEX买卖评分: 41.18/100",
+            "  ↳ 40-59 买盘活跃: +5"
+          ]
+        },
+        "📈 技术指标": {
+          "points": 1,
+          "detail": "RSI=64.4 偏强: -1 | MA7(76)>MA25(74) 短期多头排列: +2 | MA25<MA99 中期空头: -2 | MACD金叉 (hist=0.5): +2 | ATR=3.7% 高波动⚠️",
+          "sub_items": [
+            "RSI=64.4 偏强: -1",
+            "MA7(76)>MA25(74) 短期多头排列: +2",
+            "MA25<MA99 中期空头: -2",
+            "MACD金叉 (hist=0.5): +2",
+            "ATR=3.7% 高波动⚠️"
+          ]
+        }
+      },
+      "data_coverage": 4
+    },
+    {
+      "symbol": "MNTUSDT",
+      "symbol_base": "MNT",
+      "score": 50,
+      "suggestion": "观望",
+      "confidence": "低",
+      "reasons": [],
+      "risks": [
+        "流动性不足"
+      ],
+      "score_breakdown": {
+        "💰 合约资金面": {
+          "points": -2,
+          "detail": "Hyperliquid funding=0.0013%, 24h_vol=$0M |   ↳ 低流动性 (<$5M): -2",
+          "sub_items": [
+            "Hyperliquid funding=0.0013%, 24h_vol=$0M",
+            "  ↳ 低流动性 (<$5M): -2"
+          ]
+        },
+        "📡 叙事热度": {
+          "points": 2,
+          "detail": "帖子数量: 1 |   ↳ <5帖热度不足: 0 | 赛道: DeFi | 扩散阶段: 中期扩散 |   ↳ 中期扩散（有机会）: +2",
+          "sub_items": [
+            "帖子数量: 1",
+            "  ↳ <5帖热度不足: 0",
+            "赛道: DeFi",
+            "扩散阶段: 中期扩散",
+            "  ↳ 中期扩散（有机会）: +2"
+          ]
+        },
+        "⛓️ 链上信号": {
+          "points": 0,
+          "detail": "MNT为主网币，DEX上无原生交易对",
+          "sub_items": [
+            "MNT: DEX上无原生交易对（非DeFi代币）",
+            "  ↳ 链上买盘评分: 无数据",
+            "  ↳ TVL变化: 无数据",
+            "  ↳ 巨鲸流向: 无数据"
+          ]
+        },
+        "📈 技术指标": {
+          "points": 0,
+          "detail": "未计算📈 技术指标",
+          "sub_items": [
+            "无技术数据"
+          ]
+        }
+      },
+      "data_coverage": 2
+    }
+  ]
+}

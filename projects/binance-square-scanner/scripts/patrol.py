@@ -16,14 +16,14 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-# Add project to path
-PROJECT_DIR = Path(__file__).resolve().parent.parent
-if str(PROJECT_DIR) not in sys.path:
-    sys.path.insert(0, str(PROJECT_DIR))
+_BOOTSTRAP_PROJECT_DIR = Path(__file__).resolve().parent.parent
+if str(_BOOTSTRAP_PROJECT_DIR) not in sys.path:
+    sys.path.insert(0, str(_BOOTSTRAP_PROJECT_DIR))
+
+from bsc.constants import PROJECT_DIR, RESULTS_DIR
 
 from signal_to_trade import _run_monitoring_hub, generate_recommendations
 
-RESULTS_DIR = PROJECT_DIR / 'results'
 STATE_FILE = RESULTS_DIR / 'patrol_state.json'
 
 
@@ -44,28 +44,66 @@ def _save_state(state: dict) -> None:
 MAJOR_COINS = ['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'BNBUSDT', 'XRPUSDT']
 
 
+def _get_breakdown_item(breakdown: dict, *keys: str) -> dict:
+    for key in keys:
+        if key in breakdown:
+            return breakdown[key]
+    return {}
+
+
+def _summarize_source_status(source_status: dict) -> dict:
+    issues = []
+
+    narrative = source_status.get('narrative', {})
+    if narrative.get('failed_sources'):
+        issues.append(f"叙事源部分失败({narrative['failed_sources']}个)")
+
+    futures = source_status.get('futures', {})
+    if futures.get('error'):
+        issues.append('Binance合约数据失败')
+    elif futures.get('failed_symbols'):
+        issues.append(f"Binance合约部分失败({futures['failed_symbols']}个)")
+
+    hyperliquid = source_status.get('hyperliquid', {})
+    if hyperliquid.get('error'):
+        issues.append('Hyperliquid数据失败')
+
+    onchain = source_status.get('onchain', {})
+    if onchain.get('error'):
+        issues.append('链上数据失败')
+
+    technical = source_status.get('technical', {})
+    if technical.get('error'):
+        issues.append('技术指标失败')
+    elif technical.get('failed_symbols'):
+        issues.append(f"技术指标部分缺失({technical['failed_symbols']}个)")
+
+    return {
+        'degraded': bool(issues),
+        'issues': issues,
+        'warning_text': '；'.join(issues),
+    }
+
+
 def patrol(threshold: int = 60, force: bool = False) -> dict:
     """Run a patrol scan — 5 major + 5 minor coins with detailed scoring."""
     state = _load_state()
     last_symbols = set(state.get('last_alert_symbols', []))
 
-    # Run analysis
     signals = _run_monitoring_hub()
+    source_status = signals.get('_source_status', {})
+    source_status_summary = _summarize_source_status(source_status)
 
-    # Score ALL candidates (low threshold to get pool)
-    all_recs = generate_recommendations(signals, min_score=0, top_n=100)
+    all_recs = generate_recommendations(signals, min_score=0, top_n=None)
+    eligible_recs = [r for r in all_recs if r.get('score', 0) >= threshold]
 
-    # Split into major and minor
-    major_recs = [r for r in all_recs if r['symbol'] in MAJOR_COINS]
-    minor_recs = [r for r in all_recs if r['symbol'] not in MAJOR_COINS]
-
-    # Take top 5 from each, then combine
-    recs = major_recs[:5]
+    major_recs = [r for r in eligible_recs if r['symbol'] in MAJOR_COINS]
+    minor_recs = [r for r in eligible_recs if r['symbol'] not in MAJOR_COINS]
+    recs = major_recs[:5] + minor_recs[:5]
 
     current_symbols = {r['symbol'] for r in recs}
-    new_symbols = list(current_symbols - last_symbols)
+    new_symbols = [r['symbol'] for r in recs if r['symbol'] not in last_symbols]
 
-    # Determine if we should alert
     should_alert = force or bool(new_symbols) or not last_symbols
 
     result = {
@@ -75,6 +113,8 @@ def patrol(threshold: int = 60, force: bool = False) -> dict:
         'new_symbols': new_symbols,
         'total_opportunities': len(recs),
         'threshold': threshold,
+        'source_status': source_status,
+        'source_status_summary': source_status_summary,
     }
 
     # Save state
@@ -93,11 +133,26 @@ def format_alert(result: dict) -> str:
     """Format patrol result as a detailed user-facing message."""
     recs = result.get('recommendations', [])
     new_syms = result.get('new_symbols', [])
+    source_status_summary = result.get('source_status_summary', {})
 
     if not recs:
-        return "📊 巡检完成，暂无达到阈值的交易机会。"
+        lines = []
+        if source_status_summary.get('degraded'):
+            lines.extend([
+                "⚠️ **部分数据源降级/失败**",
+                f"本次信号覆盖可能不完整：{source_status_summary.get('warning_text', '请结合其他信息复核')}",
+                "",
+            ])
+        lines.append("📊 巡检完成，暂无达到阈值的交易机会。")
+        return '\n'.join(lines)
 
     lines = ["🔔 **信号巡检报告**", ""]
+    if source_status_summary.get('degraded'):
+        lines.extend([
+            "⚠️ **部分数据源降级/失败**",
+            f"本次信号覆盖可能不完整：{source_status_summary.get('warning_text', '请结合其他信息复核')}",
+            "",
+        ])
 
     # ── 汇总表格 ──
     lines.append("📋 **汇总一览**:")
@@ -106,10 +161,10 @@ def format_alert(result: dict) -> str:
         new_tag = ' 🆕' if r['symbol'] in new_syms else ''
         s = r.get('score', 0)
         bd = r.get('score_breakdown', {})
-        fut = bd.get('💰 合约资金面', {}).get('points', 0)
-        nar = bd.get('📡 叙事热度', {}).get('points', 0)
-        chn = bd.get('⛓️ 链上信号', {}).get('points', 0)
-        tch = bd.get('📈 技术指标', {}).get('points', 0)
+        fut = _get_breakdown_item(bd, '💰 合约资金面').get('points', 0)
+        nar = _get_breakdown_item(bd, '📡 叙事热度').get('points', 0)
+        chn = _get_breakdown_item(bd, '⛓️ 链上信号').get('points', 0)
+        tch = _get_breakdown_item(bd, '📈 技术指标').get('points', 0)
         cvg = r.get('data_coverage', '?')
         def _fmt(v):
             return f'+{v}' if v > 0 else str(v)
@@ -139,13 +194,21 @@ def format_alert(result: dict) -> str:
 
         # Score breakdown - all dimensions with sub_items
         lines.append(f"📊 评分拆解（基准50分 + 各维度）:")
-        dim_order = ['💰 合约资金面', '📡 叙事热度', '⛓️ 链上信号', '📈 技术指标', '数据覆盖']
-        for dim in dim_order:
-            if dim in breakdown:
-                info = breakdown[dim]
+        dim_order = [
+            ('💰 合约资金面', ('💰 合约资金面',)),
+            ('📡 叙事热度', ('📡 叙事热度',)),
+            ('⛓️ 链上信号', ('⛓️ 链上信号',)),
+            ('📈 技术指标', ('📈 技术指标',)),
+            ('⚠️ 数据覆盖', ('⚠️ 数据覆盖', '数据覆盖')),
+        ]
+        handled_dims = set()
+        for dim_label, dim_keys in dim_order:
+            info = _get_breakdown_item(breakdown, *dim_keys)
+            if info:
+                handled_dims.update(dim_keys)
                 pts = info.get('points', 0)
-                sign = '+' if pts > 0 else ('' if pts <= 0 else '')
-                lines.append(f"  · {dim}: {sign}{pts}分")
+                sign = '+' if pts > 0 else ''
+                lines.append(f"  · {dim_label}: {sign}{pts}分")
                 sub_items = info.get('sub_items', [])
                 if sub_items:
                     for item in sub_items:
@@ -156,7 +219,7 @@ def format_alert(result: dict) -> str:
                         lines.append(f"    - {detail}")
         # 其他维度
         for dim, info in breakdown.items():
-            if dim not in dim_order:
+            if dim not in handled_dims:
                 pts = info.get('points', 0)
                 sign = '+' if pts > 0 else ''
                 lines.append(f"  · {dim}: {sign}{pts}分")

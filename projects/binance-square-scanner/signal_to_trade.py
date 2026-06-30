@@ -16,12 +16,14 @@ import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
+
+from bsc.constants import PROJECT_DIR, RESULTS_DIR
 
 # ── 路径配置 ──────────────────────────────────────────────
-PROJECT_DIR = Path(__file__).resolve().parent
+DEFAULT_TRADE_EXECUTOR = "~/.openclaw/workspace/skills/coin-trade-executor/scripts/coin_trade_exec.py"
 TRADE_EXECUTOR = Path(os.path.expanduser(
-    "~/.openclaw/workspace/skills/coin-trade-executor/scripts/coin_trade_exec.py"
+    os.environ.get('TRADE_EXECUTOR', DEFAULT_TRADE_EXECUTOR)
 ))
 
 # ── 默认参数 ──────────────────────────────────────────────
@@ -31,10 +33,60 @@ MAX_LEVERAGE = 5
 MIN_SCORE_TO_SUGGEST = 55
 MIN_SCORE_TO_AUTO = 85
 
+_NOISE_BASE_SYMBOLS = {
+    'USD', 'USDT', 'USDC', 'FDUSD', 'TUSD', 'BUSD', 'DAI', 'USDP', 'PYUSD',
+}
+
+
+def _normalize_candidate_base_symbol_with_reason(value: Any) -> Tuple[Optional[str], Optional[str]]:
+    if value is None:
+        return None, 'empty'
+
+    raw = str(value).strip().upper()
+    if not raw:
+        return None, 'empty'
+
+    raw = ''.join(raw.split())
+    while raw.startswith('$'):
+        raw = raw[1:]
+
+    if not raw:
+        return None, 'empty'
+
+    for suffix in (':USDT', '/USDT', '-USDT'):
+        if raw.endswith(suffix):
+            raw = raw[:-len(suffix)]
+            break
+
+    if raw.endswith('USDT'):
+        raw = raw[:-4]
+
+    if not raw:
+        return None, 'empty'
+    if raw in _NOISE_BASE_SYMBOLS:
+        return None, 'noise_symbol'
+    if not raw[0].isalpha():
+        return None, 'non_alpha_start'
+    if raw.isdigit():
+        return None, 'numeric_symbol'
+    if not raw.isalnum():
+        return None, 'invalid_characters'
+
+    return raw, None
+
+
+def _normalize_candidate_base_symbol(value: Any) -> Optional[str]:
+    symbol, _reason = _normalize_candidate_base_symbol_with_reason(value)
+    return symbol
+
+
+def _normalize_candidate_pair(value: Any) -> Optional[str]:
+    symbol = _normalize_candidate_base_symbol(value)
+    return f'{symbol}USDT' if symbol else None
+
 
 def _run_monitoring_hub() -> Dict[str, Any]:
     """运行 Monitoring Hub 各模块，汇总信号。"""
-    # Add project to path
     if str(PROJECT_DIR) not in sys.path:
         sys.path.insert(0, str(PROJECT_DIR))
 
@@ -52,32 +104,44 @@ def _run_monitoring_hub() -> Dict[str, Any]:
     from bsc.data.technical import compute_technical_signals
 
     signals: Dict[str, Any] = {}
+    source_status: Dict[str, Any] = {}
 
     # 1. Narrative
     all_raw = []
+    narrative_source_stats: Dict[str, Any] = {}
+
     try:
         bs = scrape_square(limit=30)
         all_raw.extend(bs)
-    except Exception:
-        pass
+        narrative_source_stats['binance_square'] = len(bs)
+    except Exception as exc:
+        narrative_source_stats['binance_square_error'] = str(exc)
+
     try:
         bb = bb_fmt(fetch_blockbeats_news(25))
         enrich_post_symbols(bb)
         all_raw.extend(bb)
-    except Exception:
-        pass
+        narrative_source_stats['blockbeats'] = len(bb)
+    except Exception as exc:
+        narrative_source_stats['blockbeats_error'] = str(exc)
+
     try:
         protocols = fetch_protocols()
         tvl = dl_fmt(detect_tvl_changes(protocols, change_threshold_pct=15))
         all_raw.extend(tvl)
-    except Exception:
-        pass
+        narrative_source_stats['defillama'] = len(tvl)
+        narrative_source_stats['defillama_protocols'] = len(protocols)
+    except Exception as exc:
+        narrative_source_stats['defillama_error'] = str(exc)
+
     try:
         news = news_fmt(fetch_all_news())
         enrich_post_symbols(news)
         all_raw.extend(news)
-    except Exception:
-        pass
+        narrative_source_stats['crypto_news'] = len(news)
+    except Exception as exc:
+        narrative_source_stats['crypto_news_error'] = str(exc)
+
     try:
         from bsc.data.twitter_6551 import fetch_kol_tweets, fetch_crypto_search, to_narrative_format as tw6551_fmt
         tw_kol = fetch_kol_tweets(max_profiles=5, tweets_per_profile=8)
@@ -85,8 +149,9 @@ def _run_monitoring_hub() -> Dict[str, Any]:
         tw_posts = tw6551_fmt(tw_kol + tw_search)
         enrich_post_symbols(tw_posts)
         all_raw.extend(tw_posts)
-    except Exception:
-        pass
+        narrative_source_stats['twitter_6551'] = len(tw_posts)
+    except Exception as exc:
+        narrative_source_stats['twitter_6551_error'] = str(exc)
 
     narrative_posts = build_narrative_posts(all_raw)
     narrative_rank = aggregate_narratives(narrative_posts)
@@ -96,44 +161,127 @@ def _run_monitoring_hub() -> Dict[str, Any]:
         'symbol_view': symbol_view,
         'total_posts': len(all_raw),
     }
+    source_status['narrative'] = {
+        'source_stats': narrative_source_stats,
+        'successful_sources': len([k for k in narrative_source_stats if not k.endswith('_error')]),
+        'failed_sources': len([k for k in narrative_source_stats if k.endswith('_error')]),
+        'total_posts': len(all_raw),
+        'tagged_posts': len(narrative_posts),
+        'symbols': len(symbol_view),
+    }
 
     # 2. Futures (Binance)
+    futures_symbols = ['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'BNBUSDT', 'OPUSDT']
     try:
-        futures = build_futures_payload(symbols=['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'BNBUSDT', 'OPUSDT'])
-        signals['futures'] = {r['symbol']: r for r in futures.get('results', []) if not r.get('error')}
-    except Exception:
+        futures = build_futures_payload(symbols=futures_symbols)
+        future_results = futures.get('results', [])
+        success_results = [r for r in future_results if not r.get('error')]
+        error_results = [r for r in future_results if r.get('error')]
+        signals['futures'] = {r['symbol']: r for r in success_results}
+        source_status['futures'] = {
+            'requested_symbols': len(futures_symbols),
+            'successful_symbols': len(success_results),
+            'failed_symbols': len(error_results),
+            'failed_symbol_errors': {
+                r.get('symbol', f'unknown_{idx}'): str(r.get('error'))
+                for idx, r in enumerate(error_results, 1)
+            },
+        }
+    except Exception as exc:
         signals['futures'] = {}
+        source_status['futures'] = {
+            'requested_symbols': len(futures_symbols),
+            'successful_symbols': 0,
+            'failed_symbols': len(futures_symbols),
+            'error': str(exc),
+        }
 
     # 2b. Hyperliquid DEX futures (free, 230+ pairs, fallback for missing Binance data)
     try:
-        signals['hyperliquid'] = fetch_hyperliquid()  # dict of {symbolUSDT: signal}
-    except Exception:
+        hyperliquid = fetch_hyperliquid()  # dict of {symbolUSDT: signal}
+        signals['hyperliquid'] = hyperliquid
+        source_status['hyperliquid'] = {
+            'successful_symbols': len(hyperliquid),
+        }
+    except Exception as exc:
         signals['hyperliquid'] = {}
+        source_status['hyperliquid'] = {
+            'successful_symbols': 0,
+            'error': str(exc),
+        }
 
     # 3. On-chain
     try:
         onchain = build_onchain_payload(limit=15, top_n=10)
         signals['onchain'] = onchain
-    except Exception:
+        source_status['onchain'] = {
+            'strong_buy_candidates': len(onchain.get('strong_buy_candidates', [])),
+            'observation_candidates': len(onchain.get('observation_candidates', [])),
+            'all_candidates': len(onchain.get('all_candidates', [])),
+        }
+    except Exception as exc:
         signals['onchain'] = {}
+        source_status['onchain'] = {
+            'strong_buy_candidates': 0,
+            'observation_candidates': 0,
+            'all_candidates': 0,
+            'error': str(exc),
+        }
 
     # 4. Technical indicators (RSI/MA/MACD/ATR from Binance)
-    # 获取叙事和合约涉及的币种列表，逐个计算📈 技术指标
     tech_symbols = set()
-    for sv in signals.get('narrative', {}).get('symbol_view', []):
-        sym = sv.get('symbol', '').replace('USDT', '')
+    skipped_symbols: List[Dict[str, str]] = []
+    skipped_symbol_reasons: Dict[str, int] = {}
+    raw_symbol_count = 0
+
+    def add_technical_candidate(raw_value: Any) -> None:
+        nonlocal raw_symbol_count
+        raw_symbol_count += 1
+        sym, reason = _normalize_candidate_base_symbol_with_reason(raw_value)
         if sym:
             tech_symbols.add(sym)
-    tech_symbols.update(['BTC', 'ETH', 'SOL', 'BNB', 'XRP', 'DOGE', 'ADA', 'AVAX', 'LINK', 'DOT', 'MATIC', 'ARB', 'OP', 'SUI', 'APT', 'TAO', 'AAVE', 'SOL', 'ONDO', 'FET', 'ORDI', 'RENDER', 'INJ', 'WIF', 'PEPE', 'FLOKI', 'BONK', 'SEI', 'STRK', 'PENDLE', 'JUP', 'PYTH', 'JTO'])  # 确保主流币始终有数据
+            return
+        reason = reason or 'unknown'
+        skipped_symbol_reasons[reason] = skipped_symbol_reasons.get(reason, 0) + 1
+        if len(skipped_symbols) < 20:
+            skipped_symbols.append({'raw': str(raw_value), 'reason': reason})
+
+    for sv in signals.get('narrative', {}).get('symbol_view', []):
+        add_technical_candidate(sv.get('symbol'))
+
+    default_tech_symbols = [
+        'BTC', 'ETH', 'SOL', 'BNB', 'XRP',
+        'DOGE', 'ADA', 'AVAX', 'LINK', 'DOT',
+        'MATIC', 'ARB', 'OP', 'SUI', 'APT', 'TAO', 'AAVE', 'ONDO', 'FET',
+        'ORDI', 'RENDER', 'INJ', 'WIF', 'PEPE', 'FLOKI', 'BONK', 'SEI',
+        'STRK', 'PENDLE', 'JUP', 'PYTH', 'JTO',
+    ]
+    for sym in default_tech_symbols:
+        add_technical_candidate(sym)
+
     signals['technical'] = {}
-    for sym in tech_symbols:
+    technical_errors: Dict[str, str] = {}
+    for sym in sorted(tech_symbols):
         try:
             sig = compute_technical_signals(sym)
+            symbol_pair = _normalize_candidate_pair(sym) or f'{sym}USDT'
             if 'error' not in sig:
-                signals['technical'][f'{sym}USDT'] = sig
-        except Exception:
-            pass
+                signals['technical'][symbol_pair] = sig
+            else:
+                technical_errors[sym] = str(sig.get('error'))
+        except Exception as exc:
+            technical_errors[sym] = str(exc)
+    source_status['technical'] = {
+        'raw_symbol_count': raw_symbol_count,
+        'requested_symbols': len(tech_symbols),
+        'successful_symbols': len(signals['technical']),
+        'failed_symbols': len(technical_errors),
+        'failed_symbol_errors': dict(list(technical_errors.items())[:10]),
+        'skipped_symbols': skipped_symbols,
+        'skipped_symbol_reasons': skipped_symbol_reasons,
+    }
 
+    signals['_source_status'] = source_status
     return signals
 
 
@@ -500,7 +648,7 @@ def _compute_symbol_score(symbol: str, signals: Dict[str, Any]) -> Dict[str, Any
 def generate_recommendations(
     signals: Optional[Dict[str, Any]] = None,
     min_score: int = MIN_SCORE_TO_SUGGEST,
-    top_n: int = 10,
+    top_n: Optional[int] = 10,
 ) -> List[Dict[str, Any]]:
     """生成交易建议列表。"""
     if signals is None:
@@ -511,19 +659,22 @@ def generate_recommendations(
 
     # From narrative symbol view
     for sv in signals.get('narrative', {}).get('symbol_view', []):
-        sym = sv.get('symbol', '')
-        if sym and sym != '-USDT':
+        sym = _normalize_candidate_pair(sv.get('symbol'))
+        if sym:
             candidates.add(sym)
 
     # From on-chain
     for c in (signals.get('onchain', {}).get('strong_buy_candidates', []) +
               signals.get('onchain', {}).get('observation_candidates', [])):
-        sym = c.get('symbol', '')
+        sym = _normalize_candidate_pair(c.get('symbol'))
         if sym:
-            candidates.add(f"{sym}USDT")
+            candidates.add(sym)
 
     # From futures
-    candidates.update(signals.get('futures', {}).keys())
+    for sym in signals.get('futures', {}).keys():
+        normalized = _normalize_candidate_pair(sym)
+        if normalized:
+            candidates.add(normalized)
 
     # Score all candidates
     recommendations = []
@@ -532,8 +683,8 @@ def generate_recommendations(
         if result['score'] >= min_score:
             recommendations.append(result)
 
-    recommendations.sort(key=lambda x: x['score'], reverse=True)
-    return recommendations[:top_n]
+    recommendations.sort(key=lambda x: (-x['score'], x['symbol']))
+    return recommendations if top_n is None else recommendations[:top_n]
 
 
 def format_recommendation(rec: Dict[str, Any], stake: float, leverage: int) -> str:
@@ -607,18 +758,17 @@ def main() -> None:
     print("📊 正在生成交易建议...\n")
     recs = generate_recommendations(signals, min_score=int(args.min_score), top_n=args.top_n)
 
-    if not recs:
+    if recs:
+        print(f"{'='*50}")
+        print(f"📊 交易建议 ({len(recs)} 个)")
+        print(f"{'='*50}\n")
+
+        for i, rec in enumerate(recs, 1):
+            print(f"[{i}] {format_recommendation(rec, args.stake, args.leverage)}")
+            print()
+    else:
         print("❌ 没有达到最低评分的交易建议")
         print(f"   最低评分要求: {args.min_score}")
-        return
-
-    print(f"{'='*50}")
-    print(f"📊 交易建议 ({len(recs)} 个)")
-    print(f"{'='*50}\n")
-
-    for i, rec in enumerate(recs, 1):
-        print(f"[{i}] {format_recommendation(rec, args.stake, args.leverage)}")
-        print()
 
     # Output as JSON for programmatic use
     output = {
@@ -628,9 +778,10 @@ def main() -> None:
             'leverage': args.leverage,
             'min_score': args.min_score,
         },
+        'source_status': signals.get('_source_status', {}),
         'recommendations': recs,
     }
-    out_path = PROJECT_DIR / 'results' / f'signal_recommendations_{datetime.now().strftime("%Y%m%d_%H%M%S")}.json'
+    out_path = RESULTS_DIR / f'signal_recommendations_{datetime.now().strftime("%Y%m%d_%H%M%S")}.json'
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(output, ensure_ascii=False, indent=2), encoding='utf-8')
     print(f"💾 保存到: {out_path}")

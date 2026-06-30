@@ -1,0 +1,102 @@
+{
+  "generated_at": "2026-06-24T23:00:46.342274+00:00",
+  "config": {
+    "stake": 50.0,
+    "leverage": 2,
+    "min_score": 55
+  },
+  "source_status": {
+    "narrative": {
+      "source_stats": {
+        "binance_square": 21,
+        "blockbeats": 9,
+        "defillama": 12,
+        "defillama_protocols": 7702,
+        "crypto_news": 52,
+        "twitter_6551": 0
+      },
+      "successful_sources": 6,
+      "failed_sources": 0,
+      "total_posts": 94,
+      "tagged_posts": 42,
+      "symbols": 26
+    },
+    "futures": {
+      "requested_symbols": 5,
+      "successful_symbols": 5,
+      "failed_symbols": 0,
+      "failed_symbol_errors": {}
+    },
+    "hyperliquid": {
+      "successful_symbols": 230
+    },
+    "onchain": {
+      "strong_buy_candidates": 1,
+      "observation_candidates": 2,
+      "all_candidates": 15
+    },
+    "technical": {
+      "requested_symbols": 38,
+      "successful_symbols": 35,
+      "failed_symbols": 3,
+      "failed_symbol_errors": {
+        "BLUE": "spot_error=HTTP Error 400: Bad Request; usdt_futures_error=HTTP Error 400: Bad Request",
+        "MNT": "spot_error=HTTP Error 400: Bad Request; usdt_futures_error=HTTP Error 400: Bad Request",
+        "ZKCRO": "spot_error=HTTP Error 400: Bad Request; usdt_futures_error=HTTP Error 400: Bad Request"
+      }
+    }
+  },
+  "recommendations": [
+    {
+      "symbol": "AAVEUSDT",
+      "symbol_base": "AAVE",
+      "score": 56,
+      "suggestion": "观望",
+      "confidence": "低",
+      "reasons": [
+        "链上买盘活跃 (score=52.68)"
+      ],
+      "risks": [],
+      "score_breakdown": {
+        "💰 合约资金面": {
+          "points": 0,
+          "detail": "Hyperliquid funding=0.0013%, 24h_vol=$40M |   ↳ 合约面中性: 0",
+          "sub_items": [
+            "Hyperliquid funding=0.0013%, 24h_vol=$40M",
+            "  ↳ 合约面中性: 0"
+          ]
+        },
+        "📡 叙事热度": {
+          "points": 0,
+          "detail": "帖子数量: 2 |   ↳ <5帖热度不足: 0 | 赛道: DeFi | 扩散阶段: 观察期",
+          "sub_items": [
+            "帖子数量: 2",
+            "  ↳ <5帖热度不足: 0",
+            "赛道: DeFi",
+            "扩散阶段: 观察期"
+          ]
+        },
+        "⛓️ 链上信号": {
+          "points": 5,
+          "detail": "DEX买卖评分: 52.68/100 |   ↳ 40-59 买盘活跃: +5",
+          "sub_items": [
+            "DEX买卖评分: 52.68/100",
+            "  ↳ 40-59 买盘活跃: +5"
+          ]
+        },
+        "📈 技术指标": {
+          "points": 1,
+          "detail": "RSI=65.3 偏强: -1 | MA7(76)>MA25(74) 短期多头排列: +2 | MA25<MA99 中期空头: -2 | MACD金叉 (hist=0.5): +2 | ATR=3.6% 高波动⚠️",
+          "sub_items": [
+            "RSI=65.3 偏强: -1",
+            "MA7(76)>MA25(74) 短期多头排列: +2",
+            "MA25<MA99 中期空头: -2",
+            "MACD金叉 (hist=0.5): +2",
+            "ATR=3.6% 高波动⚠️"
+          ]
+        }
+      },
+      "data_coverage": 4
+    }
+  ]
+}
